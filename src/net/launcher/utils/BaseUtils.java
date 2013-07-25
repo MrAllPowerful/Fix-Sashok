@@ -11,12 +11,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Field;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.URI;
 import java.net.URL;
-import java.net.URLClassLoader;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -471,38 +469,6 @@ public class BaseUtils
 			return true;
 		}
 		return false;
-	}
-	
-	public static void patchDir(URLClassLoader cl)
-	{
-		if(!Settings.patchDir) return;
-		
-		try
-		{
-			String mcver = Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[3];
-			
-			send("Changing client dir...");
-			send("Client: " + getClientName() + "::" + mcver);
-			send("Searching in version database...");
-			
-			for(int j = 0; j < Settings.mcversions.length; j++)
-			{
-				if(mcver.equals(Settings.mcversions[j].split("::")[0]))
-				{
-					send("Index #" + j + ", Patching...");
-		            Field f = cl.loadClass(Settings.mcclass).getDeclaredField(Settings.mcversions[j].split("::")[1]);
-		            Field.setAccessible(new Field[] { f }, true);
-		            f.set(null, getMcDir());
-		            send("File patched: " + Settings.mcclass + "::" + Settings.mcversions[j].split("::")[1]);
-		            send("Patching succesful, herobrine removed.");
-		            return;
-				}
-			}
-			sendErr("Error: Client version not correct.");
-		} catch(Exception e)
-		{
-			sendErr("Error: Client field not correct.");
-		}
 	}
 	
 	public static void updateLauncher() throws Exception

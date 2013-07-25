@@ -25,8 +25,8 @@ public class Settings
 	/** Настройка серверов */
 	public static final String[] servers =
 	{
-		"voxelaria, test, 25565, 1.5.x, net.minecraft.launchwrapper.Launch",
-		"v, test, 25565, 1.5.x, net.minecraft.client.Minecraft",
+		"voxelaria, test, 25565, net.minecraft.launchwrapper.Launch",
+		"v, test, 25565, net.minecraft.client.Minecraft",
 	};
 
 	/** Настройка панели ссылок **/
@@ -46,7 +46,6 @@ public class Settings
 	public static boolean customframe 			 =  true; //Использовать кастомный фрейм
 	public static boolean useOffline 			 =  true; //Использовать режим оффлайн
 	public static boolean useConsoleHider		 =  true; //Использовать скрытие консоли клиента
-	public static boolean useModCheckerTimer	 =  true; //Каждые 30 секунд моды будут перепроверяться
 
 	public static final String protectionKey			 = "tH@nKy0u.d_@rT"; //Ключ защиты сессии. Никому его не говорите.
 
@@ -56,10 +55,6 @@ public class Settings
 
 	public static final boolean patchDir 		 =  true; //Использовать автоматическую замену директории игры (true/false)
 	public static final String mcclass			 = "net.minecraft.client.Minecraft";
-	public static final String[] mcversions		 =
-	{
-		"1.7.3::af", "1.8.1::ag", "1.2.5::aj", "1.3.x::am", "1.4.x::an", "1.5.x::an"
-	};
 	
 	public static void onStart() { /*  */ }
 	public static void onStartMinecraft() {}

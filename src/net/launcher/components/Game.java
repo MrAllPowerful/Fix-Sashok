@@ -31,7 +31,7 @@ public class Game extends JFrame
 	public Game(final String answer)
 	{
 		String user = Frame.main.offline.isSelected() ? Settings.defaultUsername : answer.split("<br>")[1].split("<:>")[0];
-		String session = Frame.main.offline.isSelected() ? Settings.defaultSession : EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[1].split("<:>")[1]), Settings.protectionKey);
+		String session = Frame.main.offline.isSelected() ? Settings.defaultSession : EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[1].split("<:>")[1]), Settings.protectionKey); 
 		
 		GuardUtils.checkMods(answer, true);
 		
@@ -63,7 +63,9 @@ public class Game extends JFrame
 	          params.add("-Djava.library.path="+jarpath+"natives");
 	          params.add("-cp");
 	          params.add(jarpath+"libraries.jar"+cps+jarpath+"Forge.jar"+cps+jarpath+"minecraft.jar");
-	          params.add("net.minecraft.launchwrapper.Launch");
+	          params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[4]);
+	          params.add(user);
+	          params.add(session);
 	          params.add("--username");
 	          params.add(user);
 	          params.add("--session");

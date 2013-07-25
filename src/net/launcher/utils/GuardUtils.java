@@ -166,8 +166,6 @@ public class GuardUtils
 							delete(file);
 							mods = mods.replaceAll(cfile + ":>" + md5 + "<:>", "");
 							modsArray = mods.split("<:>");
-							Game.mcapplet.stop();
-							Game.mcapplet.destroy();
 							System.exit(0);
 						}
 					}
@@ -204,8 +202,6 @@ public class GuardUtils
 			} else if(ret && !action)
 			{
 				BaseUtils.send("ANTICHEAT: Strange mods detected");
-				Game.mcapplet.stop();
-				Game.mcapplet.destroy();
 				System.exit(0);
 				return;
 			}

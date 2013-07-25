@@ -49,7 +49,7 @@ public class Settings
 
 	public static final String protectionKey			 = "tH@nKy0u.d_@rT"; //Ключ защиты сессии. Никому его не говорите.
 
-	public static final boolean debug		 	 =  false;  //Отображать все действия лаунчера (отладка)(true/false)
+	public static final boolean debug		 	 =  true;  //Отображать все действия лаунчера (отладка)(true/false)
 	public static final boolean drawTracers		 =  false; //Отрисовывать границы элементов лаунчера
 	public static final String masterVersion  	 = "final_RC4"; //Версия лаунчера
 

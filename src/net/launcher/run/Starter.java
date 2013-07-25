@@ -16,7 +16,7 @@ public class Starter
 			
 			ArrayList<String> params = new ArrayList<String>();
 
-			if (BaseUtils.getPlatform() == 2) params.add("javaw"); else params.add("java");
+			if (BaseUtils.getPlatform() == 2) params.add("java"); else params.add("java");
 			params.add("-Xmx" + memory + "m");
 			params.add("-Xms" + memory + "m");
 			params.add("-Dsun.java2d.noddraw=true");

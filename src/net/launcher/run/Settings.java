@@ -10,8 +10,8 @@ public class Settings
 	public static final String 		basedir			 = "AppData"; //Родительская папка для Minecraft (только для Windows) [ProgramFiles, AppData]
 	public static final String 		baseconf		 = ".voxelaria"; //Папка с файлом конфигурации
 	public static final String		pathconst		 = ".voxelaria/%SERVERNAME%"; //Конструктор пути к папке с MC
-	public static final String        skins            = "MinecraftSkins/"; //Папка скинов
-	public static final String        cloaks           = "MinecraftCloaks/"; //Папка плащей
+	public static final String      skins            = "MinecraftSkins/"; //Папка скинов
+	public static final String      cloaks           = "MinecraftCloaks/"; //Папка плащей
 	/** Параметры подключения */
 	public static final String 	domain	 	 	 = "alexandrage.dyndns.org";//Домен сайта
 	public static final String  siteDir		  	 = "site";//Папка с файлами лаунчера на сайте

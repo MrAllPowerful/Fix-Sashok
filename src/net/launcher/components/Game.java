@@ -1,15 +1,15 @@
 package net.launcher.components;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
+//import java.awt.BorderLayout;
+//import java.awt.Color;
+//import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+//import java.awt.event.WindowEvent;
+//import java.awt.event.WindowListener;
 import java.io.File;
-import java.io.PrintStream;
-import java.net.URL;
+//import java.io.PrintStream;
+//import java.net.URL;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -17,7 +17,7 @@ import javax.swing.Timer;
 
 //import net.minecraft.Launcher;
 import net.launcher.run.Settings;
-import net.launcher.run.Starter;
+//import net.launcher.run.Starter;
 import net.launcher.utils.BaseUtils;
 import net.launcher.utils.EncodingUtils;
 import net.launcher.utils.GuardUtils;

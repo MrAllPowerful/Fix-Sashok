@@ -26,7 +26,7 @@ public class Settings
 	public static final String[] servers =
 	{
 		"voxelaria, test, 25565, 1.5.x, net.minecraft.launchwrapper.Launch",
-		"v, test, 25565, 1.5.x, net.minecraft.client.Minecraft, '', ''",
+		"v, test, 25565, 1.5.x, net.minecraft.client.Minecraft",
 	};
 
 	/** Настройка панели ссылок **/

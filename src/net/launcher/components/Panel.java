@@ -73,28 +73,28 @@ public class Panel extends JPanel
 		{
 			g.setFont(g.getFont().deriveFont(fonttitlesize));
 			g.drawImage(background_dialog, 0, 0, getWidth(), getHeight(), null);
-			g.drawString("Доступно обновление", getWidth() / 2 - g.getFontMetrics().stringWidth("Доступно обновление") / 2, 150);
+			g.drawString("Р”РѕСЃС‚СѓРїРЅРѕ РѕР±РЅРѕРІР»РµРЅРёРµ", getWidth() / 2 - g.getFontMetrics().stringWidth("Р”РѕСЃС‚СѓРїРЅРѕ РѕР±РЅРѕРІР»РµРЅРёРµ") / 2, 150);
 			g.setFont(g.getFont().deriveFont(fontbasesize));
-			g.drawString("Для продолжения игры обновите лаунчер.", 190, 190);
-			g.drawString("Новый лаунчер содержит разные улучшения и исправления,", 190, 210);
-			g.drawString("а так же необходим для запуска игры. Нажмите \"Обновить\",", 190, 230);
-			g.drawString("чтобы скачать новую версию. Если же вы не можете обновить", 190, 250);
-			g.drawString("лаунчер прямо сейчас, нажмите кнопку \"Выход\".", 190, 270);
-			g.drawString("Текущая версия: " + Settings.masterVersion, 190, 310);
-			g.drawString("Новая версия: " + tmpString, 190, 330);
+			g.drawString("Р”Р»СЏ РїСЂРѕРґРѕР»Р¶РµРЅРёСЏ РёРіСЂС‹ РѕР±РЅРѕРІРёС‚Рµ Р»Р°СѓРЅС‡РµСЂ.", 190, 190);
+			g.drawString("РќРѕРІС‹Р№ Р»Р°СѓРЅС‡РµСЂ СЃРѕРґРµСЂР¶РёС‚ СЂР°Р·РЅС‹Рµ СѓР»СѓС‡С€РµРЅРёСЏ Рё РёСЃРїСЂР°РІР»РµРЅРёСЏ,", 190, 210);
+			g.drawString("Р° С‚Р°Рє Р¶Рµ РЅРµРѕР±С…РѕРґРёРј РґР»СЏ Р·Р°РїСѓСЃРєР° РёРіСЂС‹. РќР°Р¶РјРёС‚Рµ \"РћР±РЅРѕРІРёС‚СЊ\",", 190, 230);
+			g.drawString("С‡С‚РѕР±С‹ СЃРєР°С‡Р°С‚СЊ РЅРѕРІСѓСЋ РІРµСЂСЃРёСЋ. Р•СЃР»Рё Р¶Рµ РІС‹ РЅРµ РјРѕР¶РµС‚Рµ РѕР±РЅРѕРІРёС‚СЊ", 190, 250);
+			g.drawString("Р»Р°СѓРЅС‡РµСЂ РїСЂСЏРјРѕ СЃРµР№С‡Р°СЃ, РЅР°Р¶РјРёС‚Рµ РєРЅРѕРїРєСѓ \"Р’С‹С…РѕРґ\".", 190, 270);
+			g.drawString("РўРµРєСѓС‰Р°СЏ РІРµСЂСЃРёСЏ: " + Settings.masterVersion, 190, 310);
+			g.drawString("РќРѕРІР°СЏ РІРµСЂСЃРёСЏ: " + tmpString, 190, 330);
 			if(type == 8 || type == 9)
 			{
 				g.setColor(Color.RED);
-				g.drawString(type == 8 ? "Идет обновление лаунчера..." : "Ошибка при обновлении.", 190, 350);
+				g.drawString(type == 8 ? "РРґРµС‚ РѕР±РЅРѕРІР»РµРЅРёРµ Р»Р°СѓРЅС‡РµСЂР°..." : "РћС€РёР±РєР° РїСЂРё РѕР±РЅРѕРІР»РµРЅРёРё.", 190, 350);
 			}
 		} else if(type == 3)
 		{
 			g.setFont(g.getFont().deriveFont(fonttitlesize));
 			g.setColor(Color.BLACK);
 			g.drawImage(background_dialog, 0, 0, getWidth(), getHeight(), null);
-			g.drawString("Ошибка  выполнения", getWidth() / 2 - g.getFontMetrics().stringWidth("Ошибка  выполнения") / 2, 140);
+			g.drawString("РћС€РёР±РєР°  РІС‹РїРѕР»РЅРµРЅРёСЏ", getWidth() / 2 - g.getFontMetrics().stringWidth("РћС€РёР±РєР°  РІС‹РїРѕР»РЅРµРЅРёСЏ") / 2, 140);
 			g.setFont(g.getFont().deriveFont(fontbasesize));
-			g.drawString("Сообщите эту ошибку разработчикам и закройте лаунчер.", 190, 180);
+			g.drawString("РЎРѕРѕР±С‰РёС‚Рµ СЌС‚Сѓ РѕС€РёР±РєСѓ СЂР°Р·СЂР°Р±РѕС‚С‡РёРєР°Рј Рё Р·Р°РєСЂРѕР№С‚Рµ Р»Р°СѓРЅС‡РµСЂ.", 190, 180);
 			g.setFont(g.getFont().deriveFont(12F));
 			for(int i = 0; i < tmpString.split("<:>").length; i++)
 				g.drawString(tmpString.split("<:>")[i], 190, 200 + (20 * i));
@@ -109,13 +109,13 @@ public class Panel extends JPanel
 			g.setFont(updaterDesc.font);
 			g.setColor(updaterDesc.color);
 			
-			g.drawString("Текущий файл: " + t.currentfile, stringsX, stringsY);
-			g.drawString("Всего: " + t.totalsize + " байт", stringsX, stringsY + 20);
-			g.drawString("Загружено: " + t.currentsize + " байт", stringsX, stringsY + 40);
-			g.drawString("Скорость: " + t.downloadspeed + " кб/сек", stringsX, stringsY + 60);
-			g.drawString("Папка: " + BaseUtils.getMcDir().getAbsolutePath(), stringsX, stringsY + 80);
-			g.drawString("Состояние: " + t.state, stringsX, stringsY + 100);
-			g.drawString("Осталось: " + leftTime + " секунд", stringsX, stringsY + 120);
+			g.drawString("РўРµРєСѓС‰РёР№ С„Р°Р№Р»: " + t.currentfile, stringsX, stringsY);
+			g.drawString("Р’СЃРµРіРѕ: " + t.totalsize + " Р±Р°Р№С‚", stringsX, stringsY + 20);
+			g.drawString("Р—Р°РіСЂСѓР¶РµРЅРѕ: " + t.currentsize + " Р±Р°Р№С‚", stringsX, stringsY + 40);
+			g.drawString("РЎРєРѕСЂРѕСЃС‚СЊ: " + t.downloadspeed + " РєР±/СЃРµРє", stringsX, stringsY + 60);
+			g.drawString("РџР°РїРєР°: " + BaseUtils.getMcDir().getAbsolutePath(), stringsX, stringsY + 80);
+			g.drawString("РЎРѕСЃС‚РѕСЏРЅРёРµ: " + t.state, stringsX, stringsY + 100);
+			g.drawString("РћСЃС‚Р°Р»РѕСЃСЊ: " + leftTime + " СЃРµРєСѓРЅРґ", stringsX, stringsY + 120);
 			
 			if(t.error) return;
 			BufferedImage img = genButton(loadbarW, loadbarH, bar);
@@ -132,16 +132,16 @@ public class Panel extends JPanel
 			g.drawImage(genPanel(panelOpt.w, panelOpt.h, extpanel), panelOpt.x, panelOpt.y, panelOpt.w, panelOpt.h, null);
 			g.setFont(g.getFont().deriveFont(fonttitlesize));
 			g.setColor(OptionsTheme.memory.textColor);
-			g.drawString("Настройки", titleX, titleY);
+			g.drawString("РќР°СЃС‚СЂРѕР№РєРё", titleX, titleY);
 			g.setFont(g.getFont().deriveFont(fontbasesize));
-			g.drawString("Память (в мегабайтах):", memory.x, memory.y - 5);
+			g.drawString("РџР°РјСЏС‚СЊ (РІ РјРµРіР°Р±Р°Р№С‚Р°С…):", memory.x, memory.y - 5);
 		} else if(type == 6)
 		{
 			g.drawImage(background_personal, 0, 0, getWidth(), getHeight(), null);
 			g.drawImage(pc.skin, skinX, skinY, 128, 256, null);
 			g.drawImage(pc.cloak, cloakX, cloakY, 80, 128, null);
 			
-			String ugroupLBL = pc.ugroup.equals("User") ? "Игрок" : pc.ugroup.equals("VIP") ? "VIP игрок" : pc.ugroup.equals("Banned") ? "Забаненый" : "Премиум игрок";
+			String ugroupLBL = pc.ugroup.equals("User") ? "РРіСЂРѕРє" : pc.ugroup.equals("VIP") ? "VIP РёРіСЂРѕРє" : pc.ugroup.equals("Banned") ? "Р—Р°Р±Р°РЅРµРЅС‹Р№" : "РџСЂРµРјРёСѓРј РёРіСЂРѕРє";
 			g.setColor(ugroup.color);
 			g.setFont(BaseUtils.getFont(ugroup.fontName, ugroup.fontSize));
 			g.drawString(ugroupLBL, ugroup.x + (ugroup.w / 2 - g.getFontMetrics().stringWidth(ugroupLBL) / 2), ugroup.y + g.getFontMetrics().getHeight());
@@ -151,17 +151,17 @@ public class Panel extends JPanel
 				g.setColor(cloakPrice.color);
 				g.setFont(BaseUtils.getFont(cloakPrice.fontName, cloakPrice.fontSize));
 				
-				String cloakPriceSTR = pc.cloakPrice + " рублей";
+				String cloakPriceSTR = pc.cloakPrice + " СЂСѓР±Р»РµР№";
 				
 				g.drawString(cloakPriceSTR, cloakPrice.x - g.getFontMetrics().stringWidth(cloakPriceSTR), cloakPrice.y + g.getFontMetrics().getHeight());
 			}
 			
-			String iconmoney = pc.iconmoney + " монет";
+			String iconmoney = pc.iconmoney + " РјРѕРЅРµС‚";
 			g.setColor(iConomy.color);
 			g.setFont(BaseUtils.getFont(iConomy.fontName, iConomy.fontSize));
 			g.drawString(iconmoney, iConomy.x - g.getFontMetrics().stringWidth(iconmoney), iConomy.y + g.getFontMetrics().getHeight());
 			
-			String realmoneySTR = pc.realmoney + " рублей";
+			String realmoneySTR = pc.realmoney + " СЂСѓР±Р»РµР№";
 			g.setColor(realmoney.color);
 			g.setFont(BaseUtils.getFont(realmoney.fontName, realmoney.fontSize));
 			g.drawString(realmoneySTR, realmoney.x - g.getFontMetrics().stringWidth(realmoneySTR), realmoney.y + g.getFontMetrics().getHeight());
@@ -172,34 +172,34 @@ public class Panel extends JPanel
 			int j = 0;
 			if(pc.canBuyVip)
 			{
-				g.drawString("Цена VIP: " + pc.vipPrice + " рублей", prices.x, prices.y + g.getFontMetrics().getHeight() * (j + 1)); j++;
+				g.drawString("Р¦РµРЅР° VIP: " + pc.vipPrice + " СЂСѓР±Р»РµР№", prices.x, prices.y + g.getFontMetrics().getHeight() * (j + 1)); j++;
 			}
 			
 			if(pc.canBuyPremium)
 			{
-				g.drawString("Цена Premium: " + pc.premiumPrice + " рублей", prices.x, prices.y + g.getFontMetrics().getHeight() * (j + 1)); j++;
+				g.drawString("Р¦РµРЅР° Premium: " + pc.premiumPrice + " СЂСѓР±Р»РµР№", prices.x, prices.y + g.getFontMetrics().getHeight() * (j + 1)); j++;
 			}
 			
 			if(pc.canBuyUnban)
 			{
-				g.drawString("Цена разбана: " + pc.unbanPrice + " рублей", prices.x, prices.y + g.getFontMetrics().getHeight() * (j + 1)); j++;
+				g.drawString("Р¦РµРЅР° СЂР°Р·Р±Р°РЅР°: " + pc.unbanPrice + " СЂСѓР±Р»РµР№", prices.x, prices.y + g.getFontMetrics().getHeight() * (j + 1)); j++;
 			}
 			
 			if(pc.canExchangeMoney)
 			{
-				g.drawString("Курс обмена: 1 рубль = " + pc.exchangeRate + " монет", prices.x, prices.y + g.getFontMetrics().getHeight() * (j + 1)); j++;
+				g.drawString("РљСѓСЂСЃ РѕР±РјРµРЅР°: 1 СЂСѓР±Р»СЊ = " + pc.exchangeRate + " РјРѕРЅРµС‚", prices.x, prices.y + g.getFontMetrics().getHeight() * (j + 1)); j++;
 			}
 			
 			if(!pc.dateofexpire.contains("01.01.1970"))
 			{
-				g.drawString("Дата истечения : " + pc.dateofexpire, prices.x, prices.y + g.getFontMetrics().getHeight() * (j + 1)); j++;
+				g.drawString("Р”Р°С‚Р° РёСЃС‚РµС‡РµРЅРёСЏ : " + pc.dateofexpire, prices.x, prices.y + g.getFontMetrics().getHeight() * (j + 1)); j++;
 			}
 			
 			if(pc.jobexp != -1 && pc.joblvl != -1)
 			{
-				g.drawString("Профессия: " + pc.jobname, prices.x, prices.y + g.getFontMetrics().getHeight() * (j + 1)); j++;
-				g.drawString("Уровень: " + pc.joblvl, prices.x, prices.y + g.getFontMetrics().getHeight() * (j + 1)); j++;
-				g.drawString("Опыт: " + pc.jobexp, prices.x, prices.y + g.getFontMetrics().getHeight() * (j + 1)); j++;
+				g.drawString("РџСЂРѕС„РµСЃСЃРёСЏ: " + pc.jobname, prices.x, prices.y + g.getFontMetrics().getHeight() * (j + 1)); j++;
+				g.drawString("РЈСЂРѕРІРµРЅСЊ: " + pc.joblvl, prices.x, prices.y + g.getFontMetrics().getHeight() * (j + 1)); j++;
+				g.drawString("РћРїС‹С‚: " + pc.jobexp, prices.x, prices.y + g.getFontMetrics().getHeight() * (j + 1)); j++;
 			}
 		} else if(type == 7)
 		{
@@ -218,7 +218,7 @@ public class Panel extends JPanel
 	{
 		reset();
 		tmpImage = screen;
-		tmpString = "Авторизация...";
+		tmpString = "РђРІС‚РѕСЂРёР·Р°С†РёСЏ...";
 		tmpColor = Color.WHITE;
 		type = 1;
 		timer = new Timer(50, new ActionListener()

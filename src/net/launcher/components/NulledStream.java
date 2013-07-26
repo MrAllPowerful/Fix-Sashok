@@ -7,6 +7,6 @@ public class NulledStream extends OutputStream
 {
 	public void write(int b) throws IOException
 	{
-		//Тут ничего писать не надо...
+		//РўСѓС‚ РЅРёС‡РµРіРѕ РїРёСЃР°С‚СЊ РЅРµ РЅР°РґРѕ...
 	}
 }

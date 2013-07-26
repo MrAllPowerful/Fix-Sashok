@@ -27,10 +27,10 @@ public class ThreadUtils
 		BaseUtils.send("Updating news page...");
 		if(!BaseUtils.getPropertyBoolean("loadnews", true))
 		{
-			Frame.main.browser.setText("<center><font color=\"#F0F0F0\" style=\"font-family:Tahoma\">Загрузка новостей не включена</font></center>");
+			Frame.main.browser.setText("<center><font color=\"#F0F0F0\" style=\"font-family:Tahoma\">Р—Р°РіСЂСѓР·РєР° РЅРѕРІРѕСЃС‚РµР№ РЅРµ РІРєР»СЋС‡РµРЅР°</font></center>");
 			return;
 		}
-		Frame.main.browser.setText("<center><font color=\"#F0F0F0\" style=\"font-family:Tahoma\">Обновление страницы...</font></center>");
+		Frame.main.browser.setText("<center><font color=\"#F0F0F0\" style=\"font-family:Tahoma\">РћР±РЅРѕРІР»РµРЅРёРµ СЃС‚СЂР°РЅРёС†С‹...</font></center>");
 		Thread t = new Thread() { public void run()
 		{
 			try
@@ -39,7 +39,7 @@ public class ThreadUtils
 				BaseUtils.send("Updating news page sucessful!");
 			} catch (Exception e)
 			{
-				Frame.main.browser.setText("<center><font color=\"#FF0000\" style=\"font-family:Tahoma\"><b>Ошибка загрузки новостей:<br>" + e.toString() + "</b></font></center>");
+				Frame.main.browser.setText("<center><font color=\"#FF0000\" style=\"font-family:Tahoma\"><b>РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё РЅРѕРІРѕСЃС‚РµР№:<br>" + e.toString() + "</b></font></center>");
 				BaseUtils.send("Updating news page fail! (" + e.toString() + ")");
 			}
 			interrupt();
@@ -69,7 +69,7 @@ public class ThreadUtils
 			boolean error = false;
 			if(answer == null)
 			{
-				Frame.main.panel.tmpString = "Ошибка подключения";
+				Frame.main.panel.tmpString = "РћС€РёР±РєР° РїРѕРґРєР»СЋС‡РµРЅРёСЏ";
 				error = true;
 			} else if(answer.split("<br>").length != 3)
 			{
@@ -96,7 +96,7 @@ public class ThreadUtils
 				
 				if(personal)
 				{
-					Frame.main.panel.tmpString = "Загрузка данных...";
+					Frame.main.panel.tmpString = "Р—Р°РіСЂСѓР·РєР° РґР°РЅРЅС‹С…...";
 					String personal = BaseUtils.execute(BaseUtils.buildUrl("launcher.php"), new Object[]
 					{
 						"action", "getpersonal",
@@ -106,7 +106,7 @@ public class ThreadUtils
 					
 					if(personal == null)
 					{
-						Frame.main.panel.tmpString = "Ошибка подключения";
+						Frame.main.panel.tmpString = "РћС€РёР±РєР° РїРѕРґРєР»СЋС‡РµРЅРёСЏ";
 						error = true;
 					} else if(personal.split("<:>").length != 13 || personal.split("<:>")[0].length() != 7)
 					{
@@ -124,13 +124,13 @@ public class ThreadUtils
 					} else
 					{
 						try {
-						Frame.main.panel.tmpString = "Загрузка скина...";
+						Frame.main.panel.tmpString = "Р—Р°РіСЂСѓР·РєР° СЃРєРёРЅР°...";
 						BufferedImage skinImage   = BaseUtils.getSkinImage(answer.split("<br>")[1].split("<:>")[0]);
-						Frame.main.panel.tmpString = "Загрузка плаща...";
+						Frame.main.panel.tmpString = "Р—Р°РіСЂСѓР·РєР° РїР»Р°С‰Р°...";
 						BufferedImage cloakImage  = BaseUtils.getCloakImage(answer.split("<br>")[1].split("<:>")[0]);
-						Frame.main.panel.tmpString = "Парсинг скина...";
+						Frame.main.panel.tmpString = "РџР°СЂСЃРёРЅРі СЃРєРёРЅР°...";
 						skinImage = ImageUtils.parseSkin(skinImage);
-						Frame.main.panel.tmpString = "Парсинг плаща...";
+						Frame.main.panel.tmpString = "РџР°СЂСЃРёРЅРі РїР»Р°С‰Р°...";
 						cloakImage= ImageUtils.parseCloak(cloakImage);
 						Frame.main.panel.tmpString = BaseUtils.empty;
 						PersonalContainer pc = new PersonalContainer(personal.split("<:>"), skinImage, cloakImage);
@@ -187,14 +187,14 @@ public class ThreadUtils
 		{
 			public void run()
 			{
-				Frame.main.serverbar.updateBar("Обновление...", BaseUtils.genServerIcon(new String[]{null, "0", null}));
+				Frame.main.serverbar.updateBar("РћР±РЅРѕРІР»РµРЅРёРµ...", BaseUtils.genServerIcon(new String[]{null, "0", null}));
 				int sindex = Frame.main.servers.getSelectedIndex();
 				String ip = Settings.servers[sindex].split(", ")[1];
 				int port = BaseUtils.parseInt(Settings.servers[sindex].split(", ")[2], 25565);
 				
 				if(Frame.main.offline.isSelected())
 				{
-					Frame.main.serverbar.updateBar("Выбран оффлайн", BaseUtils.genServerIcon(new String[]{null, "0", null}));
+					Frame.main.serverbar.updateBar("Р’С‹Р±СЂР°РЅ РѕС„С„Р»Р°Р№РЅ", BaseUtils.genServerIcon(new String[]{null, "0", null}));
 					return;
 				}
 				
@@ -226,7 +226,7 @@ public class ThreadUtils
 			boolean error = false;
 			if(answer == null)
 			{
-				Frame.main.panel.tmpString = "Ошибка подключения";
+				Frame.main.panel.tmpString = "РћС€РёР±РєР° РїРѕРґРєР»СЋС‡РµРЅРёСЏ";
 				error = true;
 			} else if(!answer.contains("success"))
 			{
@@ -267,7 +267,7 @@ public class ThreadUtils
 			boolean error = false;
 			if(answer == null)
 			{
-				Frame.main.panel.tmpString = "Ошибка подключения";
+				Frame.main.panel.tmpString = "РћС€РёР±РєР° РїРѕРґРєР»СЋС‡РµРЅРёСЏ";
 				error = true;
 			} else if(!answer.contains("success"))
 			{
@@ -304,7 +304,7 @@ public class ThreadUtils
 			boolean error = false;
 			if(answer == null)
 			{
-				Frame.main.panel.tmpString = "Ошибка подключения";
+				Frame.main.panel.tmpString = "РћС€РёР±РєР° РїРѕРґРєР»СЋС‡РµРЅРёСЏ";
 				error = true;
 			} else if(!answer.contains("success"))
 			{
@@ -343,7 +343,7 @@ public class ThreadUtils
 			boolean error = false;
 			if(answer == null)
 			{
-				Frame.main.panel.tmpString = "Ошибка подключения";
+				Frame.main.panel.tmpString = "РћС€РёР±РєР° РїРѕРґРєР»СЋС‡РµРЅРёСЏ";
 				error = true;
 			} else if(!answer.contains("success"))
 			{
@@ -382,7 +382,7 @@ public class ThreadUtils
 			boolean error = false;
 			if(answer == null)
 			{
-				Frame.main.panel.tmpString = "Ошибка подключения";
+				Frame.main.panel.tmpString = "РћС€РёР±РєР° РїРѕРґРєР»СЋС‡РµРЅРёСЏ";
 				error = true;
 			} else if(!answer.contains("success"))
 			{

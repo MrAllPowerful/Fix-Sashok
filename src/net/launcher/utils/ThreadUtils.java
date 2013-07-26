@@ -15,11 +15,9 @@ import net.launcher.run.Settings;
 public class ThreadUtils
 {
 	public static String b =  "bin";
-	//public static String lw =  "lwjgl.jar";
-	//public static String lwu =  "lwjgl_util.jar";
 	public static String lw =  "libraries.jar";
 	public static String lwu =  "Forge.jar";
-	public static String j =  "jinput.jar";
+	public static String j =  "extra.jar";
 	public static String m =  "minecraft.jar";
 	public static UpdaterThread updaterThread;
 	public static Thread serverPollThread;

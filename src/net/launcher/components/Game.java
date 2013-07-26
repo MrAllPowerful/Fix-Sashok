@@ -38,7 +38,7 @@ public class Game extends JFrame
 	          params.add("-Dfml.ignorePatchDiscrepancies=true");
 	          params.add("-Djava.library.path="+jarpath+"natives");
 	          params.add("-cp");
-	          params.add(jarpath+"libraries.jar"+cps+jarpath+"Forge.jar"+cps+jarpath+"minecraft.jar");
+	          params.add(jarpath+"libraries.jar"+cps+jarpath+"extra.jar"+cps+jarpath+"Forge.jar"+cps+jarpath+"minecraft.jar");
 	          params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[3]);
 	          params.add(user);
 	          params.add(session);

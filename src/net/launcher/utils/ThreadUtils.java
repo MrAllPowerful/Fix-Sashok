@@ -15,9 +15,9 @@ import net.launcher.run.Settings;
 public class ThreadUtils
 {
 	public static String b =  "bin";
-	public static String lw =  "libraries.jar";
-	public static String lwu =  "Forge.jar";
-	public static String j =  "extra.jar";
+	public static String l =  "libraries.jar";
+	public static String f =  "Forge.jar";
+	public static String e =  "extra.jar";
 	public static String m =  "minecraft.jar";
 	public static UpdaterThread updaterThread;
 	public static Thread serverPollThread;
@@ -155,9 +155,9 @@ public class ThreadUtils
 		
 		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[0]), Settings.protectionKey).equals(BaseUtils.getPropertyString(BaseUtils.getClientName() + "_zipmd5")) ||
 		!new File(binfolder + "natives").exists() || Frame.main.updatepr.isSelected()) { files.add(b+"/client.zip");  zipupdate = true; }
-		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[2]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + lw))) files.add(b+"/"+lw);
-		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[3]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + lwu))) files.add(b+"/"+lwu);
-		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[4]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + j))) files.add(b+"/"+j);
+		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[2]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + l))) files.add(b+"/"+l);
+		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[3]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + f))) files.add(b+"/"+f);
+		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[4]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + e))) files.add(b+"/"+e);
 		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[1]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + m))) files.add(b+"/"+m);
 
 		

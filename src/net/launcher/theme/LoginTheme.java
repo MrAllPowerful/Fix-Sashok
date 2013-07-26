@@ -21,13 +21,13 @@ public class LoginTheme
 	public static int			 frameW 	= 850; 
 	public static int			 frameH		= 520; 
 
-	public static ButtonStyle	 toGame		= new ButtonStyle(420, 436, 120, 40, "font", "button", 16F, new Color(154, 191, 164), true, Align.CENTER);
+	public static ButtonStyle	 toGame		= new ButtonStyle(420, 436, 120, 40, "font", "button", 16F, Color.RED, true, Align.CENTER);
 	public static ButtonStyle	 toPersonal = new ButtonStyle(570, 436, 120, 40, "font", "button", 16F, Color.GREEN, true, Align.CENTER);
 	public static ButtonStyle	 toOptions  = new ButtonStyle(720, 436, 120, 40, "font", "button", 16F, Color.YELLOW, true, Align.CENTER);
 	
 	public static CheckboxStyle  savePass   = new CheckboxStyle(10, 482, 200, 23, "font", "checkbox", 16F, Color.WHITE, true);
-	public static TextfieldStyle login		= new TextfieldStyle(10, 440, 195, 36, "textfield", "font", 16F, Color.YELLOW, Color.YELLOW, new EmptyBorder(0, 10, 0, 10));
-	public static PassfieldStyle password	= new PassfieldStyle(215, 440, 195, 36, "textfield", "font", 16F, Color.YELLOW, Color.YELLOW, "*", new EmptyBorder(0, 10, 0, 10));
+	public static TextfieldStyle login		= new TextfieldStyle(10, 440, 195, 36, "textfield", "font", 16F, Color.YELLOW, Color.DARK_GRAY, new EmptyBorder(0, 10, 0, 10));
+	public static PassfieldStyle password	= new PassfieldStyle(215, 440, 195, 36, "textfield", "font", 16F, Color.YELLOW, Color.DARK_GRAY, "*", new EmptyBorder(0, 10, 0, 10));
 	
 	public static ComponentStyle newsBrowser= new ComponentStyle(0, 30, 850, 369, "font", 16F, Color.WHITE, true);
 	public static LinklabelStyle links		= new LinklabelStyle(520, 415, 0, "font", 16F, Color.WHITE, Color.LIGHT_GRAY);

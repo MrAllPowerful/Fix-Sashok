@@ -22,11 +22,7 @@ public class Game extends JFrame
 		try
            {
 	          String cps;
-	          if (System.getProperty("os.name").toLowerCase().contains("win")) {
-	        	cps = ";";
-	          } else {
-	        	cps=":";
-	          }
+	          if (BaseUtils.getPlatform() == 2) cps = ";"; else cps = ":";
 			  int memory = BaseUtils.getPropertyInt("memory", 512);
 	          System.out.println("Running Minecraft");
 	          String jarpath = BaseUtils.getMcDir().toString() + File.separator + ThreadUtils.b + File.separator;

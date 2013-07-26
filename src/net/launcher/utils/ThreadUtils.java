@@ -150,7 +150,7 @@ public class ThreadUtils
 	public static void runUpdater(String answer)
 	{
 		boolean zipupdate = false;
-		List<String> files = GuardUtils.updateMods_first(answer);
+		List<String> files = GuardUtils.updateMods(answer);
 		String binfolder = BaseUtils.getMcDir() + File.separator + b + File.separator;
 		
 		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[0]), Settings.protectionKey).equals(BaseUtils.getPropertyString(BaseUtils.getClientName() + "_zipmd5")) ||

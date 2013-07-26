@@ -48,6 +48,10 @@ public class Game extends JFrame
 	          params.add(minpath);
 	          params.add("--assetsDir");
 	          params.add(minpath+File.separator+"assets");
+	          params.add("--server");
+	          params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[1]);
+	          params.add("--port");
+	          params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[2]);
 	          params.add("--tweakClass");
 	          params.add("cpw.mods.fml.common.launcher.FMLTweaker");
 	          ProcessBuilder pb = new ProcessBuilder(params);

@@ -21,7 +21,7 @@ public class LoginTheme
 	public static int			 frameW 	= 850; 
 	public static int			 frameH		= 520; 
 
-	public static ButtonStyle	 toGame		= new ButtonStyle(420, 436, 120, 40, "font", "button", 16F, Color.RED, true, Align.CENTER);
+	public static ButtonStyle	 toGame		= new ButtonStyle(420, 436, 120, 40, "font", "button", 16F, new Color(154, 191, 164), true, Align.CENTER);
 	public static ButtonStyle	 toPersonal = new ButtonStyle(570, 436, 120, 40, "font", "button", 16F, Color.GREEN, true, Align.CENTER);
 	public static ButtonStyle	 toOptions  = new ButtonStyle(720, 436, 120, 40, "font", "button", 16F, Color.YELLOW, true, Align.CENTER);
 	

@@ -40,10 +40,10 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 	public static Frame main;
 		public Panel panel = new Panel(0);
 			public Dragger dragger = new Dragger();
-			public Button toGame = new Button("Копать");
-			public Button toPersonal = new Button("Войти в ЛК");
-			public Button toOptions = new Button("Настройки");
-			public Checkbox savePass = new Checkbox("Сохранить пароль");
+			public Button toGame = new Button("РљРѕРїР°С‚СЊ");
+			public Button toPersonal = new Button("Р’РѕР№С‚Рё РІ Р›Рљ");
+			public Button toOptions = new Button("РќР°СЃС‚СЂРѕР№РєРё");
+			public Checkbox savePass = new Checkbox("РЎРѕС…СЂР°РЅРёС‚СЊ РїР°СЂРѕР»СЊ");
 			public JTextPane browser = new JTextPane();
 			public JTextPane personalBrowser = new JTextPane();
 			public JScrollPane bpane = new JScrollPane(browser);
@@ -58,34 +58,34 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 			public Dragbutton hide = new Dragbutton();
 			public Dragbutton close = new Dragbutton();
 			
-			public Button update_yes = new Button("Обновить");
-			public Button update_no = new Button("Выход");
+			public Button update_yes = new Button("РћР±РЅРѕРІРёС‚СЊ");
+			public Button update_no = new Button("Р’С‹С…РѕРґ");
 			
-			public Checkbox loadnews = new Checkbox("Загружать новости");
-			public Checkbox updatepr = new Checkbox("Принудительное обновление");
-				public Checkbox cleanDir = new Checkbox("Очистить папку");
-			public Checkbox fullscreen = new Checkbox("Запустить в полный экран");
+			public Checkbox loadnews = new Checkbox("Р—Р°РіСЂСѓР¶Р°С‚СЊ РЅРѕРІРѕСЃС‚Рё");
+			public Checkbox updatepr = new Checkbox("РџСЂРёРЅСѓРґРёС‚РµР»СЊРЅРѕРµ РѕР±РЅРѕРІР»РµРЅРёРµ");
+				public Checkbox cleanDir = new Checkbox("РћС‡РёСЃС‚РёС‚СЊ РїР°РїРєСѓ");
+			public Checkbox fullscreen = new Checkbox("Р—Р°РїСѓСЃС‚РёС‚СЊ РІ РїРѕР»РЅС‹Р№ СЌРєСЂР°РЅ");
 			public Textfield memory = new Textfield();
-			public Button options_close = new Button("Закрыть");
+			public Button options_close = new Button("Р—Р°РєСЂС‹С‚СЊ");
 			
-			public Button buyCloak = new Button("Купить плащ");
-			public Button changeSkin = new Button("Сменить скин");
+			public Button buyCloak = new Button("РљСѓРїРёС‚СЊ РїР»Р°С‰");
+			public Button changeSkin = new Button("РЎРјРµРЅРёС‚СЊ СЃРєРёРЅ");
 			public Textfield vaucher = new Textfield();
-			public Button vaucherButton = new Button("Пополнить");
-			public Button buyVaucher = new Button("Купить");
+			public Button vaucherButton = new Button("РџРѕРїРѕР»РЅРёС‚СЊ");
+			public Button buyVaucher = new Button("РљСѓРїРёС‚СЊ");
 			public Textfield exchangeFrom = new Textfield();
 			public Textfield exchangeTo = new Textfield();
-			public Button exchangeButton= new Button("Обменять");
+			public Button exchangeButton= new Button("РћР±РјРµРЅСЏС‚СЊ");
 			public Button buyVip = new Button(BaseUtils.empty);
 			public Button buyPremium = new Button(BaseUtils.empty);
-			public Button buyUnban = new Button("Купить разбан");
-			public Button toGamePersonal = new Button("В игру");
+			public Button buyUnban = new Button("РљСѓРїРёС‚СЊ СЂР°Р·Р±Р°РЅ");
+			public Button toGamePersonal = new Button("Р’ РёРіСЂСѓ");
 
-			public Checkbox offline = new Checkbox("Режим оффлайн");
+			public Checkbox offline = new Checkbox("Р РµР¶РёРј РѕС„С„Р»Р°Р№РЅ");
 	
 	public Frame()
 	{	
-		//Подготовка окна
+		//РџРѕРґРіРѕС‚РѕРІРєР° РѕРєРЅР°
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setBackground(Color.DARK_GRAY);
 		setForeground(Color.DARK_GRAY);
@@ -110,12 +110,12 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 			e.printStackTrace();
 		}
 		
-		//Добавление слушателей
+		//Р”РѕР±Р°РІР»РµРЅРёРµ СЃР»СѓС€Р°С‚РµР»РµР№
 		toGame.addActionListener(this);
 		toPersonal.addActionListener(this);
 		toPersonal.setVisible(Settings.usePersonal);
 		toOptions.addActionListener(this);
-		login.setText("Логин...");
+		login.setText("Р›РѕРіРёРЅ...");
 		login.addActionListener(this);
 		login.addFocusListener(this);
 		password.setText("itspassword");
@@ -230,7 +230,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 				try
 				{
 					int i = Integer.parseInt(exchangeFrom.getText());
-					exchangeTo.setText(String.valueOf((long)i * (long)panel.pc.exchangeRate) + " Монет");
+					exchangeTo.setText(String.valueOf((long)i * (long)panel.pc.exchangeRate) + " РњРѕРЅРµС‚");
 				} catch(Exception e){ exchangeTo.setText("<N/A>"); }
 			}
 		});
@@ -266,7 +266,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		repaint();
 	}
 
-	/** Добавление элементов авторизации*/
+	/** Р”РѕР±Р°РІР»РµРЅРёРµ СЌР»РµРјРµРЅС‚РѕРІ Р°РІС‚РѕСЂРёР·Р°С†РёРё*/
 	public void addAuthComp()
 	{
 		panel.add(servers);
@@ -281,7 +281,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		panel.add(savePass);
 	}
 
-	//Старт программы
+	//РЎС‚Р°СЂС‚ РїСЂРѕРіСЂР°РјРјС‹
 	public static void start()
 	{
 		try
@@ -331,16 +331,16 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 			{
 				panel.type = 8;
 				update_yes.setEnabled(false);
-				update_no.setText("Отмена");
+				update_no.setText("РћС‚РјРµРЅР°");
 				panel.repaint();
 				BaseUtils.updateLauncher();
 			} catch(Exception e1)
 			{
 				e1.printStackTrace();
 				send("Error updating launcher!");
-				update_no.setText("Выйти");
+				update_no.setText("Р’С‹Р№С‚Рё");
 				update_yes.setEnabled(true);
-				update_yes.setText("Еще раз");
+				update_yes.setText("Р•С‰Рµ СЂР°Р·");
 				panel.type = 9;
 				panel.repaint();
 			}}}.start();
@@ -394,7 +394,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 			JFileChooser chooser = new JFileChooser();
 			chooser.setFileFilter(new SkinFilter(1));
 			chooser.setAcceptAllFileFilterUsed(false);
-			int i = chooser.showDialog(main, "Купить");
+			int i = chooser.showDialog(main, "РљСѓРїРёС‚СЊ");
 			
 			if(i == JFileChooser.APPROVE_OPTION)
 			{
@@ -408,7 +408,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 			JFileChooser chooser = new JFileChooser();
 			chooser.setFileFilter(new SkinFilter(0));
 			chooser.setAcceptAllFileFilterUsed(false);
-			int i = chooser.showDialog(main, "Сменить");
+			int i = chooser.showDialog(main, "РЎРјРµРЅРёС‚СЊ");
 			
 			if(i == JFileChooser.APPROVE_OPTION)
 			{
@@ -454,13 +454,13 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 
 	public void focusGained(FocusEvent e)
 	{
-		if(e.getSource() == login && login.getText().equals("Логин...")) login.setText(empty);
+		if(e.getSource() == login && login.getText().equals("Р›РѕРіРёРЅ...")) login.setText(empty);
 		if(e.getSource() == password && new String(password.getPassword()).equals("itspassword")) password.setText(empty);
 	}
 
 	public void focusLost(FocusEvent e)
 	{
-		if(e.getSource() == login && login.getText().equals(empty)) login.setText("Логин...");
+		if(e.getSource() == login && login.getText().equals(empty)) login.setText("Р›РѕРіРёРЅ...");
 		if(e.getSource() == password && new String(password.getPassword()).equals(empty)) password.setText("itspassword");
 	}
 
@@ -529,10 +529,10 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		
 		if(pc.canBuyUnban) panel.add(buyUnban);
 		
-		buyVip.setText("Купить VIP");
+		buyVip.setText("РљСѓРїРёС‚СЊ VIP");
 		buyVip.setEnabled(true);
 		
-		buyPremium.setText("Купить Premium");
+		buyPremium.setText("РљСѓРїРёС‚СЊ Premium");
 		buyPremium.setEnabled(true);
 		
 		if(pc.ugroup.equals("Banned"))
@@ -541,12 +541,12 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 			buyVip.setEnabled(false);
 		} else if(pc.ugroup.equals("VIP"))
 		{
-			buyVip.setText("Продлить VIP");
+			buyVip.setText("РџСЂРѕРґР»РёС‚СЊ VIP");
 			buyPremium.setEnabled(false);
 			buyUnban.setEnabled(false);
 		} else if(pc.ugroup.equals("Premium"))
 		{
-			buyPremium.setText("Продлить Premium");
+			buyPremium.setText("РџСЂРѕРґР»РёС‚СЊ Premium");
 			buyVip.setEnabled(false);
 			buyUnban.setEnabled(false);
 		} else if(pc.ugroup.equals("User"))
@@ -567,7 +567,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		BufferedImage screen = ImageUtils.sceenComponent(panel);
 		panel.removeAll();
 		addFrameComp();
-		panel.setLoadingState(screen, "Выполнение...");
+		panel.setLoadingState(screen, "Р’С‹РїРѕР»РЅРµРЅРёРµ...");
 	}
 	
 	public void setError(String s)

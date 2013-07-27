@@ -28,7 +28,7 @@ public class Game extends JFrame
 	          String jarpath = BaseUtils.getMcDir().toString() + File.separator + ThreadUtils.b + File.separator;
 	          String minpath = BaseUtils.getMcDir().toString() + File.separator;
 	          ArrayList<String> params = new ArrayList<String>();
-	          params.add("java");
+	          if (BaseUtils.getPlatform() == 2) params.add("javaw"); else params.add("java");
 	          params.add("-Xmx" + memory + "m");
 	          params.add("-Dfml.ignoreInvalidMinecraftCertificates=true");
 	          params.add("-Dfml.ignorePatchDiscrepancies=true");

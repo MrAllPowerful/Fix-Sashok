@@ -2,8 +2,6 @@
 
 package net.launcher.run;
 
-import org.omg.IOP.Encoding;
-
 public class Settings
 {
 	/** Настройка заголовка лаунчера */

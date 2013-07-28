@@ -54,8 +54,6 @@ public class Settings
 	public static final boolean debug		 	 =  true;  //Отображать все действия лаунчера (отладка)(true/false)
 	public static final boolean drawTracers		 =  false; //Отрисовывать границы элементов лаунчера
 	public static final String masterVersion  	 = "final_RC4"; //Версия лаунчера
-
-	public static final boolean patchDir 		 =  true; //Использовать автоматическую замену директории игры (true/false)	public static final String mcclass			 = "net.minecraft.client.Minecraft";
 	
 	public static void onStart() { /*  */ }
 	public static void onStartMinecraft() {}

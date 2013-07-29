@@ -1,4 +1,4 @@
-package net.minecraft; //Èìÿ ïàêåòà áûëî èçìåíåíî äëÿ ðàáîòû ñ forge >= 1.3.2
+package net.minecraft; //Ð˜Ð¼Ñ Ð¿Ð°ÐºÐµÑ‚Ð° Ð±Ñ‹Ð»Ð¾ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¾ Ð´Ð»Ñ Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹ Ñ forge >= 1.3.2
 
 import java.applet.Applet;
 import java.applet.AppletStub;

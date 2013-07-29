@@ -199,7 +199,7 @@ public class GuardUtils
 			
 			if(ret && action)
 			{
-				Frame.main.setError("Ошибка вторичной проверки кеша.");
+				Frame.main.setError("РћС€РёР±РєР° РІС‚РѕСЂРёС‡РЅРѕР№ РїСЂРѕРІРµСЂРєРё РєРµС€Р°.");
 				return;
 			} else if(ret && !action)
 			{

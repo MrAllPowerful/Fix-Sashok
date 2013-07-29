@@ -337,7 +337,7 @@ public class BaseUtils
 			}
 			String servc = readString(dis, 256);
 			servc.substring(3);
-			if (servc.substring(0,1).equalsIgnoreCase("§") && servc.substring(1,2).equalsIgnoreCase("1"))
+			if (servc.substring(0,1).equalsIgnoreCase("В§") && servc.substring(1,2).equalsIgnoreCase("1"))
 			{
 				servtype = 1;
 				return servc.split("\u0000");
@@ -346,7 +346,7 @@ public class BaseUtils
 			else 
 			{
 				servtype = 2;
-				return servc.split("§");
+				return servc.split("В§");
 			}
 
 		} catch (Exception e)
@@ -389,11 +389,11 @@ public class BaseUtils
 	{
 		if (servtype == 1)
 		{
-			if(args[0] == null && args[1] == null && args[2] == null) return "Сервер выключен";
+			if(args[0] == null && args[1] == null && args[2] == null) return "РЎРµСЂРІРµСЂ РІС‹РєР»СЋС‡РµРЅ";
 			if(args[4] != null && args[5] != null)
 			{
-				if(args[4].equals(args[5])) return "Сервер переполнен (Всего слотов: " + args[4] + ")";
-				return "На сервере " + args[4] + " из " + args[5] + " игроков";
+				if(args[4].equals(args[5])) return "РЎРµСЂРІРµСЂ РїРµСЂРµРїРѕР»РЅРµРЅ (Р’СЃРµРіРѕ СЃР»РѕС‚РѕРІ: " + args[4] + ")";
+				return "РќР° СЃРµСЂРІРµСЂРµ " + args[4] + " РёР· " + args[5] + " РёРіСЂРѕРєРѕРІ";
 			}
 		}
 		else
@@ -401,14 +401,14 @@ public class BaseUtils
 		{
 			
 		
-		if(args[0] == null && args[1] == null && args[2] == null) return "Сервер выключен";
+		if(args[0] == null && args[1] == null && args[2] == null) return "РЎРµСЂРІРµСЂ РІС‹РєР»СЋС‡РµРЅ";
 		if(args[1] != null && args[2] != null)
 		{
-			if(args[1].equals(args[2])) return "Сервер переполнен (Всего слотов: " + args[2] + ")";
-			return "На сервере " + args[1] + " из " + args[2] + " игроков";
+			if(args[1].equals(args[2])) return "РЎРµСЂРІРµСЂ РїРµСЂРµРїРѕР»РЅРµРЅ (Р’СЃРµРіРѕ СЃР»РѕС‚РѕРІ: " + args[2] + ")";
+			return "РќР° СЃРµСЂРІРµСЂРµ " + args[1] + " РёР· " + args[2] + " РёРіСЂРѕРєРѕРІ";
 		}
 		}
-		return "Ошибка получения информации";
+		return "РћС€РёР±РєР° РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё";
 	}
 	
 	public static BufferedImage genServerIcon(String[] args)

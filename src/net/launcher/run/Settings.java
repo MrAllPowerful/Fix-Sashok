@@ -25,8 +25,8 @@ public class Settings
 	/** Настройка серверов */
 	public static final String[] servers =
 	{
-		"v, localhost, 25565, 1.5.x, 1, none",
-		"voxelaria, localhost, 25565, none, 2, net.minecraft.launchwrapper.Launch",
+		"v, localhost, 25565, 1.5.x, 1, none", //1 Для запуска старых версий
+		"voxelaria, localhost, 25565, none, 2, net.minecraft.launchwrapper.Launch", //2 для запуска 1.6.+ 
 	};
 
 	/** Настройка панели ссылок **/

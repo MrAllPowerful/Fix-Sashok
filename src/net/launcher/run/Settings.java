@@ -37,7 +37,7 @@ public class Settings
 	};
 
 	/** Настройки структуры лаунчера */
-	public static boolean useAutoenter			 =  true; //Использовать функцию автозахода на выбранный сервер
+	public static boolean useAutoenter			 =  false; //Использовать функцию автозахода на выбранный сервер
 	
 	
 	public static boolean useMulticlient		 =  true; //Использовать функцию "по клиенту на сервер"
@@ -48,7 +48,7 @@ public class Settings
 	public static boolean useConsoleHider		 =  true; //Использовать скрытие консоли клиента
 	public static boolean useModCheckerTimer	 =  true; //Каждые 30 секунд моды будут перепроверяться
 
-	public static final String protectionKey			 = "tH@nKy0u.d_@rT"; //Ключ защиты сессии. Никому его не говорите.
+	public static final String protectionKey	 = "tH@nKy0u.d_@rT"; //Ключ защиты сессии. Никому его не говорите.
 
 	public static final boolean debug		 	 =  false;  //Отображать все действия лаунчера (отладка)(true/false)
 	public static final boolean drawTracers		 =  false; //Отрисовывать границы элементов лаунчера

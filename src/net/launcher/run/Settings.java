@@ -37,7 +37,7 @@ public class Settings
 	};
 
 	/** Настройки структуры лаунчера */
-	public static boolean useAutoenter			 =  false; //Использовать функцию автозахода на выбранный сервер
+	public static boolean useAutoenter			 =  true; //Использовать функцию автозахода на выбранный сервер
 	
 	
 	public static boolean useMulticlient		 =  true; //Использовать функцию "по клиенту на сервер"

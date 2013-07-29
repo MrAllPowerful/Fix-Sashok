@@ -1,4 +1,4 @@
-/* Р”Р°РЅРЅС‹Р№ РєР»Р°СЃСЃ РѕС‚РІРµС‡Р°РµС‚ Р·Р° С…СЂР°РЅРµРЅРёРµ РєРѕРѕСЂРґРёРЅР°С‚ РІСЃРµС… РєРѕРјРїРѕРЅРµРЅС‚РѕРІ Р»РёС‡РЅРѕРіРѕ РєР°Р±РёРЅРµС‚Р° Р»Р°СѓРЅС‡РµСЂР° */
+/* Данный класс отвечает за хранение координат всех компонентов личного кабинета лаунчера */
 
 package net.launcher.theme;
 
@@ -31,12 +31,12 @@ public class PersonalTheme
 	public static ButtonStyle	 buyPremium	  = new ButtonStyle(20, 410, 140, 40, "font", "button", 14F, Color.YELLOW, true, Align.CENTER);
 	public static ButtonStyle	 buyUnban	  = new ButtonStyle(20, 450, 140, 40, "font", "button", 16F, Color.RED, true, Align.CENTER);
 	
-	public static TextfieldStyle vaucher	  = new TextfieldStyle(400, 134, 280, 36, "textfield", "font", 16F, Color.YELLOW, Color.YELLOW, new EmptyBorder(0, 10, 0, 10));
+	public static TextfieldStyle vaucher	  = new TextfieldStyle(400, 134, 280, 36, "textfield", "font", 16F, Color.WHITE, Color.WHITE, new EmptyBorder(0, 10, 0, 10));
 	public static ButtonStyle	 vaucherButton= new ButtonStyle(550, 180, 130, 40, "font", "button", 16F, Color.YELLOW, true, Align.CENTER);
 	public static ButtonStyle	 buyVaucher	  = new ButtonStyle(400, 180, 140, 40, "font", "button", 16F, Color.RED, true, Align.CENTER);
 	
-	public static TextfieldStyle exchangeFrom = new TextfieldStyle(180, 450, 160, 36, "textfield", "font", 16F, Color.YELLOW, Color.YELLOW, new EmptyBorder(0, 10, 0, 10));
-	public static TextfieldStyle exchangeTo	  = new TextfieldStyle(385, 450, 160, 36, "textfield", "font", 16F, Color.YELLOW, Color.YELLOW, new EmptyBorder(0, 10, 0, 10));
+	public static TextfieldStyle exchangeFrom = new TextfieldStyle(180, 450, 160, 36, "textfield", "font", 16F, Color.WHITE, Color.WHITE, new EmptyBorder(0, 10, 0, 10));
+	public static TextfieldStyle exchangeTo	  = new TextfieldStyle(385, 450, 160, 36, "textfield", "font", 16F, Color.WHITE, Color.WHITE, new EmptyBorder(0, 10, 0, 10));
 	public static ButtonStyle	 exchangeBtn  = new ButtonStyle(580, 448, 130, 40, "font", "button", 16F, Color.YELLOW, true, Align.CENTER);
 	
 	public static ButtonStyle	 toGamePSL  = new ButtonStyle(746, 448, 88, 40, "font", "button", 16F, Color.RED, true, Align.CENTER);

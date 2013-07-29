@@ -38,7 +38,7 @@ public class SkinFilter extends FileFilter
 
 	public String getDescription()
 	{
-		return (filterType == 0 ? "Р¤Р°Р№Р» СЃРєРёРЅР° (64x32)" : "Р¤Р°Р№Р» РїР»Р°С‰Р° (22x17)");
+		return (filterType == 0 ? "Файл скина (64x32)" : "Файл плаща (22x17)");
 	}
 	
 	public static String getExtension(File f)

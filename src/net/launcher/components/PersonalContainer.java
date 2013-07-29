@@ -29,7 +29,7 @@ public class PersonalContainer
 	public double  iconmoney		= 0.0D;
 	public int	   realmoney		= 0;
 	
-	public String  jobname			= "Р‘РµР·СЂР°Р±РѕС‚РЅС‹Р№"; 
+	public String  jobname			= "Безработный"; 
 	public int	   joblvl			= 0;
 	public int 	   jobexp			= 0;
 	

@@ -44,7 +44,7 @@ public class UpdaterThread extends Thread
 		dir = new File(pathTo + "coremods" + File.separator);
 		if(!dir.exists() ) dir.mkdirs();
 		
-		state = "РћРїСЂРµРґРµР»РµРЅРёРµ СЂР°Р·РјРµСЂР°...";
+		state = "Определение размера...";
 		
 		for (int i = 0; i < files.size(); i++)
 		{
@@ -53,7 +53,7 @@ public class UpdaterThread extends Thread
 			totalsize += urlconnection.getContentLength();
 		}
 		
-		state = "Р—Р°РєР°С‡РєР° С„Р°Р№Р»РѕРІ...";
+		state = "Закачка файлов...";
 		
 		byte[] buffer = new byte[65536];
 		for (int i = 0; i < files.size(); i++)
@@ -84,7 +84,7 @@ public class UpdaterThread extends Thread
 			fos.close();
 			BaseUtils.send("File downloaded: " + currentfile);
 		}
-		state = "Р—Р°РєР°С‡РєР° Р·Р°РІРµСЂС€РµРЅР°";
+		state = "Закачка завершена";
 		
 		if(zipupdate)
 		{

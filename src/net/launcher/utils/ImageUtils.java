@@ -85,13 +85,13 @@ public class ImageUtils
 		int w = skinIMG.getWidth() / 64;
 		int h = skinIMG.getHeight()/ 32;
 		
-		g.drawImage(skinIMG.getSubimage(w * 8,  h * 8,  w * 8, h * 8 ), 32, 0,   64, 64, null);//Р“РѕР»РѕРІР°
-		g.drawImage(skinIMG.getSubimage(w * 20, h * 20, w * 8, h * 12), 32, 64,  64, 96, null);//РўРµР»Рѕ
-		g.drawImage(skinIMG.getSubimage(w * 44, h * 20, w * 4, h * 12), 0 , 64,  32, 96, null);//Р›РµРІР°СЏ СЂСѓРєР°
-		g.drawImage(skinIMG.getSubimage(w * 44, h * 20, w * 4, h * 12), 96, 64,  32, 96, null);//РџСЂР°РІР°СЏ СЂСѓРєР°
-		g.drawImage(skinIMG.getSubimage(w * 4,  h * 20, w * 4, h * 12), 32, 160, 32, 96, null);//Р›РµРІР°СЏ РЅРѕРіР°
-		g.drawImage(skinIMG.getSubimage(w * 4,  h * 20, w * 4, h * 12), 64, 160, 32, 96, null);//РџСЂР°РІР°СЏ РЅРѕРіР°
-		g.drawImage(skinIMG.getSubimage(w * 40, h * 8,  w * 8, h * 8 ), 32, 0,   64, 64, null);//Р“РѕР»РѕРІР°
+		g.drawImage(skinIMG.getSubimage(w * 8,  h * 8,  w * 8, h * 8 ), 32, 0,   64, 64, null);//Голова
+		g.drawImage(skinIMG.getSubimage(w * 20, h * 20, w * 8, h * 12), 32, 64,  64, 96, null);//Тело
+		g.drawImage(skinIMG.getSubimage(w * 44, h * 20, w * 4, h * 12), 0 , 64,  32, 96, null);//Левая рука
+		g.drawImage(skinIMG.getSubimage(w * 44, h * 20, w * 4, h * 12), 96, 64,  32, 96, null);//Правая рука
+		g.drawImage(skinIMG.getSubimage(w * 4,  h * 20, w * 4, h * 12), 32, 160, 32, 96, null);//Левая нога
+		g.drawImage(skinIMG.getSubimage(w * 4,  h * 20, w * 4, h * 12), 64, 160, 32, 96, null);//Правая нога
+		g.drawImage(skinIMG.getSubimage(w * 40, h * 8,  w * 8, h * 8 ), 32, 0,   64, 64, null);//Голова
 		
 		return result;
 	}

@@ -11,10 +11,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLClassLoader;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -335,7 +337,7 @@ public class BaseUtils
 			}
 			String servc = readString(dis, 256);
 			servc.substring(3);
-			if (servc.substring(0,1).equalsIgnoreCase("В§") && servc.substring(1,2).equalsIgnoreCase("1"))
+			if (servc.substring(0,1).equalsIgnoreCase("§") && servc.substring(1,2).equalsIgnoreCase("1"))
 			{
 				servtype = 1;
 				return servc.split("\u0000");
@@ -344,7 +346,7 @@ public class BaseUtils
 			else 
 			{
 				servtype = 2;
-				return servc.split("В§");
+				return servc.split("§");
 			}
 
 		} catch (Exception e)
@@ -387,11 +389,11 @@ public class BaseUtils
 	{
 		if (servtype == 1)
 		{
-			if(args[0] == null && args[1] == null && args[2] == null) return "РЎРµСЂРІРµСЂ РІС‹РєР»СЋС‡РµРЅ";
+			if(args[0] == null && args[1] == null && args[2] == null) return "Сервер выключен";
 			if(args[4] != null && args[5] != null)
 			{
-				if(args[4].equals(args[5])) return "РЎРµСЂРІРµСЂ РїРµСЂРµРїРѕР»РЅРµРЅ (Р’СЃРµРіРѕ СЃР»РѕС‚РѕРІ: " + args[4] + ")";
-				return "РќР° СЃРµСЂРІРµСЂРµ " + args[4] + " РёР· " + args[5] + " РёРіСЂРѕРєРѕРІ";
+				if(args[4].equals(args[5])) return "Сервер переполнен (Всего слотов: " + args[4] + ")";
+				return "На сервере " + args[4] + " из " + args[5] + " игроков";
 			}
 		}
 		else
@@ -399,14 +401,14 @@ public class BaseUtils
 		{
 			
 		
-		if(args[0] == null && args[1] == null && args[2] == null) return "РЎРµСЂРІРµСЂ РІС‹РєР»СЋС‡РµРЅ";
+		if(args[0] == null && args[1] == null && args[2] == null) return "Сервер выключен";
 		if(args[1] != null && args[2] != null)
 		{
-			if(args[1].equals(args[2])) return "РЎРµСЂРІРµСЂ РїРµСЂРµРїРѕР»РЅРµРЅ (Р’СЃРµРіРѕ СЃР»РѕС‚РѕРІ: " + args[2] + ")";
-			return "РќР° СЃРµСЂРІРµСЂРµ " + args[1] + " РёР· " + args[2] + " РёРіСЂРѕРєРѕРІ";
+			if(args[1].equals(args[2])) return "Сервер переполнен (Всего слотов: " + args[2] + ")";
+			return "На сервере " + args[1] + " из " + args[2] + " игроков";
 		}
 		}
-		return "РћС€РёР±РєР° РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё";
+		return "Ошибка получения информации";
 	}
 	
 	public static BufferedImage genServerIcon(String[] args)
@@ -469,6 +471,38 @@ public class BaseUtils
 			return true;
 		}
 		return false;
+	}
+	
+	public static void patchDir(URLClassLoader cl)
+	{
+		if(!Settings.patchDir) return;
+		
+		try
+		{
+			String mcver = Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[3];
+			
+			send("Changing client dir...");
+			send("Client: " + getClientName() + "::" + mcver);
+			send("Searching in version database...");
+			
+			for(int j = 0; j < Settings.mcversions.length; j++)
+			{
+				if(mcver.equals(Settings.mcversions[j].split("::")[0]))
+				{
+					send("Index #" + j + ", Patching...");
+		            Field f = cl.loadClass(Settings.mcclass).getDeclaredField(Settings.mcversions[j].split("::")[1]);
+		            Field.setAccessible(new Field[] { f }, true);
+		            f.set(null, getMcDir());
+		            send("File patched: " + Settings.mcclass + "::" + Settings.mcversions[j].split("::")[1]);
+		            send("Patching succesful, herobrine removed.");
+		            return;
+				}
+			}
+			sendErr("Error: Client version not correct.");
+		} catch(Exception e)
+		{
+			sendErr("Error: Client field not correct.");
+		}
 	}
 	
 	public static void updateLauncher() throws Exception

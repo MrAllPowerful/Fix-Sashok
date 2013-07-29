@@ -1,55 +1,65 @@
-/*launcher, СЃР±РѕСЂРєР° Р·Р° 30.10.2012, РёРЅРґРµРєСЃ: 121 */
+/*launcher, сборка за 30.10.2012, индекс: 121 */
 
 package net.launcher.run;
 
 public class Settings
 {
-	/** РќР°СЃС‚СЂРѕР№РєР° Р·Р°РіРѕР»РѕРІРєР° Р»Р°СѓРЅС‡РµСЂР° */
-	public static final String 		title		 	 = "Launcher"; //Р—Р°РіРѕР»РѕРІРѕРє Р»Р°СѓРЅС‡РµСЂР°
-	public static final String 		titleInGame  	 = "Minecraft"; //Р—Р°РіРѕР»РѕРІРѕРє Р»Р°СѓРЅС‡РµСЂР° РїРѕСЃР»Рµ Р°РІС‚РѕСЂРёР·Р°С†РёРё
-	public static final String 		basedir			 = "AppData"; //Р РѕРґРёС‚РµР»СЊСЃРєР°СЏ РїР°РїРєР° РґР»СЏ Minecraft (С‚РѕР»СЊРєРѕ РґР»СЏ Windows) [ProgramFiles, AppData]
-	public static final String 		baseconf		 = ".voxelaria"; //РџР°РїРєР° СЃ С„Р°Р№Р»РѕРј РєРѕРЅС„РёРіСѓСЂР°С†РёРё
-	public static final String		pathconst		 = ".voxelaria/%SERVERNAME%"; //РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїСѓС‚Рё Рє РїР°РїРєРµ СЃ MC
-	public static final String      skins            = "MinecraftSkins/"; //РџР°РїРєР° СЃРєРёРЅРѕРІ
-	public static final String      cloaks           = "MinecraftCloaks/"; //РџР°РїРєР° РїР»Р°С‰РµР№
-	/** РџР°СЂР°РјРµС‚СЂС‹ РїРѕРґРєР»СЋС‡РµРЅРёСЏ */
-	public static final String 	domain	 	 	 = "alexandrage.dyndns.org";//Р”РѕРјРµРЅ СЃР°Р№С‚Р°
-	public static final String  siteDir		  	 = "site";//РџР°РїРєР° СЃ С„Р°Р№Р»Р°РјРё Р»Р°СѓРЅС‡РµСЂР° РЅР° СЃР°Р№С‚Рµ
-	public static final String  updateFile		 = "http://alexandrage.dyndns.org/site/Launcher.jar";//РЎСЃС‹Р»РєР° РЅР° С„Р°Р№Р» РѕР±РЅРѕРІР»РµРЅРёСЏ Р»Р°СѓРЅС‡РµСЂР°
-	public static final String 	buyVauncherLink  = "http://plati.ru/"; //РЎСЃС‹Р»РєР° РЅР° СЃС‚СЂР°РЅРёС†Сѓ РїРѕРєСѓРїРєРё РІР°СѓС‡РµСЂРѕРІ
+	/** Настройка заголовка лаунчера */
+	public static final String 		title		 	 = "Launcher"; //Заголовок лаунчера
+	public static final String 		titleInGame  	 = "Minecraft"; //Заголовок лаунчера после авторизации
+	public static final String 		basedir			 = "AppData"; //Родительская папка для Minecraft (только для Windows) [ProgramFiles, AppData]
+	public static final String 		baseconf		 = ".voxelaria"; //Папка с файлом конфигурации
+	public static final String		pathconst		 = ".voxelaria/%SERVERNAME%"; //Конструктор пути к папке с MC
+	public static final String        skins            = "MinecraftSkins/"; //Папка скинов
+	public static final String        cloaks           = "MinecraftCloaks/"; //Папка плащей
+	/** Параметры подключения */
+	public static final String 	domain	 	 	 = "alexandrage.dyndns.org";//Домен сайта
+	public static final String  siteDir		  	 = "site";//Папка с файлами лаунчера на сайте
+	public static final String  updateFile		 = "http://alexandrage.dyndns.org/site/Launcher.jar";//Ссылка на файл обновления лаунчера
+	public static final String 	buyVauncherLink  = "http://plati.ru/"; //Ссылка на страницу покупки ваучеров
 
-	/** Р”Р»СЏ РѕРґРёРЅРѕС‡РЅРѕР№ РёРіСЂС‹ */
-	public static final String  defaultUsername  = "player"; //РРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РґР»СЏ РѕРґРёРЅРѕС‡РЅРѕР№ РёРіСЂС‹
-	public static final String  defaultSession   = "123456"; //РќРѕРјРµСЂ СЃРµСЃСЃРёРё РґР»СЏ РѕРґРёРЅРѕС‡РЅРѕР№ РёРіСЂС‹
+	/** Для одиночной игры */
+	public static final String  defaultUsername  = "player"; //Имя пользователя для одиночной игры
+	public static final String  defaultSession   = "123456"; //Номер сессии для одиночной игры
 
-	/** РќР°СЃС‚СЂРѕР№РєР° СЃРµСЂРІРµСЂРѕРІ */
+	/** Настройка серверов */
 	public static final String[] servers =
 	{
-		"voxelaria, localhost, 25565, net.minecraft.launchwrapper.Launch",
-		"v, localhost, 25565, net.minecraft.client.Minecraft",
+		"v, localhost, 25565, 1.5.x, 1, none",
+		"voxelaria, localhost, 25565, none, 2, net.minecraft.launchwrapper.Launch",
 	};
 
-	/** РќР°СЃС‚СЂРѕР№РєР° РїР°РЅРµР»Рё СЃСЃС‹Р»РѕРє **/
+	/** Настройка панели ссылок **/
 	public static final String[] links = 
 	{
-		//Р”Р»СЏ РѕС‚РєР»СЋС‡РµРЅРёСЏ РґРѕР±Р°РІСЊС‚Рµ РІ Р°РґСЂРµСЃ СЃСЃС‹Р»РєРё #
-		" Р РµРіРёСЃС‚СЂР°С†РёСЏ ::http://",
+		//Для отключения добавьте в адрес ссылки #
+		" Регистрация ::http://",
 	};
 
-	/** РќР°СЃС‚СЂРѕР№РєРё СЃС‚СЂСѓРєС‚СѓСЂС‹ Р»Р°СѓРЅС‡РµСЂР° */
+	/** Настройки структуры лаунчера */
+	public static boolean useAutoenter			 =  false; //Использовать функцию автозахода на выбранный сервер
 	
-	public static boolean useMulticlient		 =  true; //РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ С„СѓРЅРєС†РёСЋ "РїРѕ РєР»РёРµРЅС‚Сѓ РЅР° СЃРµСЂРІРµСЂ"
-	public static boolean useStandartWB			 =  true; //РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СЃС‚Р°РЅРґР°СЂС‚РЅС‹Р№ Р±СЂР°СѓР·РµСЂ РґР»СЏ РѕС‚РєСЂС‹С‚РёСЏ СЃСЃС‹Р»РѕРє
-	public static boolean usePersonal		 	 =  true; //РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Р›РёС‡РЅС‹Р№ РєР°Р±РёРЅРµС‚
-	public static boolean customframe 			 =  true; //РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РєР°СЃС‚РѕРјРЅС‹Р№ С„СЂРµР№Рј
-	public static boolean useOffline 			 =  true; //РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СЂРµР¶РёРј РѕС„С„Р»Р°Р№РЅ
-	public static boolean useConsoleHider		 =  true; //РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СЃРєСЂС‹С‚РёРµ РєРѕРЅСЃРѕР»Рё РєР»РёРµРЅС‚Р°
+	
+	public static boolean useMulticlient		 =  true; //Использовать функцию "по клиенту на сервер"
+	public static boolean useStandartWB			 =  true; //Использовать стандартный браузер для открытия ссылок
+	public static boolean usePersonal		 	 =  true; //Использовать Личный кабинет
+	public static boolean customframe 			 =  true; //Использовать кастомный фрейм
+	public static boolean useOffline 			 =  true; //Использовать режим оффлайн
+	public static boolean useConsoleHider		 =  true; //Использовать скрытие консоли клиента
+	public static boolean useModCheckerTimer	 =  true; //Каждые 30 секунд моды будут перепроверяться
 
-	public static final String protectionKey			 = "tH@nKy0u.d_@rT"; //РљР»СЋС‡ Р·Р°С‰РёС‚С‹ СЃРµСЃСЃРёРё. РќРёРєРѕРјСѓ РµРіРѕ РЅРµ РіРѕРІРѕСЂРёС‚Рµ.
+	public static final String protectionKey			 = "tH@nKy0u.d_@rT"; //Ключ защиты сессии. Никому его не говорите.
 
-	public static final boolean debug		 	 =  false;  //РћС‚РѕР±СЂР°Р¶Р°С‚СЊ РІСЃРµ РґРµР№СЃС‚РІРёСЏ Р»Р°СѓРЅС‡РµСЂР° (РѕС‚Р»Р°РґРєР°)(true/false)
-	public static final boolean drawTracers		 =  false; //РћС‚СЂРёСЃРѕРІС‹РІР°С‚СЊ РіСЂР°РЅРёС†С‹ СЌР»РµРјРµРЅС‚РѕРІ Р»Р°СѓРЅС‡РµСЂР°
-	public static final String masterVersion  	 = "final_RC4"; //Р’РµСЂСЃРёСЏ Р»Р°СѓРЅС‡РµСЂР°
+	public static final boolean debug		 	 =  false;  //Отображать все действия лаунчера (отладка)(true/false)
+	public static final boolean drawTracers		 =  false; //Отрисовывать границы элементов лаунчера
+	public static final String masterVersion  	 = "final_RC4"; //Версия лаунчера
+
+	public static final boolean patchDir 		 =  true; //Использовать автоматическую замену директории игры (true/false)
+	public static final String mcclass			 = "net.minecraft.client.Minecraft";
+	public static final String[] mcversions		 =
+	{
+		"1.7.3::af", "1.8.1::ag", "1.2.5::aj", "1.3.x::am", "1.4.x::an", "1.5.x::an"
+	};
 	
 	public static void onStart() { /*  */ }
 	public static void onStartMinecraft() {}

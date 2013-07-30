@@ -145,15 +145,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 					openURL(e.getURL().toString());
 				}
 			}
-		});
-		
-		try
-		{
-			personalBrowser.setPage(buildUrl("vote.php"));
-		} catch(IOException e)
-		{
-		}
-		
+		});	
 		
 		browser.setOpaque(false);
 		browser.setBorder(null);

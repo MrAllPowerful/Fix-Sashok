@@ -26,6 +26,7 @@ public class Settings
 	public static final String[] servers =
 	{
 		"v, localhost, 25565, 1.5.x, 1, none", //1 Для запуска старых версий
+		"vanila, localhost, 25565, none, 2, net.minecraft.client.main.Main", //1 Для запуска старых версий
 		"voxelaria, localhost, 25565, none, 2, net.minecraft.launchwrapper.Launch", //2 Для запуска 1.6.+ 
 	};
 
@@ -48,7 +49,7 @@ public class Settings
 	public static boolean useConsoleHider		 =  true; //Использовать скрытие консоли клиента
 	public static boolean useModCheckerTimer	 =  true; //Каждые 30 секунд моды будут перепроверяться
 
-	public static final String protectionKey	 = "tH@nKy0u.d_@rT"; //Ключ защиты сессии. Никому его не говорите.
+	public static final String protectionKey	 = "1234567890"; //Ключ защиты сессии. Никому его не говорите.
 
 	public static final boolean debug		 	 =  false;  //Отображать все действия лаунчера (отладка)(true/false)
 	public static final boolean drawTracers		 =  false; //Отрисовывать границы элементов лаунчера

@@ -153,7 +153,17 @@ public class Game extends JFrame
 		            params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[2]);
 		          }
 		          params.add("--tweakClass");
-		          params.add("cpw.mods.fml.common.launcher.FMLTweaker");
+		  		  int t = Integer.parseInt(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[6]);
+				  if (t == 1)
+				  {	  
+		            params.add("com.mumfrey.liteloader.launch.LiteLoaderTweaker");
+		            params.add("--cascadedTweaks");
+		            params.add("cpw.mods.fml.common.launcher.FMLTweaker");
+				  }
+				  else if (t == 2)
+				  {
+					params.add("cpw.mods.fml.common.launcher.FMLTweaker");
+				  }
 		          ProcessBuilder pb = new ProcessBuilder(params);
 		          pb.start();
 		          System.exit(0);

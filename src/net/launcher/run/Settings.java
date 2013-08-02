@@ -23,11 +23,19 @@ public class Settings
 	public static final String  defaultSession   = "123456"; //Номер сессии для одиночной игры
 
 	/** Настройка серверов */
+	// 1-> Имя папки клиента 2-> ip 3-> port 
+	// 4-> Версия клиента для автопатча директории (старые версии до 1.5.2)
+	// 5-> Тип запуска клиента 1 для старых версий 2 для новых
+	// 6-> Главный класс для запуска (новые версии) 
+	// net.minecraft.client.main.Main запуск чистого клиента
+	// net.minecraft.launchwrapper.Launch запуск клиента с Forge и Liteloader
+	// 7-> 1 для запуска клиента с Liteloader и Liteloader+forge
+	//     2 для запуска клиента с forge без Liteloader
 	public static final String[] servers =
 	{
-		"v, localhost, 25565, 1.5.x, 1, none", //1 Для запуска старых версий
-		"vanila, localhost, 25565, none, 2, net.minecraft.client.main.Main", //1 Для запуска старых версий
-		"voxelaria, localhost, 25565, none, 2, net.minecraft.launchwrapper.Launch", //2 Для запуска 1.6.+ 
+		"v, localhost, 25565, 1.5.x, 1, none",
+		"vanila, localhost, 25565, none, 2, net.minecraft.client.main.Mainю, 1",
+		"voxelaria, localhost, 25565, none, 2, net.minecraft.launchwrapper.Launch, 1",
 	};
 
 	/** Настройка панели ссылок **/

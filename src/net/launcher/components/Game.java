@@ -121,6 +121,7 @@ public class Game extends JFrame
 			try
 	           {
 		          String cps;
+		          int t = Integer.parseInt(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[5]);
 		          if (BaseUtils.getPlatform() == 2) cps = ";"; else cps = ":";
 				  int memory = BaseUtils.getPropertyInt("memory", 512);
 		          System.out.println("Running Minecraft");
@@ -134,7 +135,18 @@ public class Game extends JFrame
 		          params.add("-Djava.library.path="+jarpath+"natives");
 		          params.add("-cp");
 		          params.add(jarpath+net.launcher.utils.ThreadUtils.l+cps+jarpath+net.launcher.utils.ThreadUtils.e+cps+jarpath+net.launcher.utils.ThreadUtils.f+cps+jarpath+net.launcher.utils.ThreadUtils.m);
-		          params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[5]);
+		          if (t == 1)
+		          {
+		        	  params.add("net.minecraft.client.main.Main");  
+		          }
+		          else if (t == 2)
+		          {
+		        	  params.add("net.minecraft.launchwrapper.Launch");
+		          }
+		          else if (t == 3)
+		          {
+		        	  params.add("net.minecraft.launchwrapper.Launch");
+		          }
 		          params.add("--username");
 		          params.add(user);
 		          params.add("--session");
@@ -152,17 +164,21 @@ public class Game extends JFrame
 		            params.add("--port");
 		            params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[2]);
 		          }
-		          params.add("--tweakClass");
-		  		  int t = Integer.parseInt(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[6]);
 				  if (t == 1)
-				  {	  
-		            params.add("com.mumfrey.liteloader.launch.LiteLoaderTweaker");
-		            params.add("--cascadedTweaks");
-		            params.add("cpw.mods.fml.common.launcher.FMLTweaker");
+				  {
+                    
 				  }
 				  else if (t == 2)
 				  {
-					params.add("cpw.mods.fml.common.launcher.FMLTweaker");
+					params.add("--tweakClass");
+		            params.add("cpw.mods.fml.common.launcher.FMLTweaker");
+				  }
+				  else if (t == 3)
+				  {
+					params.add("--tweakClass");  
+		            params.add("com.mumfrey.liteloader.launch.LiteLoaderTweaker");
+		            params.add("--cascadedTweaks");
+		            params.add("cpw.mods.fml.common.launcher.FMLTweaker");
 				  }
 		          ProcessBuilder pb = new ProcessBuilder(params);
 		          pb.start();

@@ -127,6 +127,7 @@ public class Game extends JFrame
 		          System.out.println("Running Minecraft");
 		          String jarpath = BaseUtils.getMcDir().toString() + File.separator + ThreadUtils.b + File.separator;
 		          String minpath = BaseUtils.getMcDir().toString() + File.separator;
+		          String assets = BaseUtils.getAssetsDir().toString() + File.separator;
 		          ArrayList<String> params = new ArrayList<String>();
 		          if (BaseUtils.getPlatform() == 2) params.add("javaw"); else params.add("java");
 		          params.add("-Xmx" + memory + "m");
@@ -156,7 +157,7 @@ public class Game extends JFrame
 		          params.add("--gameDir");
 		          params.add(minpath);
 		          params.add("--assetsDir");
-		          params.add(minpath+File.separator+"assets");
+		          params.add(assets+"assets");
 		          if(Settings.useAutoenter && !Frame.main.offline.isSelected())
 		          {	  
 		            params.add("--server");

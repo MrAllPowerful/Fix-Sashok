@@ -85,7 +85,7 @@ public class ThreadUtils
 				Frame.main.setAuthComp();
 			} else
 			{
-				String version = answer.split("<br>")[0].split("<:>")[5];
+				String version = answer.split("<br>")[0].split("<:>")[6];
 				
 				if(!version.equals(Settings.masterVersion))
 				{
@@ -150,15 +150,28 @@ public class ThreadUtils
 	public static void runUpdater(String answer)
 	{
 		boolean zipupdate = false;
+		boolean zipupdate2 = false;
 		List<String> files = GuardUtils.updateMods_first(answer);
 		String binfolder = BaseUtils.getMcDir() + File.separator + b + File.separator;
+		String folder = BaseUtils.getAssetsDir() + File.separator;
 		
 		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[0]), Settings.protectionKey).equals(BaseUtils.getPropertyString(BaseUtils.getClientName() + "_zipmd5")) ||
 		!new File(binfolder + "natives").exists() || Frame.main.updatepr.isSelected()) { files.add(b+"/client.zip");  zipupdate = true; }
-		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[2]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + l))) files.add(b+"/"+l);
-		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[3]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + f))) files.add(b+"/"+f);
-		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[4]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + e))) files.add(b+"/"+e);
-		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[1]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + m))) files.add(b+"/"+m);
+		
+		int i = Integer.parseInt(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[4]);
+	    if (i > 1)
+	    {
+	      if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[1]), Settings.protectionKey).equals(BaseUtils.getPropertyString("assetsmd5")) ||
+		  !new File(folder + "assets").exists() || Frame.main.updatepr.isSelected()) { files.add(b+"/assets.zip");  zipupdate2 = true; }
+	    }
+        else
+        {
+        	
+        }
+		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[3]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + l))) files.add(b+"/"+l);
+		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[4]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + f))) files.add(b+"/"+f);
+		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[5]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + e))) files.add(b+"/"+e);
+		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[2]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + m))) files.add(b+"/"+m);
 
 		
 		BaseUtils.send("---- Filelist start ----");
@@ -168,7 +181,7 @@ public class ThreadUtils
 		}
 		BaseUtils.send("---- Filelist end ----");
 		BaseUtils.send("Running updater...");
-		updaterThread = new UpdaterThread(files, zipupdate, answer);
+		updaterThread = new UpdaterThread(files, zipupdate, zipupdate2, answer);
 		updaterThread.setName("Updater thread");
 		Frame.main.setUpdateState();
 		updaterThread.run();

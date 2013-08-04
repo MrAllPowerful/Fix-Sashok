@@ -9,7 +9,9 @@ import java.net.URLConnection;
 import java.security.MessageDigest;
 import java.util.List;
 
+import net.launcher.components.Frame;
 import net.launcher.components.Game;
+import net.launcher.run.Settings;
 
 
 public class UpdaterThread extends Thread
@@ -23,12 +25,14 @@ public class UpdaterThread extends Thread
 	public String state = "...";
 	public boolean error = false;
 	public boolean zipupdate = false;
+	public boolean zipupdate2 = false;
 	public String answer;
 	
-	public UpdaterThread(List<String> files, boolean zipupdate, String answer)
+	public UpdaterThread(List<String> files, boolean zipupdate, boolean zipupdate2, String answer)
 	{
 		this.files = files;
 		this.zipupdate = zipupdate;
+		this.zipupdate2 = zipupdate2;
 		this.answer = answer;
 	}
 	
@@ -91,6 +95,16 @@ public class UpdaterThread extends Thread
 			BaseUtils.setProperty(BaseUtils.getClientName() + "_zipmd5", GuardUtils.getMD5(BaseUtils.getMcDir().getAbsolutePath() + File.separator + "bin" + File.separator + "client.zip"));
 			ZipUtils.unzip();
 		}
+		
+		int i = Integer.parseInt(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[4]);
+	    if (i > 1)
+	    {			
+		  if(zipupdate2)
+		  {
+			BaseUtils.setProperty("assetsmd5", GuardUtils.getMD5(BaseUtils.getMcDir().getAbsolutePath() + File.separator + "bin" + File.separator + "assets.zip"));
+			ZipUtils2.unzip();
+		  }
+	    }	
 		new Game(answer);
 	} catch (Exception e) { e.printStackTrace(); state = e.toString(); error = true; }}
 }

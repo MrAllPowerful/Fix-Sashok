@@ -106,6 +106,22 @@ public class BaseUtils
 		}
 	}
 	
+	public static File getAssetsDir()
+	{
+		String home = System.getProperty("user.home", "");
+		String path = File.separator + Settings.baseconf + File.separator;
+		switch(getPlatform())
+		{
+			case 1: return new File(System.getProperty("user.home", "") + path);
+			case 2:
+				String appData = System.getenv(Settings.basedir);
+				if(appData != null) return new File(appData + path);
+				else return new File(home + path);
+			case 3: return new File(home, "Library/Application Support/" + path);
+			default: return new File(home + path);
+		}
+	}	
+	
 	public static File getMcDir()
 	{
 		String home = System.getProperty("user.home", "");

@@ -484,6 +484,10 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "eMail уже зарегестрирован";
 				error = true;
+			} else if(answer1.contains("Errorip"))
+			{
+				Frame.main.panel.tmpString = "С вашего ip уже была регистрация";
+				error = true;	
 			} else if(answer1.contains("loginErrorPovtor"))
 			{
 				Frame.main.panel.tmpString = "Пользователем с таким логином уже зарегистрирован";

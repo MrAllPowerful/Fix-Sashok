@@ -4,19 +4,12 @@ import static net.launcher.utils.BaseUtils.buildUrl;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStreamReader;
-import static java.lang.Thread.sleep;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.List;
-
 import net.launcher.components.Frame;
 import net.launcher.components.Game;
 import net.launcher.components.PersonalContainer;
 import net.launcher.run.Settings;
-import static net.launcher.utils.BaseUtils.buildUrl;
 
 public class ThreadUtils
 {
@@ -391,7 +384,8 @@ public class ThreadUtils
         
 	public static void register(final String name, final String pass, final String pass2,final String mail)
 	{
-		new Thread(){ public void run()
+		new Thread(){ @SuppressWarnings("unused")
+		public void run()
 		{
 			String answer1 = BaseUtils.execute(BaseUtils.buildUrl("reg.php"), new Object[]
 			{

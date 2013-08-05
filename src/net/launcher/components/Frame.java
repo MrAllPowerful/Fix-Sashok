@@ -31,7 +31,6 @@ import static net.launcher.utils.BaseUtils.*;
 
 
 import com.sun.awt.AWTUtilities;
-import static java.lang.Thread.sleep;
 
 public class Frame extends JFrame implements ActionListener, FocusListener
 {

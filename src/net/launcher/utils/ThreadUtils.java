@@ -384,7 +384,7 @@ public class ThreadUtils
         
 	public static void register(final String name, final String pass, final String pass2,final String mail)
 	{
-		new Thread(){ @SuppressWarnings("unused")
+		new Thread(){
 		public void run()
 		{
 			String answer1 = BaseUtils.execute(BaseUtils.buildUrl("reg.php"), new Object[]
@@ -399,10 +399,6 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Регистрация успешно завершена";
 				error = false;
-			} else if(answer1 == null)
-			{
-				Frame.main.panel.tmpString = "Ошибка подключения";
-				error = true;
 			} else if(answer1.contains("errorField"))
 			{
 				Frame.main.panel.tmpString = "Заполнены не все поля";

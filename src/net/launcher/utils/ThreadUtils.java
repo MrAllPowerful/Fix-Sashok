@@ -575,7 +575,4 @@ public class ThreadUtils
 			}
 		}}.start();
 	}
-
-	public static void register(String text, String text2) {	
-	}
 }

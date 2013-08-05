@@ -389,6 +389,7 @@ public class ThreadUtils
 		{
 			String answer1 = BaseUtils.execute(BaseUtils.buildUrl("reg.php"), new Object[]
 			{
+				"action", "register",
 			    "user",name, 
 			    "password",pass, 
 			    "password2",pass2, 
@@ -447,6 +448,10 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Заполнены не все поля";
 				error = true;
+			} else if(answer1.contains("registeroff"))
+			{
+				Frame.main.panel.tmpString = "Регистрация выключена!";
+				error = true;	
 			}else {
 	  	    	Frame.main.panel.tmpString = "Неизвестная ошибка (" + answer1 +")";
 				error = true;

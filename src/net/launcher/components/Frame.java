@@ -438,7 +438,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		if(e.getSource() == okreg)
 		{
                    setLoading();
-                   ThreadUtils.register(loginReg.getText(), passwordReg.getText(), password2Reg.getText(), mailReg.getText());
+                   ThreadUtils.register(loginReg.getText(), mailReg.getText());
                   //setServers();
 		}      
 		if(e.getSource() == closereg)

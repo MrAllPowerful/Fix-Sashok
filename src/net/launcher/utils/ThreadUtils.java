@@ -70,6 +70,14 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Ошибка подключения";
 				error = true;
+			} else if(answer.contains("errorLogin"))
+			{
+				Frame.main.panel.tmpString = "Ошибка авторизации (Логин, пароль)";
+				error = true;
+			} else if(answer.contains("badhash"))
+			{
+				Frame.main.panel.tmpString = "Ошибка: Неподдерживаемый способ шифровки";
+				error = true;	
 			} else if(answer.split("<br>").length != 3)
 			{
 				Frame.main.panel.tmpString = answer;
@@ -107,6 +115,14 @@ public class ThreadUtils
 					{
 						Frame.main.panel.tmpString = "Ошибка подключения";
 						error = true;
+					} else if(answer.contains("errorLogin"))
+					{
+						Frame.main.panel.tmpString = "Ошибка авторизации (Логин, пароль)";
+						error = true;
+					} else if(answer.contains("badhash"))
+					{
+						Frame.main.panel.tmpString = "Ошибка: Неподдерживаемый способ шифровки";
+						error = true;	
 					} else if(personal.split("<:>").length != 13 || personal.split("<:>")[0].length() != 7)
 					{
 						Frame.main.panel.tmpString = personal;
@@ -241,6 +257,14 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Ошибка подключения";
 				error = true;
+			} else if(answer.contains("errorLogin"))
+			{
+				Frame.main.panel.tmpString = "Ошибка авторизации (Логин, пароль)";
+				error = true;
+			} else if(answer.contains("badhash"))
+			{
+				Frame.main.panel.tmpString = "Ошибка: Неподдерживаемый способ шифровки";
+				error = true;	
 			} else if(!answer.contains("success"))
 			{
 				Frame.main.panel.tmpString = answer;
@@ -282,6 +306,14 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Ошибка подключения";
 				error = true;
+			} else if(answer.contains("errorLogin"))
+			{
+				Frame.main.panel.tmpString = "Ошибка авторизации (Логин, пароль)";
+				error = true;
+			} else if(answer.contains("badhash"))
+			{
+				Frame.main.panel.tmpString = "Ошибка: Неподдерживаемый способ шифровки";
+				error = true;	
 			} else if(!answer.contains("success"))
 			{
 				Frame.main.panel.tmpString = answer;
@@ -319,6 +351,14 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Ошибка подключения";
 				error = true;
+			} else if(answer.contains("errorLogin"))
+			{
+				Frame.main.panel.tmpString = "Ошибка авторизации (Логин, пароль)";
+				error = true;
+			} else if(answer.contains("badhash"))
+			{
+				Frame.main.panel.tmpString = "Ошибка: Неподдерживаемый способ шифровки";
+				error = true;	
 			} else if(!answer.contains("success"))
 			{
 				Frame.main.panel.tmpString = answer;
@@ -358,6 +398,14 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Ошибка подключения";
 				error = true;
+			} else if(answer.contains("errorLogin"))
+			{
+				Frame.main.panel.tmpString = "Ошибка авторизации (Логин, пароль)";
+				error = true;
+			} else if(answer.contains("badhash"))
+			{
+				Frame.main.panel.tmpString = "Ошибка: Неподдерживаемый способ шифровки";
+				error = true;	
 			} else if(!answer.contains("success"))
 			{
 				Frame.main.panel.tmpString = answer;
@@ -496,6 +544,14 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Ошибка подключения";
 				error = true;
+			} else if(answer.contains("errorLogin"))
+			{
+				Frame.main.panel.tmpString = "Ошибка авторизации (Логин, пароль)";
+				error = true;
+			} else if(answer.contains("badhash"))
+			{
+				Frame.main.panel.tmpString = "Ошибка: Неподдерживаемый способ шифровки";
+				error = true;	
 			} else if(!answer.contains("success"))
 			{
 				Frame.main.panel.tmpString = answer;

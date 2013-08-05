@@ -328,6 +328,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void actionPerformed(ActionEvent e)
 	{
 		if(e.getSource() == hide) setExtendedState(ICONIFIED);
@@ -439,7 +440,6 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		{
                    setLoading();
                    ThreadUtils.register(loginReg.getText(), passwordReg.getText(), password2Reg.getText(), mailReg.getText());
-                  //setServers();
 		}      
 		if(e.getSource() == closereg)
 		{

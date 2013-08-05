@@ -7,13 +7,14 @@ import javax.swing.border.EmptyBorder;
 import net.launcher.components.Align;
 import net.launcher.components.ButtonStyle;
 import net.launcher.components.ComponentStyle;
+import net.launcher.components.PassfieldStyle;
 import net.launcher.components.TextfieldStyle;
 
 public class RegTheme
 {
     public static TextfieldStyle	loginReg		= new TextfieldStyle(390, 164, 220, 36, "textfield", "font", 16F, Color.DARK_GRAY, Color.WHITE, new EmptyBorder(0, 10, 0, 10));
-	public static TextfieldStyle	passwordReg		= new TextfieldStyle(390, 208, 220, 36, "textfield", "font", 16F, Color.DARK_GRAY, Color.WHITE, new EmptyBorder(0, 10, 0, 10));
-	public static TextfieldStyle	password2Reg    = new TextfieldStyle(390, 254, 220, 36, "textfield", "font", 16F, Color.DARK_GRAY, Color.WHITE, new EmptyBorder(0, 10, 0, 10));
+	public static PassfieldStyle	passwordReg		= new PassfieldStyle(390, 208, 220, 36, "textfield", "font", 16F, Color.DARK_GRAY, Color.WHITE, "*", new EmptyBorder(0, 10, 0, 10));
+	public static PassfieldStyle	password2Reg    = new PassfieldStyle(390, 254, 220, 36, "textfield", "font", 16F, Color.DARK_GRAY, Color.WHITE, "*", new EmptyBorder(0, 10, 0, 10));
 	public static TextfieldStyle	mailReg		    = new TextfieldStyle(390, 300, 220, 36, "textfield", "font", 16F, Color.DARK_GRAY, Color.WHITE, new EmptyBorder(0, 10, 0, 10));
 	
 	public static ComponentStyle textloginReg		  = new ComponentStyle(380, 164, -1, -1, "font", 16F, Color.WHITE, true);

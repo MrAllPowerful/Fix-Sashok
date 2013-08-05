@@ -69,8 +69,8 @@ public class Frame extends JFrame implements ActionListener, FocusListener
                         
                         
                         public Textfield loginReg = new Textfield();
-                        public Textfield passwordReg = new Textfield();
-                        public Textfield password2Reg = new Textfield();
+                        public Passfield passwordReg = new Passfield();
+                        public Passfield password2Reg = new Passfield();
                         public Textfield mailReg = new Textfield();
                         public Button okreg = new Button("Регистрация");
                         public Button closereg = new Button("Отмена");

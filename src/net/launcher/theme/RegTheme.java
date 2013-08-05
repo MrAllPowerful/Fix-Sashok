@@ -6,14 +6,7 @@ import javax.swing.border.EmptyBorder;
 
 import net.launcher.components.Align;
 import net.launcher.components.ButtonStyle;
-import net.launcher.components.CheckboxStyle;
-import net.launcher.components.ComboboxStyle;
 import net.launcher.components.ComponentStyle;
-import net.launcher.components.DragbuttonStyle;
-import net.launcher.components.DraggerStyle;
-import net.launcher.components.LinklabelStyle;
-import net.launcher.components.PassfieldStyle;
-import net.launcher.components.ServerbarStyle;
 import net.launcher.components.TextfieldStyle;
 
 public class RegTheme

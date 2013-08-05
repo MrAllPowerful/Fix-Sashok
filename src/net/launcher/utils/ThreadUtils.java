@@ -4,13 +4,19 @@ import static net.launcher.utils.BaseUtils.buildUrl;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
+import static java.lang.Thread.sleep;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 
 import net.launcher.components.Frame;
 import net.launcher.components.Game;
 import net.launcher.components.PersonalContainer;
 import net.launcher.run.Settings;
+import static net.launcher.utils.BaseUtils.buildUrl;
 
 public class ThreadUtils
 {
@@ -146,7 +152,8 @@ public class ThreadUtils
 		t.setName("Auth thread");
 		t.start();
 	}
-	
+    
+        
 	public static void runUpdater(String answer)
 	{
 		boolean zipupdate = false;
@@ -378,6 +385,103 @@ public class ThreadUtils
 				Frame.main.panel.pc.dateofexpire = BaseUtils.unix2hrd(Long.parseLong(data[1]));
 				Frame.main.panel.pc.ugroup = i > 0 ? "Premium" : "VIP";
 				Frame.main.setPersonal(Frame.main.panel.pc);
+			}
+		}}.start();
+	}
+        
+	public static void register(final String name, final String pass, final String pass2,final String mail)
+	{
+		new Thread(){ public void run()
+		{
+			String answer1 = BaseUtils.execute(BaseUtils.buildUrl("reg.php"), new Object[]
+			{
+			    "user",name, 
+			    "password",pass, 
+			    "password2",pass2, 
+			    "email",mail
+			});
+			boolean error = false;
+			if(answer1.contains("done"))
+			{
+				Frame.main.panel.tmpString = "Регистрация успешно завершена";
+				error = false;
+			} else if(answer1 == null)
+			{
+				Frame.main.panel.tmpString = "Ошибка подключения";
+				error = true;
+			} else if(answer1.contains("errorField"))
+			{
+				Frame.main.panel.tmpString = "Заполнены не все поля";
+				error = true;
+			} else if(answer1.contains("errorMail"))
+			{
+				Frame.main.panel.tmpString = "eMail адрес введен некорректно";
+				error = true;
+			} else if(answer1.contains("errorMail2"))
+			{
+				Frame.main.panel.tmpString = "eMail адрес содержит запрещенные символы";
+				error = true;
+			} else if(answer1.contains("errorLoginSymbol"))
+			{
+				Frame.main.panel.tmpString = "Логин содержит запрещенные символы";
+				error = true;	
+			} else if(answer1.contains("passErrorSymbol"))
+			{
+				Frame.main.panel.tmpString = "Пароль содержит запрещенные символы";
+				error = true;
+			} else if(answer1.contains("errorPassToPass"))
+			{
+				Frame.main.panel.tmpString = "Пароль не совпадает";
+				error = true;	
+			} else if(answer1.contains("errorSmallLogin"))
+			{
+				Frame.main.panel.tmpString = "Логин должен содержать 2-20 символов";
+				error = true;
+			} else if(answer1.contains("errorPassSmall"))
+			{
+				Frame.main.panel.tmpString = "Пароль должен содержать 6-20 символов";
+				error = true;
+			} else if(answer1.contains("emailErrorPovtor"))
+			{
+				Frame.main.panel.tmpString = "eMail уже зарегестрирован";
+				error = true;
+			} else if(answer1.contains("loginErrorPovtor"))
+			{
+				Frame.main.panel.tmpString = "Пользователем с таким логином уже зарегистрирован";
+				error = true;
+			} else if(answer1.contains("errorMail"))
+			{
+				Frame.main.panel.tmpString = "Неправильный адрес eMail";
+				error = true;
+			} else if(answer1.contains("errorField"))
+			{
+				Frame.main.panel.tmpString = "Заполнены не все поля";
+				error = true;
+			}else {
+	  	    	Frame.main.panel.tmpString = "Неизвестная ошибка (" + answer1 +")";
+				error = true;
+	  	  	} 
+                        
+                        
+                        if(error)
+			{
+				Frame.main.panel.tmpColor = Color.red;
+				try
+				{
+					sleep(2000);
+				} catch (InterruptedException e) {}
+				Frame.main.setRegister();
+				return;
+			} else
+			{
+				Frame.main.panel.tmpColor = Color.GREEN;
+				try
+				{
+					sleep(2000);
+				} catch (InterruptedException e) {}
+				Frame.main.setAuthComp();
+				return;
+				
 			}
 		}}.start();
 	}

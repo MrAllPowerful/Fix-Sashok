@@ -31,6 +31,7 @@ import static net.launcher.utils.BaseUtils.*;
 
 
 import com.sun.awt.AWTUtilities;
+import static java.lang.Thread.sleep;
 
 public class Frame extends JFrame implements ActionListener, FocusListener
 {
@@ -42,6 +43,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 			public Button toGame = new Button("Копать");
 			public Button toPersonal = new Button("Войти в ЛК");
 			public Button toOptions = new Button("Настройки");
+            public Button toRegister = new Button("Регистрация");
 			public Checkbox savePass = new Checkbox("Сохранить пароль");
 			public JTextPane browser = new JTextPane();
 			public JTextPane personalBrowser = new JTextPane();
@@ -65,6 +67,15 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 				public Checkbox cleanDir = new Checkbox("Очистить папку");
 			public Checkbox fullscreen = new Checkbox("Запустить в полный экран");
 			public Textfield memory = new Textfield();
+                        
+                        
+                        public Textfield loginReg = new Textfield();
+                        public Textfield passwordReg = new Textfield();
+                        public Textfield password2Reg = new Textfield();
+                        public Textfield mailReg = new Textfield();
+                        public Button okreg = new Button("Регистрация");
+                        public Button closereg = new Button("Отмена");
+                        
 			public Button options_close = new Button("Закрыть");
 			
 			public Button buyCloak = new Button("Купить плащ");
@@ -114,6 +125,8 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		toPersonal.addActionListener(this);
 		toPersonal.setVisible(Settings.usePersonal);
 		toOptions.addActionListener(this);
+        toRegister.addActionListener(this);
+        toRegister.setVisible(Settings.useRegister);
 		login.setText("Логин...");
 		login.addActionListener(this);
 		login.addFocusListener(this);
@@ -164,6 +177,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		});
 		hide.addActionListener(this);
 		close.addActionListener(this);
+                
 		update_yes.addActionListener(this);
 		update_no.addActionListener(this);
 		servers.addMouseListener(new MouseListener()
@@ -182,6 +196,8 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		});
 		
 		options_close.addActionListener(this);
+                closereg.addActionListener(this);
+                okreg.addActionListener(this);
 		loadnews.addActionListener(this);
 		fullscreen.addActionListener(this);
 		
@@ -266,6 +282,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		panel.add(toGame);
 		panel.add(toPersonal);
 		panel.add(toOptions);
+                panel.add(toRegister);
 		panel.add(login);
 		panel.add(bpane);
 		panel.add(password);
@@ -358,7 +375,12 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		{
 			setOptions();
 		}
-		
+
+		if(e.getSource() == toRegister)
+		{
+			setRegister();
+		}             
+                
 		if(e.getSource() == options_close)
 		{
 			if(!memory.getText().equals(getPropertyString("memory")))
@@ -413,7 +435,17 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 			setLoading();
 			ThreadUtils.vaucher(vaucher.getText());
 		}
-		
+
+		if(e.getSource() == okreg)
+		{
+                   setLoading();
+                   ThreadUtils.register(loginReg.getText(), passwordReg.getText(), password2Reg.getText(), mailReg.getText());
+                  //setServers();
+		}      
+		if(e.getSource() == closereg)
+		{
+			setAuthComp();
+		}                
 		if(e.getSource() == buyVaucher){
 			openURL(Settings.buyVauncherLink);
 		}
@@ -473,6 +505,26 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		repaint();
 	}
 	
+	public void setRegister()
+	{
+		panel.remove(hide);
+		panel.remove(close);
+		BufferedImage screen = ImageUtils.sceenComponent(panel);
+		panel.removeAll();
+		addFrameComp();
+		panel.setRegister(screen);
+
+		panel.add(loginReg);
+                panel.add(passwordReg);
+                panel.add(password2Reg);
+                panel.add(mailReg);
+                
+                panel.add(okreg);
+		panel.add(closereg);
+
+		repaint();
+	}
+
 	public void setOptions()
 	{
 		panel.remove(hide);
@@ -492,8 +544,8 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 			panel.add(offline);
 		}
 		repaint();
-	}
-
+	}        
+        
 	public void setPersonal(PersonalContainer pc)
 	{
 		panel.removeAll();
@@ -567,4 +619,5 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		addFrameComp();
 		panel.setErrorState(s);
 	}
+
 }

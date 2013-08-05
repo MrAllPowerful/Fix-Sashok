@@ -1,5 +1,7 @@
 /*launcher, сборка за 30.10.2012, индекс: 121 */
 
+//Добавлена регистрация под webmcr (md5) в тестовом режиме, ставить на боевом сайте крайне не рекомендуется
+
 package net.launcher.run;
 
 public class Settings
@@ -46,6 +48,7 @@ public class Settings
 	/** Настройки структуры лаунчера */
 	public static boolean useAutoenter			 =  false; //Использовать функцию автозахода на выбранный сервер
 	
+	public static boolean useRegister		 	 =  true; //Использовать Регистрацию в лаунчере
 	
 	public static boolean useMulticlient		 =  true; //Использовать функцию "по клиенту на сервер"
 	public static boolean useStandartWB			 =  true; //Использовать стандартный браузер для открытия ссылок

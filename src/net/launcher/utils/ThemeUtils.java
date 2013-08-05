@@ -8,6 +8,7 @@ import net.launcher.components.LinkLabel;
 import net.launcher.run.Settings;
 import static net.launcher.theme.LoginTheme.*;
 import static net.launcher.theme.OptionsTheme.*;
+import static net.launcher.theme.RegTheme.*;
 import static net.launcher.theme.PersonalTheme.*;
 
 public class ThemeUtils extends BaseUtils
@@ -27,6 +28,7 @@ public class ThemeUtils extends BaseUtils
 		dbuttons.apply(main.hide, main.close);
 		toGame.apply(main.toGame);
 		toPersonal.apply(main.toPersonal);
+        toRegister.apply(main.toRegister);
 		toOptions.apply(main.toOptions);
 		savePass.apply(main.savePass);
 		login.apply(main.login);
@@ -42,7 +44,14 @@ public class ThemeUtils extends BaseUtils
 		offline.apply(main.offline);
 		memory.apply(main.memory);
 		close.apply(main.options_close);
-		
+                
+        closereg.apply(main.closereg);
+		loginReg.apply(main.loginReg);
+        passwordReg.apply(main.passwordReg);
+        password2Reg.apply(main.password2Reg);
+        mailReg.apply(main.mailReg);
+        okreg.apply(main.okreg);
+                
 		buyCloak.apply(main.buyCloak);
 		changeskin.apply(main.changeSkin);
 		buyVip.apply(main.buyVip);

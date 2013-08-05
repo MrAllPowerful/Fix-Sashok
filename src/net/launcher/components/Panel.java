@@ -20,6 +20,7 @@ import net.launcher.utils.UpdaterThread;
 import static net.launcher.components.Files.*;
 import static net.launcher.theme.LoginTheme.*;
 import static net.launcher.theme.OptionsTheme.*;
+import static net.launcher.theme.RegTheme.*;
 import static net.launcher.theme.PersonalTheme.*;
 import static net.launcher.theme.UpdaterTheme.*;
 import static net.launcher.utils.ImageUtils.*;
@@ -135,6 +136,24 @@ public class Panel extends JPanel
 			g.drawString("Настройки", titleX, titleY);
 			g.setFont(g.getFont().deriveFont(fontbasesize));
 			g.drawString("Память (в мегабайтах):", memory.x, memory.y - 5);
+		} else if(type == 55)
+		{
+			g.drawImage(tmpImage, 0, 0, getWidth(), getHeight(), null);
+			g.drawImage(genPanel(panelOpt.w, panelOpt.h, extpanel), panelOpt.x, panelOpt.y, panelOpt.w, panelOpt.h, null);
+			g.setFont(g.getFont().deriveFont(fonttitlesize));
+			g.setColor(OptionsTheme.memory.textColor);
+			g.drawString("Регистрация", titleX, titleY);
+                        
+                        /***************************************************************/
+			g.setFont(g.getFont().deriveFont(fontbasesize));
+                        String textloginReg1 = "Ник:";
+			g.drawString(textloginReg1, textloginReg.x-(g.getFontMetrics().stringWidth(textloginReg1)), textloginReg.y + 18);
+                        String textpasswordReg1 = "Пароль:";
+			g.drawString(textpasswordReg1, textpasswordReg.x-(g.getFontMetrics().stringWidth(textpasswordReg1)), textpasswordReg.y + 18);
+                        String textpassword2Reg1 = "Повторите пароль:";
+			g.drawString(textpassword2Reg1, textpassword2Reg.x-(g.getFontMetrics().stringWidth(textpassword2Reg1)), textpassword2Reg.y + 18);
+                        String textmailReg1 = "E-mail:";
+			g.drawString(textmailReg1, textmailReg.x-(g.getFontMetrics().stringWidth(textmailReg1)), textmailReg.y + 18);
 		} else if(type == 6)
 		{
 			g.drawImage(background_personal, 0, 0, getWidth(), getHeight(), null);
@@ -270,7 +289,25 @@ public class Panel extends JPanel
 		});
 		timer.start();
 	}
-	
+
+	public void setRegister(BufferedImage screen)
+	{
+		reset();
+		tmpImage = screen;
+		type = 55;
+		timer = new Timer(50, new ActionListener()
+		{	
+			public void actionPerformed(ActionEvent e)
+			{
+				tindex++;
+				if(tindex > 10) timer.stop();
+				tmpImage.getGraphics().drawImage(getByIndex(colors, 1, 0), 0, dragger.h, getWidth(), getHeight() - dragger.h, null);
+				repaint();
+			}
+		});
+		timer.start();
+	}        
+        
 	public void setOptions(BufferedImage screen)
 	{
 		reset();

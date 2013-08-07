@@ -29,7 +29,7 @@ public class SkinFilter extends FileFilter
 			if(extension.equals("png"))
 			{
 				BufferedImage img = ImageIO.read(f);
-				if(img.getWidth() == (filterType == 0 ? 64 : 22) && img.getHeight() == (filterType == 0 ? 32 : 17)) return true;
+				if(img.getWidth() == (filterType == 0 ? 64 : 64) && img.getHeight() == (filterType == 0 ? 32 : 32)) return true;
 			}
 		}} catch(Exception e){ e.printStackTrace(); }
 
@@ -38,7 +38,7 @@ public class SkinFilter extends FileFilter
 
 	public String getDescription()
 	{
-		return (filterType == 0 ? "Файл скина (64x32)" : "Файл плаща (22x17)");
+		return (filterType == 0 ? "Файл скина (64x32)" : "Файл плаща (64x32)");
 	}
 	
 	public static String getExtension(File f)

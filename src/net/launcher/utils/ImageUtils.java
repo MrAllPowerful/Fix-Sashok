@@ -114,11 +114,11 @@ public class ImageUtils
 
 	public static BufferedImage parseCloak(BufferedImage cloakIMG)
 	{
-		BufferedImage result = new BufferedImage(80, 128, 2);
+		BufferedImage result = new BufferedImage(128, 256, 2);
 		Graphics g = result.getGraphics();
-		int w = cloakIMG.getWidth() / 22;
-		int h = cloakIMG.getHeight()/ 17;
-		g.drawImage(cloakIMG.getSubimage(w, h,  w * 10, h * 16), 0, 0, 80, 128, null);
+		int w = cloakIMG.getWidth() / 64;
+		int h = cloakIMG.getHeight()/ 32;
+		g.drawImage(cloakIMG.getSubimage(w, h,  w * 10, h * 16), 0, 0, 128, 256, null);
 		return result;
 	}
 }

@@ -168,7 +168,7 @@ public class GuardUtils
 							modsArray = mods.split("<:>");
 							Game.mcapplet.stop();
 							Game.mcapplet.destroy();
-							//System.exit(0);
+							System.exit(0);
 						}
 					}
 					String dirFilesString = "";
@@ -206,7 +206,7 @@ public class GuardUtils
 				BaseUtils.send("ANTICHEAT: Strange mods detected");
 				Game.mcapplet.stop();
 				Game.mcapplet.destroy();
-				//System.exit(0);
+				System.exit(0);
 				return;
 			}
 			

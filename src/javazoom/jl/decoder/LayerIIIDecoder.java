@@ -1813,7 +1813,8 @@ final class LayerIIIDecoder implements FrameDecoder
 		}
 	}
 
-    private int counter = 0;
+    @SuppressWarnings("unused")
+	private int counter = 0;
 	private static final int		SSLIMIT=18;
 	private static final int		SBLIMIT=32;
     // Size of the table of whole numbers raised to 4/3 power.

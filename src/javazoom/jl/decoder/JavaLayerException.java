@@ -35,6 +35,10 @@ import java.io.PrintStream;
 public class JavaLayerException extends Exception
 {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Throwable		exception;
 	
 	

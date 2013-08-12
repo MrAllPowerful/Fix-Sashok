@@ -37,6 +37,7 @@ package javazoom.jl.decoder;
  * @author MDM	12/12/99
  */
 
+@SuppressWarnings("serial")
 public class BitstreamException extends JavaLayerException
 	implements BitstreamErrors
 {	

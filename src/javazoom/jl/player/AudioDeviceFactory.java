@@ -69,6 +69,7 @@ public abstract class AudioDeviceFactory
 	{
 		AudioDevice dev = null;
 		
+		@SuppressWarnings("rawtypes")
 		Class cls = null;
 		if (loader==null)
 		{

@@ -36,7 +36,7 @@ public class BaseUtils
 	public static final String http = "http://";
 	public static int logNumber = 0;
 	public static ConfigUtils config = new ConfigUtils("/launcher.config", getConfigName());
-	
+
 	public static Map<String, Font> fonts = new HashMap<String, Font>();
 	public static Map<String, BufferedImage> imgs = new HashMap<String, BufferedImage>();
 
@@ -45,7 +45,7 @@ public class BaseUtils
 		try
 		{
 			if(imgs.containsKey(name)) return (BufferedImage)imgs.get(name);
-			
+
 			BufferedImage img = ImageIO.read(BaseUtils.class.getResource("/net/launcher/theme/" + name + ".png"));
 			imgs.put(name, img);
 			send("Opened local image: " + name + ".png");
@@ -57,12 +57,12 @@ public class BaseUtils
 			return getEmptyImage();
 		}
 	}
-	
+
 	public static BufferedImage getEmptyImage()
 	{
 		return new BufferedImage(9, 9, BufferedImage.TYPE_INT_ARGB);
 	}
-	
+
 	public static void send(String msg)
 	{
 		String prefix = null;
@@ -73,7 +73,7 @@ public class BaseUtils
 		if(Settings.debug) System.out.println(prefix + msg);
 		logNumber++;
 	}
-	
+
 	public static void sendErr(String err)
 	{
 		String prefix = null;
@@ -84,12 +84,12 @@ public class BaseUtils
 		if(Settings.debug)System.err.println(prefix + err);
 		logNumber++;
 	}
-	
+
 	public static boolean contains(int x, int y, int xx, int yy, int w, int h)
 	{
 		return (x >= xx) && (y >= yy) && (x < xx + w) && (y < yy + h);
 	}
-	
+
 	public static File getConfigName()
 	{
 		String home = System.getProperty("user.home", "");
@@ -105,7 +105,7 @@ public class BaseUtils
 			default: return new File(home + path);
 		}
 	}
-	
+
 	public static File getAssetsDir()
 	{
 		String home = System.getProperty("user.home", "");
@@ -121,7 +121,7 @@ public class BaseUtils
 			default: return new File(home + path);
 		}
 	}	
-	
+
 	public static File getMcDir()
 	{
 		String home = System.getProperty("user.home", "");
@@ -141,74 +141,74 @@ public class BaseUtils
 	public static int getPlatform()
 	{
 		String osName = System.getProperty("os.name").toLowerCase();
-		
+
 		if(osName.contains("win")) return 2;
 		if(osName.contains("mac")) return 3;
 		if(osName.contains("solaris")) return 1;
 		if(osName.contains("sunos")) return 1;
 		if(osName.contains("linux")) return 0;
 		if(osName.contains("unix")) return 0;
-		
+
 		return 4;
 	}
-	
+
 	public static String buildUrl(String s)
 	{
 		return http + Settings.domain + "/" + Settings.siteDir + "/" + s;
 	}
-	
+
 	static
 	{
 		config.load();
 	}
-	
+
 	public static void setProperty(String s, Object value)
 	{
 		if(config.checkProperty(s)) config.changeProperty(s,value);
 		else config.put(s,value);
 	}
-	
+
 	public static String getPropertyString(String s)
 	{
 		if(config.checkProperty(s)) return config.getPropertyString(s);
 		return null;
 	}
-	
+
 	public static boolean getPropertyBoolean(String s)
 	{
 		if(config.checkProperty(s)) return config.getPropertyBoolean(s);
 		return false;
 	}
-	
+
 	public static int getPropertyInt(String s)
 	{
 		if(config.checkProperty(s)) return config.getPropertyInteger(s);
 		return 0;
 	}
-	
+
 	public static int getPropertyInt(String s, int d)
 	{
 		if(config.checkProperty(s)) return config.getPropertyInteger(s);
 		return d;
 	}
-	
+
 	public static boolean getPropertyBoolean(String s, boolean b)
 	{
 		if(config.checkProperty(s)) return config.getPropertyBoolean(s);
 		return b;
 	}
-	
+
 	public static String[] getServerNames()
 	{
 		String[] serverNames = new String[Settings.servers.length];
-		
+
 		for(int i = 0; i < Settings.servers.length; i++)
 		{
 			serverNames[i] = Settings.servers[i].split(", ")[0];
 		}
 		return serverNames;
 	}
-	
+
 	public static String getClientName()
 	{
 		if(Settings.useMulticlient)
@@ -238,7 +238,7 @@ public class BaseUtils
 		}
 		else file.delete();
 	}
-	
+
 	public static BufferedImage getSkinImage(String name)
 	{
 		try
@@ -253,7 +253,7 @@ public class BaseUtils
 			return getLocalImage("skin");
 		}
 	}
-	
+
 	public static BufferedImage getCloakImage(String name)
 	{
 		try
@@ -278,12 +278,12 @@ public class BaseUtils
 
 			InputStream is = PostUtils.post(url, params);
 			BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-		
+
 			StringBuffer response = new StringBuffer();
 			String line;
 			while((line=rd.readLine())!=null){ response.append(line); }
 			rd.close();
-		
+
 			String str1 = response.toString().trim();
 			send("Stream opened for " + surl + " completed, return answer: ");
 			send("	\"" + str1 + "\"");
@@ -300,7 +300,7 @@ public class BaseUtils
 		try
 		{
 			if(fonts.containsKey(name)) return (Font)fonts.get(name).deriveFont(size);
-			
+
 			send("Creating font: " + name);
 			Font font = Font.createFont(Font.TRUETYPE_FONT, BaseUtils.class.getResourceAsStream("/net/launcher/theme/" + name + ".ttf"));
 			fonts.put(name, font);
@@ -328,7 +328,7 @@ public class BaseUtils
 		main.panel.type = 3;
 		main.repaint();
 	}
-	
+
 	public static int servtype = 2;
 	public static String[] pollServer(String ip, int port)
 	{
@@ -400,7 +400,7 @@ public class BaseUtils
 		}
 		return res.toString();
 	}
-	
+
 	public static String genServerStatus(String[] args)
 	{
 		if (servtype == 1)
@@ -415,8 +415,8 @@ public class BaseUtils
 		else
 		if (servtype == 2)
 		{
-			
-		
+
+
 		if(args[0] == null && args[1] == null && args[2] == null) return "Сервер выключен";
 		if(args[1] != null && args[2] != null)
 		{
@@ -426,7 +426,7 @@ public class BaseUtils
 		}
 		return "Ошибка получения информации";
 	}
-	
+
 	public static BufferedImage genServerIcon(String[] args)
 	{
 		if(args[0] == null && args[1] == null && args[2] == null) return Files.light.getSubimage(0, 0, Files.light.getHeight(), Files.light.getHeight());
@@ -437,7 +437,7 @@ public class BaseUtils
 		}
 		return Files.light.getSubimage(Files.light.getHeight() * 3, 0, Files.light.getHeight(), Files.light.getHeight());
 	}
-	
+
 	public static void restart()
 	{
 		send("Restarting launcher...");
@@ -451,16 +451,16 @@ public class BaseUtils
 		}
 		System.exit(0);
 	}
-	
+
 	public static String unix2hrd(long unix)
 	{
 		return new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date(unix * 1000));
 	}
-	
+
 	public void delete(File file)
 	{
 		if(!file.exists()) return;
-		
+
 	    if(file.isDirectory())
 	    {
 	    	for(File f : file.listFiles()) delete(f);
@@ -470,7 +470,7 @@ public class BaseUtils
 	    	file.delete();
 	    }
 	}
-	
+
 	public static boolean checkLink(String l)
 	{
 		if(l.contains("#"))
@@ -479,7 +479,7 @@ public class BaseUtils
 		}		
 		return true;
 	}
-	
+
 	public static boolean existLink(String l)
 	{
 		if(l.contains("@"))
@@ -488,19 +488,19 @@ public class BaseUtils
 		}
 		return false;
 	}
-	
+
 	public static void patchDir(URLClassLoader cl)
 	{
 		if(!Settings.patchDir) return;
-		
+
 		try
 		{
 			String mcver = Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[3];
-			
+
 			send("Changing client dir...");
 			send("Client: " + getClientName() + "::" + mcver);
 			send("Searching in version database...");
-			
+
 			for(int j = 0; j < Settings.mcversions.length; j++)
 			{
 				if(mcver.equals(Settings.mcversions[j].split("::")[0]))
@@ -520,15 +520,15 @@ public class BaseUtils
 			sendErr("Error: Client field not correct.");
 		}
 	}
-	
+
 	public static void updateLauncher() throws Exception
 	{
 		send("Launcher updater started...");
 		send("Downloading file: " + Settings.updateFile);
-		
+
 		InputStream is = new BufferedInputStream(new URL(Settings.updateFile).openStream());
 		FileOutputStream fos = new FileOutputStream(Starter.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
-		
+
 		int bs = 0;
 		byte[] buffer = new byte[65536];
 		MessageDigest md5 = MessageDigest.getInstance("MD5");

@@ -35,7 +35,7 @@ import com.sun.awt.AWTUtilities;
 public class Frame extends JFrame implements ActionListener, FocusListener
 {
 	private static final long serialVersionUID = 1L;
-	
+
 	public static Frame main;
 		public Panel panel = new Panel(0);
 			public Dragger dragger = new Dragger();
@@ -52,15 +52,15 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 			public Passfield password = new Passfield();
 			public Combobox servers = new Combobox(getServerNames(), 0);
 			public Serverbar serverbar = new Serverbar();
-			
+
 			public LinkLabel[] links = new LinkLabel[Settings.links.length];
-			
+
 			public Dragbutton hide = new Dragbutton();
 			public Dragbutton close = new Dragbutton();
-			
+
 			public Button update_yes = new Button("Обновить");
 			public Button update_no = new Button("Выход");
-			
+
 			public Checkbox loadnews = new Checkbox("Загружать новости");
 			public Checkbox updatepr = new Checkbox("Принудительное обновление");
 				public Checkbox cleanDir = new Checkbox("Очистить папку");
@@ -76,7 +76,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
                         public Button closereg = new Button("Отмена");
                         
 			public Button options_close = new Button("Закрыть");
-			
+
 			public Button buyCloak = new Button("Купить плащ");
 			public Button changeSkin = new Button("Сменить скин");
 			public Textfield vaucher = new Textfield();
@@ -91,7 +91,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 			public Button toGamePersonal = new Button("В игру");
 
 			public Checkbox offline = new Checkbox("Режим оффлайн");
-	
+
 	public Frame()
 	{	
 		//Подготовка окна
@@ -103,14 +103,14 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		if(isUndecorated())
 		AWTUtilities.setWindowOpaque(this, false);
 		setResizable(false);
-		
+
 		for(int i = 0; i < links.length; i++)
 		{
 			String[] s = Settings.links[i].split("::");
 			links[i] = new LinkLabel(s[0], s[1]);
 			links[i].setEnabled(BaseUtils.checkLink(s[1]));
 		}
-		
+
 		try
 		{
 			ThemeUtils.updateStyle(this);
@@ -118,7 +118,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		{
 			e.printStackTrace();
 		}
-		
+
 		//Добавление слушателей
 		toGame.addActionListener(this);
 		toPersonal.addActionListener(this);
@@ -133,15 +133,15 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		password.setEchoChar('*');
 		password.addActionListener(this);
 		password.addFocusListener(this);
-		
+
 		bpane.setOpaque(false);
 		bpane.getViewport().setOpaque(false);
 		bpane.setBorder(null);
-		
+
 		personalBpane.setOpaque(false);
 		personalBpane.getViewport().setOpaque(false);
 		personalBpane.setBorder(null);
-		
+
 		personalBrowser.setOpaque(false);
 		personalBrowser.setBorder(null);
 		personalBrowser.setContentType("text/html");
@@ -157,7 +157,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 				}
 			}
 		});	
-		
+
 		browser.setOpaque(false);
 		browser.setBorder(null);
 		browser.setContentType("text/html");
@@ -188,18 +188,18 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 			public void mouseClicked(MouseEvent e)
 			{
 				if(servers.getPressed() || e.getButton() != MouseEvent.BUTTON1) return;
-				
+
 				ThreadUtils.pollSelectedServer();
 				setProperty("server", servers.getSelectedIndex());
 			}
 		});
-		
+
 		options_close.addActionListener(this);
                 closereg.addActionListener(this);
                 okreg.addActionListener(this);
 		loadnews.addActionListener(this);
 		fullscreen.addActionListener(this);
-		
+
 		buyCloak.addActionListener(this);
 		changeSkin.addActionListener(this);
 		vaucherButton.addActionListener(this);
@@ -209,13 +209,13 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		buyPremium.addActionListener(this);
 		buyUnban.addActionListener(this);
 		toGamePersonal.addActionListener(this);
-		
+
 		login.setText(getPropertyString("login"));
 		String pass = getPropertyString("password");
 		password.setText(pass == null ? "itspassword" : EncodingUtils.decode(pass));
 		savePass.setSelected(pass != null);
 		servers.setSelectedIndex(getPropertyInt("server"));
-		
+
 		exchangeFrom.getDocument().addDocumentListener(new DocumentListener()
 		{
 			public void changedUpdate(DocumentEvent e)
@@ -240,11 +240,11 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 				} catch(Exception e){ exchangeTo.setText("<N/A>"); }
 			}
 		});
-		
+
 		addAuthComp();
 		addFrameComp();
 		add(panel, BorderLayout.CENTER);
-		
+
 		pack();
 		setLocationRelativeTo(null);
 		validate();
@@ -261,7 +261,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 			panel.add(dragger);
 		}
 	}
-	
+
 	public void setAuthComp()
 	{
 		panel.type = 0;
@@ -303,7 +303,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 				send("Fail setting LaF");
 			}
 			send("Running debug methods...");
-			
+
 			new Runnable()
 			{
 				public void run()
@@ -311,9 +311,9 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 					Settings.onStart();
 				}
 			}.run();
-			
+
 			main = new Frame();
-			
+
 			ThreadUtils.updateNewsPage(buildUrl("news.php"));
 			ThreadUtils.pollSelectedServer();
 			try
@@ -327,7 +327,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 			throwException(e, main);
 		}
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public void actionPerformed(ActionEvent e)
 	{
@@ -353,7 +353,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 				panel.repaint();
 			}}}.start();
 		}
-		
+
 		if(e.getSource() == login || e.getSource() == password || e.getSource() == toGame || e.getSource() == toPersonal || e.getSource() == toGamePersonal)
 		{
 			boolean personal = false;
@@ -370,7 +370,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 			panel.setAuthState(screen);
 			ThreadUtils.auth(personal);
 		}
-		
+
 		if(e.getSource() == toOptions)
 		{
 			setOptions();
@@ -394,42 +394,42 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 			}
 			setAuthComp();
 		}
-		
+
 		if(e.getSource() == fullscreen || e.getSource() == loadnews || e.getSource() == offline)
 		{
 			setProperty("fullscreen", fullscreen.isSelected());
 			setProperty("loadnews",   loadnews.isSelected());
 			setProperty("offline",    offline.isSelected());
 		}
-		
+
 		if(e.getSource() == buyCloak)
 		{
 			JFileChooser chooser = new JFileChooser();
 			chooser.setFileFilter(new SkinFilter(1));
 			chooser.setAcceptAllFileFilterUsed(false);
 			int i = chooser.showDialog(main, "Купить");
-			
+
 			if(i == JFileChooser.APPROVE_OPTION)
 			{
 				setLoading();
 				ThreadUtils.upload(chooser.getSelectedFile(), 1);
 			}
 		}
-		
+
 		if(e.getSource() == changeSkin)
 		{
 			JFileChooser chooser = new JFileChooser();
 			chooser.setFileFilter(new SkinFilter(0));
 			chooser.setAcceptAllFileFilterUsed(false);
 			int i = chooser.showDialog(main, "Сменить");
-			
+
 			if(i == JFileChooser.APPROVE_OPTION)
 			{
 				setLoading();
 				ThreadUtils.upload(chooser.getSelectedFile(), 0);
 			}
 		}
-		
+
 		if(e.getSource() == vaucherButton)
 		{
 			setLoading();
@@ -448,25 +448,25 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		if(e.getSource() == buyVaucher){
 			openURL(Settings.buyVauncherLink);
 		}
-		
+
 		if(e.getSource() == exchangeButton)
 		{
 			setLoading();
 			ThreadUtils.exchange(exchangeFrom.getText());
 		}
-		
+
 		if(e.getSource() == buyVip)
 		{
 			setLoading();
 			ThreadUtils.buyVip(0);
 		}
-		
+
 		if(e.getSource() == buyPremium)
 		{
 			setLoading();
 			ThreadUtils.buyVip(1);
 		}
-		
+
 		if(e.getSource() == buyUnban)
 		{
 			setLoading();
@@ -495,7 +495,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		panel.add(update_no);
 		repaint();
 	}
-	
+
 	public void setUpdateState()
 	{
 		panel.removeAll();
@@ -503,7 +503,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		panel.setUpdateStateMC();
 		repaint();
 	}
-	
+
 	public void setRegister()
 	{
 		panel.remove(hide);
@@ -549,7 +549,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 	{
 		panel.removeAll();
 		addFrameComp();
-		
+
 		if(pc.canUploadCloak) panel.add(buyCloak);
 		if(pc.canUploadSkin) panel.add(changeSkin);
 		if(pc.canActivateVaucher)
@@ -558,25 +558,25 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 			panel.add(vaucherButton);
 			panel.add(buyVaucher);
 		}
-		
+
 		if(pc.canExchangeMoney)
 		{
 			panel.add(exchangeFrom);
 			panel.add(exchangeTo);
 			panel.add(exchangeButton);
 		}
-		
+
 		if(pc.canBuyVip) panel.add(buyVip);
 		if(pc.canBuyPremium) panel.add(buyPremium);
-		
+
 		if(pc.canBuyUnban) panel.add(buyUnban);
-		
+
 		buyVip.setText("Купить VIP");
 		buyVip.setEnabled(true);
-		
+
 		buyPremium.setText("Купить Premium");
 		buyPremium.setEnabled(true);
-		
+
 		if(pc.ugroup.equals("Banned"))
 		{
 			buyPremium.setEnabled(false);
@@ -595,13 +595,13 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		{
 			buyUnban.setEnabled(false);
 		}
-		
+
 		panel.add(toGamePersonal);
-		
+
 		panel.setPersonalState(pc);
 		repaint();
 	}
-	
+
 	public void setLoading()
 	{
 		panel.remove(hide);
@@ -611,7 +611,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		addFrameComp();
 		panel.setLoadingState(screen, "Выполнение...");
 	}
-	
+
 	public void setError(String s)
 	{
 		panel.removeAll();

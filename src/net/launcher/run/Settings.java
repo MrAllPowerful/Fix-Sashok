@@ -23,7 +23,8 @@ public class Settings
 	/** Для одиночной игры */
 	public static final String  defaultUsername  = "player"; //Имя пользователя для одиночной игры
 	public static final String  defaultSession   = "123456"; //Номер сессии для одиночной игры
-
+	public static String iMusicname = "001.mp3";
+	
 	/** Настройка серверов */
 	// 1-> Имя папки клиента 2-> ip 3-> port 
 	// 4-> Версия клиента для автопатча директории (старые версии до 1.5.2)

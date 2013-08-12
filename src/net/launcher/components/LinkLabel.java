@@ -14,10 +14,10 @@ import net.launcher.utils.BaseUtils;
 public class LinkLabel extends JLabel
 {	
 	private static final long serialVersionUID = 1L;
-	
+
 	public Color idleColor = Color.WHITE;
 	public Color activeColor = Color.WHITE;
-	
+
 	public LinkLabel(String title, final String url)
 	{
 		setText(title);
@@ -37,7 +37,7 @@ public class LinkLabel extends JLabel
 			}
 		});
 	}
-	
+
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);

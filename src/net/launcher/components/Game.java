@@ -66,6 +66,7 @@ public class Game extends JFrame
 			setForeground(Color.BLACK);
 			setBackground(Color.BLACK);
 			URL[] urls = new URL[4];
+			
 
 			urls[0] = new File(bin, net.launcher.utils.ThreadUtils.l).toURI().toURL();
 			urls[1] = new File(bin, net.launcher.utils.ThreadUtils.e).toURI().toURL();

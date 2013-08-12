@@ -10,12 +10,11 @@ import java.net.URLClassLoader;
 import java.util.HashMap;
 import java.util.Map;
 
-//import net.launcher.run.Settings;
-//import net.launcher.utils.BaseUtils;
+import net.launcher.run.Settings;
+import net.launcher.utils.BaseUtils;
 
 public class Launcher extends Applet implements AppletStub
 {
-	public static void onStartMinecraft() {}
 	private static final long serialVersionUID = 1L;
 	private Applet mcApplet = null;
 	public Map<String, String> customParameters = new HashMap<String, String>();
@@ -43,7 +42,7 @@ public class Launcher extends Applet implements AppletStub
 		{
 			public void run()
 			{
-				onStartMinecraft();
+				Settings.onStartMinecraft();
 			}
 		}.run();
 
@@ -52,7 +51,7 @@ public class Launcher extends Applet implements AppletStub
 		System.setProperty("net.java.games.input.librarypath", bin + "natives");
 		try
 		{
-			//BaseUtils.patchDir(cl);
+			BaseUtils.patchDir(cl);
 			Class <?> Mine = cl.loadClass("net.minecraft.client.MinecraftApplet");
 			Applet applet = (Applet)Mine.newInstance();
 			mcApplet = applet;
@@ -87,8 +86,8 @@ public class Launcher extends Applet implements AppletStub
 	{
 		if (mcApplet != null)
 		{
-			//BaseUtils.send("Redirecting to Minecraft...");
-			//BaseUtils.send("--------------------------------");
+			BaseUtils.send("Redirecting to Minecraft...");
+			BaseUtils.send("--------------------------------");
 			mcApplet.start();
 			return;
 		}

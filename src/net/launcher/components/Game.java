@@ -149,6 +149,10 @@ public class Game extends JFrame
 		          {
 		        	  params.add("net.minecraft.launchwrapper.Launch");
 		          }
+		          if(BaseUtils.getPropertyBoolean("fullscreen"))
+		          {	  
+		          params.add("--fullscreen");
+		          }
 		          params.add("--username");
 		          params.add(user);
 		          params.add("--session");

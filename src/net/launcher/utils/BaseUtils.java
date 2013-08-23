@@ -1,4 +1,4 @@
-package net.launcher.utils;
+﻿package net.launcher.utils;
 
 import java.awt.Font;
 import java.awt.image.BufferedImage;
@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.URI;
@@ -489,35 +490,31 @@ public class BaseUtils
 		return false;
 	}
 
-	public static void patchDir(URLClassLoader cl)
-	{
+    /**
+     * @author D_ART
+     * 
+     * @param cl URLClassLoader
+     */
+	public static void patchDir( URLClassLoader cl ) {
 		if(!Settings.patchDir) return;
-
-		try
-		{
-			String mcver = Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[3];
+		
+		try {
+			Class< ? > c = cl.loadClass( "net.minecraft.client.Minecraft" );
 
 			send("Changing client dir...");
-			send("Client: " + getClientName() + "::" + mcver);
-			send("Searching in version database...");
-
-			for(int j = 0; j < Settings.mcversions.length; j++)
-			{
-				if(mcver.equals(Settings.mcversions[j].split("::")[0]))
+			
+			for ( Field f : c.getDeclaredFields() ) {       
+				if( f.getType().getName().equals( "java.io.File" ) & Modifier.isPrivate( f.getModifiers() ) 
+						& Modifier.isStatic( f.getModifiers() )) 
 				{
-					send("Index #" + j + ", Patching...");
-		            Field f = cl.loadClass(Settings.mcclass).getDeclaredField(Settings.mcversions[j].split("::")[1]);
-		            Field.setAccessible(new Field[] { f }, true);
-		            f.set(null, getMcDir());
-		            send("File patched: " + Settings.mcclass + "::" + Settings.mcversions[j].split("::")[1]);
+					f.setAccessible( true );
+					f.set( null, getMcDir() );
 		            send("Patching succesful, herobrine removed.");
 		            return;
 				}
 			}
-			sendErr("Error: Client version not correct.");
-		} catch(Exception e)
-		{
-			sendErr("Error: Client field not correct.");
+		}catch ( Exception e ) {
+			sendErr( "Client not patched" );
 		}
 	}
 

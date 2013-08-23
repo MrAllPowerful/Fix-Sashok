@@ -19,7 +19,7 @@ public class Settings
 	public static final String  siteDir		  	 = "site";//Папка с файлами лаунчера на сайте
 	public static final String  updateFile		 = "http://alexandrage.dyndns.org/site/Launcher.jar";//Ссылка на файл обновления лаунчера
 	public static final String 	buyVauncherLink  = "http://plati.ru/"; //Ссылка на страницу покупки ваучеров
-
+	
 	/** Для одиночной игры */
 	public static final String  defaultUsername  = "player"; //Имя пользователя для одиночной игры
 	public static final String  defaultSession   = "123456"; //Номер сессии для одиночной игры
@@ -66,12 +66,8 @@ public class Settings
 	public static final String masterVersion  	 = "final_RC4"; //Версия лаунчера
 
 	public static final boolean patchDir 		 =  true; //Использовать автоматическую замену директории игры (true/false)
-	public static final String mcclass			 = "net.minecraft.client.Minecraft";
-	public static final String[] mcversions		 =
-	{
-		"1.7.3::af", "1.8.1::ag", "1.2.5::aj", "1.3.x::am", "1.4.x::an", "1.5.x::an"
-	};
 	
-	public static void onStart() { /*  */ }
+	public static void onStart() {}
 	public static void onStartMinecraft() {}
+	
 }

@@ -170,11 +170,7 @@ public class Game extends JFrame
 		            params.add("--port");
 		            params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[2]);
 		          }
-				  if (t == 1)
-				  {
-                    
-				  }
-				  else if (t == 2)
+				  if (t == 2)
 				  {
 					params.add("--tweakClass");
 		            params.add("cpw.mods.fml.common.launcher.FMLTweaker");
@@ -189,9 +185,7 @@ public class Game extends JFrame
 		          ProcessBuilder pb = new ProcessBuilder(params);
 		          pb.start();
 		          System.exit(0);
-		       } catch (Exception e) {
-		          ;
-		       }
+		       } catch (Exception e) {}
 		}
 	}
 }

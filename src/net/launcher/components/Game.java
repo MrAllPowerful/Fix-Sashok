@@ -77,10 +77,11 @@ public class Game extends JFrame
 			mcapplet.customParameters.put("username", user);
 			mcapplet.customParameters.put("sessionid", session);
 			mcapplet.customParameters.put("stand-alone", "true");
-			if(Settings.useAutoenter && !Frame.main.offline.isSelected())
-			{
-				mcapplet.customParameters.put("server", Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[1]);
-				mcapplet.customParameters.put("port", Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[2]);
+			if(Settings.useAutoenter) {
+				if (!Frame.main.offline.isSelected()) {
+					mcapplet.customParameters.put("server", Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[1]);
+					mcapplet.customParameters.put("port", Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[2]);
+				}
 			}
 			setTitle(Settings.titleInGame);
 			if(Frame.main != null)
@@ -159,13 +160,14 @@ public class Game extends JFrame
 		          params.add(minpath);
 		          params.add("--assetsDir");
 		          params.add(assets+"assets");
-		          if(Settings.useAutoenter && !Frame.main.offline.isSelected())
-		          {	  
-		            params.add("--server");
-		            params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[1]);
-		            params.add("--port");
-		            params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[2]);
-		          }
+		          if(Settings.useAutoenter) {
+					if (!Frame.main.offline.isSelected()) {	  
+					    params.add("--server");
+					    params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[1]);
+					    params.add("--port");
+					    params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[2]);
+					  }
+				}
 				  if (t == 2)
 				  {
 					params.add("--tweakClass");

@@ -141,11 +141,7 @@ public class Game extends JFrame
 		          {
 		        	  params.add("net.minecraft.client.main.Main");  
 		          }
-		          else if (t == 2)
-		          {
-		        	  params.add("net.minecraft.launchwrapper.Launch");
-		          }
-		          else if (t == 3)
+		          else
 		          {
 		        	  params.add("net.minecraft.launchwrapper.Launch");
 		          }

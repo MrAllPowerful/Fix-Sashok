@@ -74,6 +74,18 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Ошибка авторизации (Логин, пароль)";
 				error = true;
+			} else if(answer.contains("error"))
+			{
+				Frame.main.panel.tmpString = "Ошибка sql";
+				error = true;
+			} else if(answer.contains("temp"))
+			{
+				Frame.main.panel.tmpString = "Подождите, перед следущей попыткой ввода (Логин Пароль)";
+				error = true;
+			} else if(answer.contains("noactive"))
+			{
+				Frame.main.panel.tmpString = "Ваш аккаунт не активирован!";
+				error = true;	
 			} else if(answer.contains("badhash"))
 			{
 				Frame.main.panel.tmpString = "Ошибка: Неподдерживаемый способ шифровки";
@@ -119,6 +131,18 @@ public class ThreadUtils
 					{
 						Frame.main.panel.tmpString = "Ошибка авторизации (Логин, пароль)";
 						error = true;
+					} else if(answer.contains("error"))
+					{
+						Frame.main.panel.tmpString = "Ошибка sql";
+						error = true;
+					} else if(answer.contains("temp"))
+					{
+						Frame.main.panel.tmpString = "Подождите, перед следущей попыткой ввода (Логин Пароль)";
+						error = true;
+					} else if(answer.contains("noactive"))
+					{
+						Frame.main.panel.tmpString = "Ваш аккаунт не активирован!";
+						error = true;	
 					} else if(answer.contains("badhash"))
 					{
 						Frame.main.panel.tmpString = "Ошибка: Неподдерживаемый способ шифровки";
@@ -261,6 +285,18 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Ошибка авторизации (Логин, пароль)";
 				error = true;
+			} else if(answer.contains("error"))
+			{
+				Frame.main.panel.tmpString = "Ошибка sql";
+				error = true;
+			} else if(answer.contains("temp"))
+			{
+				Frame.main.panel.tmpString = "Подождите, перед следущей попыткой ввода (Логин Пароль)";
+				error = true;
+			} else if(answer.contains("noactive"))
+			{
+				Frame.main.panel.tmpString = "Ваш аккаунт не активирован!";
+				error = true;	
 			} else if(answer.contains("badhash"))
 			{
 				Frame.main.panel.tmpString = "Ошибка: Неподдерживаемый способ шифровки";
@@ -310,6 +346,18 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Ошибка авторизации (Логин, пароль)";
 				error = true;
+			} else if(answer.contains("error"))
+			{
+				Frame.main.panel.tmpString = "Ошибка sql";
+				error = true;
+			} else if(answer.contains("temp"))
+			{
+				Frame.main.panel.tmpString = "Подождите, перед следущей попыткой ввода (Логин Пароль)";
+				error = true;
+			} else if(answer.contains("noactive"))
+			{
+				Frame.main.panel.tmpString = "Ваш аккаунт не активирован!";
+				error = true;	
 			} else if(answer.contains("badhash"))
 			{
 				Frame.main.panel.tmpString = "Ошибка: Неподдерживаемый способ шифровки";
@@ -355,6 +403,18 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Ошибка авторизации (Логин, пароль)";
 				error = true;
+			} else if(answer.contains("error"))
+			{
+				Frame.main.panel.tmpString = "Ошибка sql";
+				error = true;
+			} else if(answer.contains("temp"))
+			{
+				Frame.main.panel.tmpString = "Подождите, перед следущей попыткой ввода (Логин Пароль)";
+				error = true;
+			} else if(answer.contains("noactive"))
+			{
+				Frame.main.panel.tmpString = "Ваш аккаунт не активирован!";
+				error = true;	
 			} else if(answer.contains("badhash"))
 			{
 				Frame.main.panel.tmpString = "Ошибка: Неподдерживаемый способ шифровки";
@@ -402,6 +462,18 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Ошибка авторизации (Логин, пароль)";
 				error = true;
+			} else if(answer.contains("error"))
+			{
+				Frame.main.panel.tmpString = "Ошибка sql";
+				error = true;
+			} else if(answer.contains("temp"))
+			{
+				Frame.main.panel.tmpString = "Подождите, перед следущей попыткой ввода (Логин Пароль)";
+				error = true;
+			} else if(answer.contains("noactive"))
+			{
+				Frame.main.panel.tmpString = "Ваш аккаунт не активирован!";
+				error = true;	
 			} else if(answer.contains("badhash"))
 			{
 				Frame.main.panel.tmpString = "Ошибка: Неподдерживаемый способ шифровки";
@@ -500,6 +572,10 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Заполнены не все поля";
 				error = true;
+			} else if(answer1.contains("error"))
+			{
+				Frame.main.panel.tmpString = "Ошибка sql";
+				error = true;
 			} else if(answer1.contains("registeroff"))
 			{
 				Frame.main.panel.tmpString = "Регистрация выключена!";
@@ -552,6 +628,18 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Ошибка авторизации (Логин, пароль)";
 				error = true;
+			} else if(answer.contains("error"))
+			{
+				Frame.main.panel.tmpString = "Ошибка sql";
+				error = true;
+			} else if(answer.contains("temp"))
+			{
+				Frame.main.panel.tmpString = "Подождите, перед следущей попыткой ввода (Логин Пароль)";
+				error = true;
+			} else if(answer.contains("noactive"))
+			{
+				Frame.main.panel.tmpString = "Ваш аккаунт не активирован!";
+				error = true;	
 			} else if(answer.contains("badhash"))
 			{
 				Frame.main.panel.tmpString = "Ошибка: Неподдерживаемый способ шифровки";

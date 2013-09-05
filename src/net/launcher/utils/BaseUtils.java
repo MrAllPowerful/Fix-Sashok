@@ -1,4 +1,4 @@
-﻿package net.launcher.utils;
+package net.launcher.utils;
 
 import java.awt.Font;
 import java.awt.image.BufferedImage;

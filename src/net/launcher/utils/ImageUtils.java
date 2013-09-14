@@ -116,8 +116,8 @@ public class ImageUtils
 	{
 		BufferedImage result = new BufferedImage(128, 256, 2);
 		Graphics g = result.getGraphics();
-		int w = cloakIMG.getWidth() / 22;
-		int h = cloakIMG.getHeight()/ 17;
+		int w = cloakIMG.getWidth() / 64;
+		int h = cloakIMG.getHeight()/ 32;
 		g.drawImage(cloakIMG.getSubimage(w, h,  w * 10, h * 16), 0, 0, 128, 256, null);
 		return result;
 	}

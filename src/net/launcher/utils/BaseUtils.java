@@ -266,7 +266,7 @@ public class BaseUtils
 		catch(Exception e)
 		{
 			sendErr("Cloak not found: " + buildUrl(Settings.cloaks + name + ".png"));
-			return new BufferedImage(22, 17, 2);
+			return new BufferedImage(64, 32, 2);
 		}
 	}
 

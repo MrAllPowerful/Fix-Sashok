@@ -25,14 +25,16 @@ public class Settings
 	public static final String  defaultSession       = "123456"; //Номер сессии для одиночной игры
 	public static final String  iMusicname           = "001.mp3";
 	
-	/** Настройка серверов */
-	// 1-> Имя папки клиента 2-> ip 3-> port 
+	// 1-> Имя папки клиента 
+	// 2-> ip 
+	// 3-> port 
 	// 4-> Версия клиента для автопатча директории (старые версии до 1.5.2)
 	// 5-> Тип запуска клиента 1 для старых версий 2 для новых
 	// 6-> 1 для запуска чистого клиента 1.6.2-1.6.4
 	//     2 для запуска клиента с forge без Liteloader 1.6.2-1.6.4
 	//     3 для запуска клиента с Liteloader и Liteloader+forge 1.6.2
-	//     4 для запуска клиента с Liteloader и Liteloader+forge 1.6.4
+        //     4 для запуска клиента с Liteloader и Liteloader+forge 1.6.4
+        
 	public static final String[] servers =
 	{
 		"v, localhost, 25565, 1.5.x, 1, none",

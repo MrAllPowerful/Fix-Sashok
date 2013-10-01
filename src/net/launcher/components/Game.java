@@ -91,8 +91,8 @@ public class Game extends JFrame
 				setExtendedState(Frame.main.getExtendedState());
 				setMinimumSize(Frame.main.getMinimumSize());
 			}
-		        setSize(850, 480);
-			setMinimumSize(new Dimension(850, 480));
+		        setSize(900, 560);
+			setMinimumSize(new Dimension(850, 560));
 			mcapplet.setForeground(Color.BLACK);
 			mcapplet.setBackground(Color.BLACK);
 			setLayout(new BorderLayout());
@@ -153,7 +153,7 @@ public class Game extends JFrame
 		        	  params.add("--width");
 		        	  params.add("900");
 		        	  params.add("--height");
-		        	  params.add("560");
+		        	  params.add("532");
 		          }
 		          params.add("--username");
 		          params.add(user);

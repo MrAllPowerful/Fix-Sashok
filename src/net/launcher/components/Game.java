@@ -90,11 +90,9 @@ public class Game extends JFrame
 				setBounds(Frame.main.getBounds());
 				setExtendedState(Frame.main.getExtendedState());
 				setMinimumSize(Frame.main.getMinimumSize());
-			} else
-			{
-				setSize(850, 480);
-				setMinimumSize(new Dimension(850, 480));
 			}
+		        setSize(850, 480);
+			setMinimumSize(new Dimension(850, 480));
 			mcapplet.setForeground(Color.BLACK);
 			mcapplet.setBackground(Color.BLACK);
 			setLayout(new BorderLayout());
@@ -149,6 +147,13 @@ public class Game extends JFrame
 		          if(BaseUtils.getPropertyBoolean("fullscreen"))
 		          {	  
 		             params.add("--fullscreen");
+		          }
+		          else
+		          {
+		        	  params.add("--width");
+		        	  params.add("900");
+		        	  params.add("--height");
+		        	  params.add("560");
 		          }
 		          params.add("--username");
 		          params.add(user);

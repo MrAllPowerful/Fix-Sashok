@@ -10,5 +10,5 @@ Fix-Sashok
 * libraries.jar -> Библиотеки клиента.
 * Forge.jar -> Minecraft Forge.
 * extra.jar -> Запасной джарник для OptiFine, PlayerApi, GuiApi и т.д.
-* client.zip -> Содержит bin/natives для lwjgl, assets звуки для клиента 1.6.+, config для модов.  
-Добавлен assets.zip , должен быть одинаковым размером во всех клиентах на сайте версии 1.6.+)
+* client.zip -> Содержит bin/natives для lwjgl, config для модов.  
+Добавлен assets.zip Звуки для клиентов 1.6.+, должен быть одинаковым размером во всех клиентах на сайте версии 1.6.+)

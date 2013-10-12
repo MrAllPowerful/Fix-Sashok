@@ -84,15 +84,9 @@ public class Game extends JFrame
 				}
 			}
 			setTitle(Settings.titleInGame);
-			if(Frame.main != null)
-			{
-				Frame.main.setVisible(false);
-				setBounds(Frame.main.getBounds());
-				setExtendedState(Frame.main.getExtendedState());
-				setMinimumSize(Frame.main.getMinimumSize());
-			}
 		        setSize(900, 560);
-			setMinimumSize(new Dimension(850, 560));
+			setMinimumSize(new Dimension(900, 560));
+			setLocationRelativeTo(null);
 			mcapplet.setForeground(Color.BLACK);
 			mcapplet.setBackground(Color.BLACK);
 			setLayout(new BorderLayout());

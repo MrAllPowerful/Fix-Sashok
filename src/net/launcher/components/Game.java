@@ -84,15 +84,25 @@ public class Game extends JFrame
 				}
 			}
 			setTitle(Settings.titleInGame);
-		        setSize(900, 560);
-			setMinimumSize(new Dimension(900, 560));
+			setSize(Settings.width, Settings.height+28);
+			setMinimumSize(new Dimension(Settings.width, Settings.height+28));
 			setLocationRelativeTo(null);
 			mcapplet.setForeground(Color.BLACK);
 			mcapplet.setBackground(Color.BLACK);
 			setLayout(new BorderLayout());
 			add(mcapplet, BorderLayout.CENTER);
 			validate();
-			if(BaseUtils.getPropertyBoolean("fullscreen"))
+		        if(BaseUtils.getPropertyBoolean("fullscreen"))
+		        {	  
+		            params.add("--fullscreen");
+		        }
+		        else
+		        {
+		           params.add("--width");
+		           params.add(String.valueOf(Settings.width));
+		           params.add("--height");
+		           params.add(String.valueOf(Settings.height));
+		        }
 			setExtendedState(JFrame.MAXIMIZED_BOTH);
 			setIconImage(BaseUtils.getLocalImage("favicon"));
 			setVisible(true);

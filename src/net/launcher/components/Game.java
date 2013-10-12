@@ -143,10 +143,10 @@ public class Game extends JFrame
 		          }
 		          else
 		          {
-		        	  params.add("--width");
-		        	  params.add("900");
-		        	  params.add("--height");
-		        	  params.add("532");
+		             params.add("--width");
+		             params.add(String.valueOf(Settings.width));
+		             params.add("--height");
+		             params.add(String.valueOf(Settings.height));
 		          }
 		          params.add("--username");
 		          params.add(user);

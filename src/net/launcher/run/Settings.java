@@ -25,6 +25,9 @@ public class Settings
 	public static final String  defaultSession       = "123456"; //Номер сессии для одиночной игры
 	public static final String  iMusicname           = "001.mp3";
 	
+	public static int height                         = 532;      //Высота окна клиента
+	public static int width                          = 900;      //Ширина окна клиента
+	
 	// 1-> Имя папки клиента 
 	// 2-> ip 
 	// 3-> port 

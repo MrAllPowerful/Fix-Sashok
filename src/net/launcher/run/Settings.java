@@ -15,9 +15,9 @@ public class Settings
 	public static final String  skins                = "MinecraftSkins/"; //Папка скинов
 	public static final String  cloaks               = "MinecraftCloaks/"; //Папка плащей
 	/** Параметры подключения */
-	public static final String  domain	 	 = "alexandrage.dyndns.org/T";//Домен сайта
+	public static final String  domain	 	 = "alexandrage.dyndns.org";//Домен сайта
 	public static final String  siteDir		 = "site";//Папка с файлами лаунчера на сайте
-	public static final String  updateFile		 = "http://alexandrage.dyndns.org/T/site/Launcher.jar";//Ссылка на файл обновления лаунчера
+	public static final String  updateFile		 = "http://alexandrage.dyndns.org/site/Launcher.jar";//Ссылка на файл обновления лаунчера
 	public static final String  buyVauncherLink      = "http://plati.ru/"; //Ссылка на страницу покупки ваучеров
 	
 	/** Для одиночной игры */
@@ -38,12 +38,10 @@ public class Settings
 	//     3 для запуска клиента с Liteloader и Liteloader+forge 1.6.2
         //     4 для запуска клиента с Liteloader и Liteloader+forge 1.6.4
         
-	public static final String[] servers =
+	public static String[] servers =
 	{
-		"v, localhost, 25565, 1.5.x, 1, none",
-		"vanila, localhost, 25565, none, 2, 1",
-		"voxelaria, localhost, 25565, none, 2, 3",
-		"voxelaria4, localhost, 25565, none, 2, 4",
+		//Клиент для запуска в оффлайн.
+		"Offline, localhost, 25565, 1.5.x, 1, none",
 	};
 
 	/** Настройка панели ссылок **/

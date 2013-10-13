@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.URI;
@@ -199,16 +200,88 @@ public class BaseUtils
 		return b;
 	}
 
-	public static String[] getServerNames()
-	{
-		String[] serverNames = new String[Settings.servers.length];
+    public static String runHTTP(String URL, String params, boolean send)
+    {
+        HttpURLConnection ct = null;
+        try
+        {
 
-		for(int i = 0; i < Settings.servers.length; i++)
-		{
-			serverNames[i] = Settings.servers[i].split(", ")[0];
-		}
-		return serverNames;
-	}
+            URL url = new URL(URL + params);
+            ct = (HttpURLConnection) url.openConnection();
+            ct.setRequestMethod("POST");
+            ct.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            ct.setRequestProperty("Content-Length", "0");
+            ct.setRequestProperty("Content-Language", "en-US");
+            ct.setUseCaches(false);
+            ct.setDoInput(true);
+            ct.setDoOutput(true);
+
+            ct.connect();
+
+            InputStream is = ct.getInputStream();
+            StringBuilder response;
+            try (BufferedReader rd = new BufferedReader(new InputStreamReader(is)))
+            {
+                response = new StringBuilder();
+                String line;
+                while ((line = rd.readLine()) != null)
+                {
+                    response.append(line);
+                }
+            }
+
+            String str = response.toString();
+
+            return str;
+        } catch (Exception e)
+        {
+            return null;
+        } finally
+        {
+            if (ct != null) ct.disconnect();
+        }
+    }
+	
+	public static String getURLSc(String script)
+    {
+        return getURL("/" + Settings.siteDir + "/" + script);
+    }
+	
+    public static String[] getServerNames()
+    {
+        String[] error = { "Offline" };
+        try
+        {
+            String url = runHTTP(getURLSc("servers.php"), "", false);
+
+            if (url == null)
+            {
+                return error;
+            } else if (url.contains(", "))
+            {
+            	Settings.servers = url.replaceAll("<br>", "").split("<::>");
+                String[] serversNames = new String[Settings.servers.length];
+
+                for (int a = 0; a < Settings.servers.length; a++)
+                {
+                    serversNames[a] = Settings.servers[a].split(", ")[0];
+                }
+
+                return serversNames;
+            } else
+            {
+                return error;
+            }
+        } catch (Exception e)
+        {
+            return error;
+        }
+    }
+	
+    public static String getURL(String path)
+    {
+        return "http://" + Settings.domain + path;
+    }
 
 	public static String getClientName()
 	{

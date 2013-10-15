@@ -84,6 +84,13 @@ public class Game extends JFrame
 				}
 			}
 			setTitle(Settings.titleInGame);
+			if(Frame.main != null)
+		        {
+		          Frame.main.setVisible(false);
+		          setBounds(Frame.main.getBounds());
+			  setExtendedState(Frame.main.getExtendedState());
+			  setMinimumSize(Frame.main.getMinimumSize());
+			}
 			setSize(Settings.width, Settings.height+28);
 			setMinimumSize(new Dimension(Settings.width, Settings.height+28));
 			setLocationRelativeTo(null);

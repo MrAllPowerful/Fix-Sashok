@@ -208,7 +208,7 @@ public class BaseUtils
 
             URL url = new URL(URL + params);
             ct = (HttpURLConnection) url.openConnection();
-            ct.setRequestMethod("POST");
+            ct.setRequestMethod("GET");
             ct.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             ct.setRequestProperty("Content-Length", "0");
             ct.setRequestProperty("Content-Language", "en-US");

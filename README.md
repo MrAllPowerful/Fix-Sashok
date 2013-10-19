@@ -12,3 +12,4 @@ Fix-Sashok
 * extra.jar -> Запасной джарник для OptiFine, PlayerApi, GuiApi и т.д.
 * client.zip -> Содержит bin/natives для lwjgl, config для модов.  
 Добавлен assets.zip Звуки для клиентов 1.6.+, должен быть одинаковым размером во всех клиентах на сайте версии 1.6.+)
+* Список серверов теперь редактируется на сайте servers.php.

@@ -8,7 +8,9 @@ public class Mainclass
 	public static void main(String[] args) throws Exception
 	{	
 		Frame.start();
+		if(Settings.Music)
+		{	
         MusPlay mp3 = new MusPlay(Settings.iMusicname);
-        mp3.play();
+        mp3.play();}
 	}
 }

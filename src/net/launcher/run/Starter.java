@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import net.launcher.components.Frame;
 import net.launcher.utils.BaseUtils;
-import net.launcher.MusPlay;
 
 public class Starter
 {
@@ -35,9 +34,6 @@ public class Starter
 		} catch (Exception e)
 		{
 			e.printStackTrace();
-			Frame.start();
-	        MusPlay mp3 = new MusPlay(Settings.iMusicname);
-	        mp3.play();
 		}
 	}
 }

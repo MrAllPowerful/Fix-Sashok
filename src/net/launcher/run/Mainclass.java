@@ -10,7 +10,7 @@ public class Mainclass
 		Frame.start();
 		if(Settings.Music)
 		{	
-        MusPlay mp3 = new MusPlay(Settings.iMusicname);
-        mp3.play();}
+               MusPlay mp3 = new MusPlay(Settings.iMusicname);
+               mp3.play();}
 	}
 }

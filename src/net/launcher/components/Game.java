@@ -192,7 +192,9 @@ public class Game extends JFrame
                            params.add("cpw.mods.fml.common.launcher.FMLTweaker");
                          }
                           params.add("--accessToken");
-                          params.add("1");
+                          params.add(user);
+                          params.add("--uuid");
+                          params.add(session);
                           ProcessBuilder pb = new ProcessBuilder(params);
                           pb.start();
                           System.exit(0);

@@ -146,6 +146,7 @@ public class Game extends JFrame
                           if(BaseUtils.getPropertyBoolean("fullscreen"))
                           {          
                              params.add("--fullscreen");
+                             params.add("true");
                           }
                           else
                           {

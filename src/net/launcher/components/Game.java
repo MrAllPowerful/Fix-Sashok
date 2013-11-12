@@ -32,18 +32,18 @@ public class Game extends JFrame
                 String user = Frame.main.offline.isSelected() ? Settings.defaultUsername : answer.split("<br>")[1].split("<:>")[0];
                 String session = Frame.main.offline.isSelected() ? Settings.defaultSession : EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[1].split("<:>")[1]), Settings.protectionKey);
                 
-                GuardUtils.checkMods(answer, true);
-                
-                if(Settings.useModCheckerTimer ) new Timer(30000, new ActionListener()
+                int i = Integer.parseInt(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[4]);
+                if (i == 1)
                 {
+                  GuardUtils.checkMods(answer, true);
+                
+                 if(Settings.useModCheckerTimer ) new Timer(30000, new ActionListener()
+                 {
                         public void actionPerformed(ActionEvent e)
                         {
                                 GuardUtils.checkMods(answer, false);
                         }
                 }).start();
-                int i = Integer.parseInt(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[4]);
-                if (i == 1)
-                {
                 try
                 {
                         addWindowListener(new WindowListener()

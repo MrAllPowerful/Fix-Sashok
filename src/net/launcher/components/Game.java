@@ -197,6 +197,7 @@ public class Game extends JFrame
                           params.add("--uuid");
                           params.add(session);
                           ProcessBuilder pb = new ProcessBuilder(params);
+                          pb.directory(new File(BaseUtils.getMcDir().toString()));
                           pb.start();
                           System.exit(0);
                        } catch (Exception e) {}

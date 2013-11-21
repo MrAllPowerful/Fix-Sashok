@@ -14,6 +14,7 @@ public class OptionsTheme
 	public static ComponentStyle	panelOpt	= new ComponentStyle(225, 105, 400, 300, "font", 16F, Color.DARK_GRAY, true);
 	
 	public static CheckboxStyle		loadnews	= new CheckboxStyle(250, 150, 300, 23, "font", "checkbox", 16F, Color.DARK_GRAY, true);
+        public static CheckboxStyle		Music	= new CheckboxStyle(250, 275, 300, 23, "font", "checkbox", 16F, Color.DARK_GRAY, true);
 	public static CheckboxStyle		updatepr	= new CheckboxStyle(250, 175, 300, 23, "font", "checkbox", 16F, Color.DARK_GRAY, true);
 	public static CheckboxStyle		cleandir	= new CheckboxStyle(250, 200, 300, 23, "font", "checkbox", 16F, Color.DARK_GRAY, true);
 	public static CheckboxStyle		fullscrn	= new CheckboxStyle(250, 225, 300, 23, "font", "checkbox", 16F, Color.DARK_GRAY, true);

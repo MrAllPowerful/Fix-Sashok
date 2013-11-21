@@ -62,6 +62,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 			public Button update_no = new Button("Выход");
 
 			public Checkbox loadnews = new Checkbox("Загружать новости");
+                        public Checkbox Music = new Checkbox("Музыка в лаунчере");
 			public Checkbox updatepr = new Checkbox("Принудительное обновление");
 				public Checkbox cleanDir = new Checkbox("Очистить папку");
 			public Checkbox fullscreen = new Checkbox("Запустить в полный экран");
@@ -198,6 +199,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
                 closereg.addActionListener(this);
                 okreg.addActionListener(this);
 		loadnews.addActionListener(this);
+                Music.addActionListener(this);
 		fullscreen.addActionListener(this);
 
 		buyCloak.addActionListener(this);
@@ -321,6 +323,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 				main.memory.setText(String.valueOf(getPropertyInt("memory", 512)));
 				main.fullscreen.setSelected(getPropertyBoolean("fullscreen"));
 				main.loadnews.setSelected(getPropertyBoolean("loadnews", true));
+                                main.Music.setSelected(getPropertyBoolean("Music", true));
 			} catch(Exception e){}
 		} catch(Exception e)
 		{
@@ -395,11 +398,12 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 			setAuthComp();
 		}
 
-		if(e.getSource() == fullscreen || e.getSource() == loadnews || e.getSource() == offline)
+		if(e.getSource() == fullscreen || e.getSource() == loadnews || e.getSource() == offline || e.getSource() == Music)
 		{
 			setProperty("fullscreen", fullscreen.isSelected());
 			setProperty("loadnews",   loadnews.isSelected());
 			setProperty("offline",    offline.isSelected());
+                        setProperty("Music",   Music.isSelected());
 		}
 
 		if(e.getSource() == buyCloak)
@@ -533,6 +537,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		addFrameComp();
 		panel.setOptions(screen);
 		panel.add(loadnews);
+                panel.add(Music);
 		panel.add(updatepr);
 		panel.add(cleanDir);
 		panel.add(fullscreen);

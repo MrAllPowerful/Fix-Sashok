@@ -160,7 +160,7 @@ public class Game extends JFrame
                           params.add("--session");
                           params.add(session);
                           params.add("--version");
-                          params.add("1.6.2");
+                          params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[3]);
                           params.add("--gameDir");
                           params.add(minpath);
                           params.add("--assetsDir");

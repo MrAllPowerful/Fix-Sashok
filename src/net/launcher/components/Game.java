@@ -165,6 +165,8 @@ public class Game extends JFrame
                           params.add(minpath);
                           params.add("--assetsDir");
                           params.add(assets+"assets");
+                          params.add("--assetIndex");
+                          params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[3]);
                           if(Settings.useAutoenter) {
                           if (!Frame.main.offline.isSelected()) {          
                             params.add("--server");
@@ -196,6 +198,8 @@ public class Game extends JFrame
                           params.add(user);
                           params.add("--uuid");
                           params.add(session);
+                          params.add("--userProperties");
+                          params.add("{}");
                           ProcessBuilder pb = new ProcessBuilder(params);
                           pb.directory(new File(BaseUtils.getMcDir().toString()));
                           pb.start();

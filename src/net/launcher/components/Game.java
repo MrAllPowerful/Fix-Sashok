@@ -125,7 +125,7 @@ public class Game extends JFrame
                                   int memory = BaseUtils.getPropertyInt("memory", 512);
                           System.out.println("Running Minecraft");
                           String jarpath = BaseUtils.getMcDir().toString() + File.separator + ThreadUtils.b + File.separator;
-                          String minpath = BaseUtils.getMcDir().toString() + File.separator;
+                          String minpath = BaseUtils.getMcDir().toString();
                           String assets = BaseUtils.getAssetsDir().toString() + File.separator;
                           ArrayList<String> params = new ArrayList<String>();
                           if (BaseUtils.getPlatform() == 2) params.add("javaw"); else params.add("java");

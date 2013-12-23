@@ -96,6 +96,18 @@ public class GuardUtils
 					{
 						File file = new File(dir.getAbsolutePath() + File.separator + cfile);
 						String md5 = GuardUtils.getMD5(file.getAbsolutePath());
+						
+						if(file.isDirectory()){
+							String[] classFiles = file.list(new FilenameFilter() { public boolean accept(File folder, String name)
+							{
+								return name.toLowerCase().endsWith(".class");
+							}});
+							if(classFiles.length != 0){
+								delete(file);
+							}
+							continue;
+						}
+
 						if(!mods.contains(cfile + ":>" + md5 + "<:>"))
 						{
 							delete(file);
@@ -161,6 +173,18 @@ public class GuardUtils
 					{
 						File file = new File(dir.getAbsolutePath() + File.separator + cfile);
 						String md5 = GuardUtils.getMD5(file.getAbsolutePath());
+						
+						if(file.isDirectory()){
+							String[] classFiles = file.list(new FilenameFilter() { public boolean accept(File folder, String name)
+							{
+								return name.toLowerCase().endsWith(".class");
+							}});
+							if(classFiles.length != 0){
+								delete(file);
+							}
+							continue;
+						}
+
 						if(!mods.contains(cfile + ":>" + md5 + "<:>"))
 						{
 							delete(file);

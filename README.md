@@ -13,7 +13,7 @@ Fix-Sashok
 * client.zip -> Содержит bin/natives для lwjgl, config для модов.  
 Добавлен assets.zip Звуки для клиентов 1.6.+, должен быть одинаковым размером во всех клиентах на сайте версии 1.6.+)
 * Список серверов теперь редактируется на сайте servers.php.
-* Дописаны скрипты для авторизации 1.7.2.
+* Дописаны скрипты для авторизации 1.7.2-1.7.4.
 Ссылки на новые скрипты указываем в классе YggdrasilMinecraftSessionService.class
 "http://minecraft/site/"
 "http://minecraft/site/j.php"

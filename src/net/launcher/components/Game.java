@@ -119,10 +119,9 @@ public class Game extends JFrame
                 {
                         try
                    {
-                          String cps;
+                          String cps = File.pathSeparator;
                           int t = Integer.parseInt(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[5]);
-                          if (BaseUtils.getPlatform() == 2) cps = ";"; else cps = ":";
-                                  int memory = BaseUtils.getPropertyInt("memory", 512);
+                          int memory = BaseUtils.getPropertyInt("memory", 512);
                           System.out.println("Running Minecraft");
                           String jarpath = BaseUtils.getMcDir().toString() + File.separator + ThreadUtils.b + File.separator;
                           String minpath = BaseUtils.getMcDir().toString();

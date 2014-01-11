@@ -11,7 +11,6 @@ import java.util.Formatter;
 import java.util.List;
 
 import net.launcher.components.Frame;
-import net.launcher.components.Game;
 import net.launcher.run.Settings;
 
 
@@ -39,7 +38,6 @@ public class GuardUtils
 	            byte byte0 = abyte1[j];
 	            formatter.format("%02x", new Object[] { Byte.valueOf(byte0) });
 	        }
-	        BaseUtils.send("ANTICHEAT: MD5 of " + filename + " getted, " + formatter.toString());
 	        return formatter.toString();
 		} catch(Exception e) { return BaseUtils.empty; }
 		finally
@@ -96,18 +94,6 @@ public class GuardUtils
 					{
 						File file = new File(dir.getAbsolutePath() + File.separator + cfile);
 						String md5 = GuardUtils.getMD5(file.getAbsolutePath());
-						
-						if(file.isDirectory()){
-							String[] classFiles = file.list(new FilenameFilter() { public boolean accept(File folder, String name)
-							{
-								return name.toLowerCase().endsWith(".class");
-							}});
-							if(classFiles.length != 0){
-								delete(file);
-							}
-							continue;
-						}
-
 						if(!mods.contains(cfile + ":>" + md5 + "<:>"))
 						{
 							delete(file);
@@ -147,6 +133,8 @@ public class GuardUtils
 				{
 					File file = new File(dir.getAbsolutePath() + File.separator + cfile);
 					delete(file);
+					System.exit(0);
+					Runtime.getRuntime().exit(0);
 				}
 				}
 			}
@@ -173,26 +161,13 @@ public class GuardUtils
 					{
 						File file = new File(dir.getAbsolutePath() + File.separator + cfile);
 						String md5 = GuardUtils.getMD5(file.getAbsolutePath());
-						
-						if(file.isDirectory()){
-							String[] classFiles = file.list(new FilenameFilter() { public boolean accept(File folder, String name)
-							{
-								return name.toLowerCase().endsWith(".class");
-							}});
-							if(classFiles.length != 0){
-								delete(file);
-							}
-							continue;
-						}
-
 						if(!mods.contains(cfile + ":>" + md5 + "<:>"))
 						{
 							delete(file);
 							mods = mods.replaceAll(cfile + ":>" + md5 + "<:>", "");
 							modsArray = mods.split("<:>");
-							Game.mcapplet.stop();
-							Game.mcapplet.destroy();
 							System.exit(0);
+							Runtime.getRuntime().exit(0);
 						}
 					}
 					String dirFilesString = "";
@@ -228,8 +203,6 @@ public class GuardUtils
 			} else if(ret && !action)
 			{
 				BaseUtils.send("ANTICHEAT: Strange mods detected");
-				Game.mcapplet.stop();
-				Game.mcapplet.destroy();
 				System.exit(0);
 				return;
 			}

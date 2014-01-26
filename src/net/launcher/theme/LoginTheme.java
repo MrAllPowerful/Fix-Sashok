@@ -18,12 +18,12 @@ import net.launcher.components.TextfieldStyle;
 
 public class LoginTheme
 {
-	public static int			 frameW 	= 850; 
-	public static int			 frameH		= 520; 
+	public static int			 frameW 	 = 850; 
+	public static int			 frameH		 = 520; 
 
-	public static ButtonStyle	 toGame		= new ButtonStyle(420, 436, 120, 40, "font", "button", 16F, Color.RED, true, Align.CENTER);
-	public static ButtonStyle	 toPersonal = new ButtonStyle(570, 436, 120, 40, "font", "button", 16F, Color.GREEN, true, Align.CENTER);
-	public static ButtonStyle	 toOptions  = new ButtonStyle(714, 436, 130, 40, "font", "button", 16F, Color.YELLOW, true, Align.CENTER);
+	public static ButtonStyle	 toGame		 = new ButtonStyle(420, 436, 120, 40, "font", "button", 16F, Color.RED, true, Align.CENTER);
+	public static ButtonStyle	 toPersonal  = new ButtonStyle(570, 436, 120, 40, "font", "button", 16F, Color.GREEN, true, Align.CENTER);
+	public static ButtonStyle	 toOptions   = new ButtonStyle(714, 436, 130, 40, "font", "button", 16F, Color.YELLOW, true, Align.CENTER);
 	public static ButtonStyle	 toRegister  = new ButtonStyle(714, 476, 130, 40, "font", "button", 16F, Color.YELLOW, true, Align.CENTER);
 	
 	public static CheckboxStyle  savePass   = new CheckboxStyle(10, 482, 200, 23, "font", "checkbox", 16F, Color.WHITE, true);

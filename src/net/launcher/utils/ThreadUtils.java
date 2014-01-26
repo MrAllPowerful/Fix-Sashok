@@ -5,7 +5,11 @@ import static net.launcher.utils.BaseUtils.buildUrl;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.List;
+
 import net.launcher.components.Frame;
 import net.launcher.components.Game;
 import net.launcher.components.PersonalContainer;
@@ -198,8 +202,27 @@ public class ThreadUtils
 		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[0]), Settings.protectionKey).equals(BaseUtils.getPropertyString(BaseUtils.getClientName() + "_zipmd5")) ||
 		!new File(binfolder + "natives").exists() || Frame.main.updatepr.isSelected()) { files.add(b+"/client.zip");  zipupdate = true; }
 		
-		int i = Integer.parseInt(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[4]);
-	    if (i > 1)
+		URLClassLoader cl;
+		int t = 1;
+        String bin = BaseUtils.getMcDir().toString() + File.separator + ThreadUtils.b + File.separator;
+        URL[] urls = new URL[1];
+        try {
+            urls[0] = new File(bin, net.launcher.utils.ThreadUtils.m).toURI().toURL();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+        try
+        {   
+        	t = 1;
+            cl = new URLClassLoader(urls);
+            cl.loadClass("net.minecraft.client.Minecraft");
+ 		} catch(Exception e)
+ 		{
+ 			t = 2;
+ 		}
+		
+		//int i = Integer.parseInt(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[4]);
+	    if (t > 1)
 	    {
 	      if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[1]), Settings.protectionKey).equals(BaseUtils.getPropertyString("assetsmd5")) ||
 		  !new File(folder + "assets").exists() || Frame.main.updatepr.isSelected()) { files.add(b+"/assets.zip");  zipupdate2 = true; }

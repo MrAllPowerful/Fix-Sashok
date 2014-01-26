@@ -39,5 +39,5 @@ public class PersonalTheme
 	public static TextfieldStyle exchangeTo	  = new TextfieldStyle(385, 450, 160, 36, "textfield", "font", 16F, Color.WHITE, Color.WHITE, new EmptyBorder(0, 10, 0, 10));
 	public static ButtonStyle	 exchangeBtn  = new ButtonStyle(580, 448, 130, 40, "font", "button", 16F, Color.YELLOW, true, Align.CENTER);
 	
-	public static ButtonStyle	 toGamePSL  = new ButtonStyle(746, 448, 88, 40, "font", "button", 16F, Color.RED, true, Align.CENTER);
+	public static ButtonStyle	 toGamePSL    = new ButtonStyle(746, 448, 88, 40, "font", "button", 16F, Color.RED, true, Align.CENTER);
 }

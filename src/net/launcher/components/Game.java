@@ -9,7 +9,9 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.PrintStream;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -26,14 +28,52 @@ public class Game extends JFrame
 {
         private static final long serialVersionUID = 1L;
         public static Launcher mcapplet;
+    	private URLClassLoader cl;
+        public static int t = 1;
         
         public Game(final String answer)
         {
+        	
+            String bin = BaseUtils.getMcDir().toString() + File.separator + ThreadUtils.b + File.separator;
+            URL[] urls = new URL[4];
+            
+
+            try {
+			   urls[0] = new File(bin, net.launcher.utils.ThreadUtils.l).toURI().toURL();
+               urls[1] = new File(bin, net.launcher.utils.ThreadUtils.e).toURI().toURL();
+               urls[2] = new File(bin, net.launcher.utils.ThreadUtils.f).toURI().toURL();
+               urls[3] = new File(bin, net.launcher.utils.ThreadUtils.m).toURI().toURL();
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+            try
+            {   
+             t = 4;
+             cl = new URLClassLoader(urls);
+             cl.loadClass("net.minecraft.client.Minecraft");
+     		} catch(Exception e)
+     		{
+                try
+                { 
+                	t = 3;
+                	cl = new URLClassLoader(urls);
+                	cl.loadClass("cpw.mods.fml.common.launcher.FMLTweaker");
+         		} catch(Exception e1)
+         		{
+                	try {
+             			t = 2;
+             			cl = new URLClassLoader(urls);
+						cl.loadClass("cpw.mods.fml.common.launcher.FMLTweaker");
+					} catch (ClassNotFoundException e2) {
+						t = 1;
+					}
+         		}
+     		}
+        	
                 String user = Frame.main.offline.isSelected() ? Settings.defaultUsername : answer.split("<br>")[1].split("<:>")[0];
                 String session = Frame.main.offline.isSelected() ? Settings.defaultSession : EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[1].split("<:>")[1]), Settings.protectionKey);
                 
-                int i = Integer.parseInt(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[4]);
-                if (i == 1)
+                if (t == 4)
                 {
                   GuardUtils.checkMods(answer, true);
                 
@@ -44,6 +84,7 @@ public class Game extends JFrame
                                 GuardUtils.checkMods(answer, false);
                         }
                 }).start();
+                 
                 try
                 {
                         addWindowListener(new WindowListener()
@@ -61,17 +102,8 @@ public class Game extends JFrame
                                         System.exit(0);
                                 }
                         });
-                        
-                        String bin = BaseUtils.getMcDir().toString() + File.separator + ThreadUtils.b + File.separator;
                         setForeground(Color.BLACK);
                         setBackground(Color.BLACK);
-                        URL[] urls = new URL[4];
-                        
-
-                        urls[0] = new File(bin, net.launcher.utils.ThreadUtils.l).toURI().toURL();
-                        urls[1] = new File(bin, net.launcher.utils.ThreadUtils.e).toURI().toURL();
-                        urls[2] = new File(bin, net.launcher.utils.ThreadUtils.f).toURI().toURL();
-                        urls[3] = new File(bin, net.launcher.utils.ThreadUtils.m).toURI().toURL();
                         
             			mcapplet = new Launcher(bin, urls);
             			mcapplet.customParameters.put("username", user);
@@ -120,7 +152,6 @@ public class Game extends JFrame
                         try
                    {
                           String cps = File.pathSeparator;
-                          int t = Integer.parseInt(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[5]);
                           int memory = BaseUtils.getPropertyInt("memory", 512);
                           System.out.println("Running Minecraft");
                           String jarpath = BaseUtils.getMcDir().toString() + File.separator + ThreadUtils.b + File.separator;
@@ -174,24 +205,19 @@ public class Game extends JFrame
                             params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[2]);
                          }
                          }
-                         if (t == 2)
+                         if (t == 3)
                          {
                             params.add("--tweakClass");
                             params.add("cpw.mods.fml.common.launcher.FMLTweaker");
                          }
-                         if (t == 3)
+                         if (t == 2)
                          {
                             params.add("--tweakClass");  
                             params.add("com.mumfrey.liteloader.launch.LiteLoaderTweaker");
                             params.add("--cascadedTweaks");
                             params.add("cpw.mods.fml.common.launcher.FMLTweaker");
-                         }
-                         if (t == 4)
-                         {
-                           params.add("--tweakClass");
-                           params.add("com.mumfrey.liteloader.launch.LiteLoaderTweaker");
-                           params.add("--tweakClass");
-                           params.add("cpw.mods.fml.common.launcher.FMLTweaker");
+                            params.add("--tweakClass");
+                            params.add("cpw.mods.fml.common.launcher.FMLTweaker");
                          }
                           params.add("--accessToken");
                           params.add(user);

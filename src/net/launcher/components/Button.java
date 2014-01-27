@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.ButtonModel;
 import javax.swing.JButton;
 
+import net.launcher.MusPlay;
 import net.launcher.run.Settings;
 import static net.launcher.utils.ImageUtils.*;
 
@@ -49,6 +50,7 @@ public class Button extends JButton
 		{
 			if(buttonModel.isPressed())
 			{
+				new MusPlay("click.mp3");
 				g.drawImage(genButton(w, h, pressedTX), 0, 0, w, h, null);
 			} else g.drawImage(genButton(w, h, rolloverTX), 0, 0, w, h, null);
 		} else g.drawImage(genButton(w, h, defaultTX), 0, 0, w, h, null);

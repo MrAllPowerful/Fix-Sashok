@@ -1,25 +1,21 @@
 package net.launcher;
 import java.io.BufferedInputStream;
 import java.io.InputStream;
-
-import net.launcher.run.Settings;
-
 import javazoom.jl.player.Player;
 public class MusPlay {
-	private String filename;
     private Player player; 
 
     // constructor that takes the name of an MP3 file
     public MusPlay(String filename) {
-        this.filename = filename;
+        play(filename);
     }
 
     public void close() { if (player != null) player.close(); }
 
     // play the MP3 file to the sound card
-    public void play() {
+    public void play(String filename) {
         try {
-        	InputStream is=getClass().getResourceAsStream(Settings.iMusicname);
+        	InputStream is=getClass().getResourceAsStream(filename);
             @SuppressWarnings("unused")
 			BufferedInputStream bis = new BufferedInputStream(is);
             player = new Player(is);

@@ -21,25 +21,25 @@
 	{
 	    if($useactivate)
         {
-		 $query = mysql_query("SELECT $db_columnUser,$db_columnPass,$db_columnMoney,$db_table.$db_group FROM $db_table WHERE $db_columnUser='$login'") or die("error".$logger->WriteLine($log_date.mysql_error()));  //вывод ошибок MySQL в m.log
+		 $query = mysql_query("SELECT $db_columnUser,$db_columnPass,$db_columnMoney,$db_table.$db_group FROM $db_table WHERE $db_columnUser='$login'") or die("errorsql".$logger->WriteLine($log_date.mysql_error()));  //вывод ошибок MySQL в m.log
 		}
 		else
 		{
-		 $query = mysql_query("SELECT $db_columnUser,$db_columnPass,$db_columnMoney FROM $db_table WHERE $db_columnUser='$login'") or die("error".$logger->WriteLine($log_date.mysql_error()));  //вывод ошибок MySQL в m.log
+		 $query = mysql_query("SELECT $db_columnUser,$db_columnPass,$db_columnMoney FROM $db_table WHERE $db_columnUser='$login'") or die("errorsql".$logger->WriteLine($log_date.mysql_error()));  //вывод ошибок MySQL в m.log
 		}
 		$row = mysql_fetch_assoc($query);
 		$realPass = $row[$db_columnPass];
 		$realUser = $row[$db_columnUser];
 	} else if ($crypt == 'hash_ipb' || $crypt == 'hash_vbulletin')
 	{
-		$row = mysql_fetch_assoc(mysql_query("SELECT $db_columnUser,$db_columnPass,$db_columnSalt,$db_columnMoney FROM $db_table WHERE $db_columnUser='$login'")) or die("error".$logger->WriteLine($log_date.mysql_error())); //вывод ошибок MySQL в m.log
+		$row = mysql_fetch_assoc(mysql_query("SELECT $db_columnUser,$db_columnPass,$db_columnSalt,$db_columnMoney FROM $db_table WHERE $db_columnUser='$login'")) or die("errorsql".$logger->WriteLine($log_date.mysql_error())); //вывод ошибок MySQL в m.log
 		$realPass = $row[$db_columnPass];
 		$salt = $row[$db_columnSalt];
 		$realUser = $row[$db_columnUser];
 	} else if($crypt == 'hash_xenforo')
 	{
 	    $query = "SELECT $db_table.$db_columnId,$db_table.$db_columnUser,$db_tableOther.$db_columnId,$db_tableOther.$db_columnPass FROM $db_table, $db_tableOther WHERE $db_table.$db_columnId = $db_tableOther.$db_columnId AND $db_table.$db_columnUser='{$login}'";
-		$result = mysql_query($query)or die("error".$logger->WriteLine($log_date.mysql_error())); //вывод ошибок MySQL в m.log
+		$result = mysql_query($query)or die("errorsql".$logger->WriteLine($log_date.mysql_error())); //вывод ошибок MySQL в m.log
 		$row = mysql_fetch_assoc($result);
 		$realPass = substr($row[$db_columnPass],22,64);
 		$realUser = $row[$db_columnUser];
@@ -53,12 +53,12 @@ if($useantibrut)
     $time = time();
     $bantime = $time+(10);
 
-    $tbip = mysql_query("Select sip,time From sip Where sip='$ip' And time>'$time'") or die("error".$logger->WriteLine($log_date.mysql_error())); //вывод ошибок MySQL в m.log
+    $tbip = mysql_query("Select sip,time From sip Where sip='$ip' And time>'$time'") or die("errorsql".$logger->WriteLine($log_date.mysql_error())); //вывод ошибок MySQL в m.log
     $row = mysql_fetch_assoc($tbip);
     $real = $row['sip'];
     if($ip == $real)
     {
-	 $query = mysql_query("SELECT * FROM `sip` WHERE `sip` > 0;") or die("error".$logger->WriteLine($log_date.mysql_error()));
+	 $query = mysql_query("SELECT * FROM `sip` WHERE `sip` > 0;") or die("errorsql".$logger->WriteLine($log_date.mysql_error()));
          while($result = mysql_fetch_assoc($query))
     {
      if($result['time'] < $time) {
@@ -94,14 +94,14 @@ if($useban)
 {
    $time = time();
    $tipe = '2';
-   $result = mysql_query("Select name From $banlist Where name='$login' And type<'$tipe' And temptime>'$time'") or die ("Ошибка");
+   $result = mysql_query("Select name From $banlist Where name='$login' And type<'$tipe' And temptime>'$time'") or die ("errorsql");
    if(mysql_num_rows($result) == 1)
     {
-      $result2 = mysql_query("Select name,temptime From $banlist Where name='$login' And type<'$tipe' And temptime>'$time'") or die ("Ошибка");
+      $result2 = mysql_query("Select name,temptime From $banlist Where name='$login' And type<'$tipe' And temptime>'$time'") or die ("errorsql");
       $row = mysql_fetch_assoc($result2);
       exit ('Временный бан до '.date('d.m.Yг. H:i', $row['temptime'])." по времени сервера");
     }
-      $result = mysql_query("Select name From $banlist Where name='$login' And type<'$tipe' And temptime='0'") or die ("Ошибка");
+      $result = mysql_query("Select name From $banlist Where name='$login' And type<'$tipe' And temptime='0'") or die ("errorsql");
       if(mysql_num_rows($result) == 1)
     {
       exit ("Вечный бан");
@@ -137,7 +137,7 @@ if($useban)
 		   !file_exists("clients/".$client."/bin/libraries.jar")  || !file_exists("clients/".$client."/bin/Forge.jar")  ||
 		   !file_exists("clients/".$client."/bin/extra.jar") || !file_exists("clients/".$client."/mods/")               || 
 		   !file_exists("clients/".$client."/coremods/") || !file_exists("clients/".$client."/bin/assets.zip")) 
-		   die("Ошибка: клиент $client не найден");
+		   die("errorsql: клиент $client не найден");
 		   
 	    
 	    $chars="0123456789abcdef";
@@ -167,7 +167,7 @@ if($useban)
 		$md5clwjql_util = strtoint(xorencode($md5lwjql_util, $protectionKey));
 		$md5jinput		= md5_file("clients/".$client."/bin/extra.jar");
 		$md5cjinput     = strtoint(xorencode($md5jinput, $protectionKey));
-		mysql_query("UPDATE $db_table SET $db_columnSesId='$sessid' WHERE $db_columnUser = '$login'") or die ("Ошибка.");
+		mysql_query("UPDATE $db_table SET $db_columnSesId='$sessid' WHERE $db_columnUser = '$login'") or die ("errorsql.");
 		echo "$md5czip<:>$md52czip<:>$md5cjar<:>$md5clwjql<:>$md5clwjql_util<:>$md5cjinput<:>$masterversion<br>".
 		$realUser.'<:>'.strtoint(xorencode($sessid, $protectionKey)).'<br>';
 		
@@ -291,7 +291,7 @@ if($useban)
 		$uploadfile = "".$uploaddirs."/".$login.".png";
 
 		if(move_uploaded_file($_FILES['ufile']['tmp_name'], $uploadfile)) echo "success";
-		else echo "Ошибка загрузки файла";
+		else echo "errorsql загрузки файла";
 	} else
 	
 	if($action == 'uploadcloak')
@@ -308,7 +308,7 @@ if($useban)
 		if($go) {
 		$uploadfile = "".$uploaddirp."/".$login.".png";
 
-		if(!move_uploaded_file($_FILES['ufile']['tmp_name'], $uploadfile)) die("Ошибка загрузки файла");
+		if(!move_uploaded_file($_FILES['ufile']['tmp_name'], $uploadfile)) die("errorsql загрузки файла");
 		mysql_query("UPDATE $db_table SET $db_columnMoney = $db_columnMoney - $cloakPrice WHERE $db_columnUser='$login'");
 		$row = mysql_fetch_assoc(mysql_query("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser='$login'"));
 		echo "success:".$row[$db_columnMoney];
@@ -326,13 +326,13 @@ if($useban)
 		$pexdate = time() + 2678400;
 		if($group == 'group-vip-until')
 		{
-			mysql_query("UPDATE $db_table SET $db_columnMoney=$db_columnMoney-$vipPrice WHERE $db_columnUser='$login'")or die("Ошибка.");
+			mysql_query("UPDATE $db_table SET $db_columnMoney=$db_columnMoney-$vipPrice WHERE $db_columnUser='$login'")or die("errorsql.");
 			mysql_query("UPDATE permissions SET value=value+2678400 WHERE name='$login'");
 		} else
 		{
-			mysql_query("INSERT INTO permissions (id, name, type, permission, world, value) VALUES (NULL, '$login', '1', 'group-vip-until', ' ', '$pexdate')")or die("Ошибка.");
-			mysql_query("INSERT INTO permissions_inheritance (id, child, parent, type, world) VALUES (NULL, '$login', 'vip', '1', NULL)")or die("Ошибка.");
-			mysql_query("UPDATE $db_table SET $db_columnMoney=$db_columnMoney-$vipPrice WHERE $db_columnUser='$login'")or die("Ошибка.");
+			mysql_query("INSERT INTO permissions (id, name, type, permission, world, value) VALUES (NULL, '$login', '1', 'group-vip-until', ' ', '$pexdate')")or die("errorsql.");
+			mysql_query("INSERT INTO permissions_inheritance (id, child, parent, type, world) VALUES (NULL, '$login', 'vip', '1', NULL)")or die("errorsql.");
+			mysql_query("UPDATE $db_table SET $db_columnMoney=$db_columnMoney-$vipPrice WHERE $db_columnUser='$login'")or die("errorsql.");
 		}
 		$row = mysql_fetch_assoc(mysql_query("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser='$login'"));
 		echo "success:".$row[$db_columnMoney].":";
@@ -352,13 +352,13 @@ if($useban)
 		$pexdate = time() + 2678400;
 		if($group == 'group-premium-until')
 		{
-			mysql_query("UPDATE $db_table SET $db_columnMoney=$db_columnMoney-$premiumPrice WHERE $db_columnUser='$login'")or die("Ошибка.");
+			mysql_query("UPDATE $db_table SET $db_columnMoney=$db_columnMoney-$premiumPrice WHERE $db_columnUser='$login'")or die("errorsql.");
 			mysql_query("UPDATE permissions SET value=value+2678400 WHERE name='$login'");
 		} else
 		{
-			mysql_query("INSERT INTO permissions (id, name, type, permission, world, value) VALUES (NULL, '$login', '1', 'group-premium-until', ' ', '$pexdate')")or die("Ошибка.");
-			mysql_query("INSERT INTO permissions_inheritance (id, child, parent, type, world) VALUES (NULL, '$login', 'premium', '1', NULL)")or die("Ошибка.");
-			mysql_query("UPDATE $db_table SET $db_columnMoney=$db_columnMoney-$premiumPrice WHERE $db_columnUser='$login'")or die("Ошибка.");
+			mysql_query("INSERT INTO permissions (id, name, type, permission, world, value) VALUES (NULL, '$login', '1', 'group-premium-until', ' ', '$pexdate')")or die("errorsql.");
+			mysql_query("INSERT INTO permissions_inheritance (id, child, parent, type, world) VALUES (NULL, '$login', 'premium', '1', NULL)")or die("errorsql.");
+			mysql_query("UPDATE $db_table SET $db_columnMoney=$db_columnMoney-$premiumPrice WHERE $db_columnUser='$login'")or die("errorsql.");
 		}
 		$row = mysql_fetch_assoc(mysql_query("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser='$login'"));
 		echo "success:".$row[$db_columnMoney].":";
@@ -391,7 +391,7 @@ if($useban)
 				} else $ugroup = 'User';
 				
 				mysql_query("DELETE FROM $banlist WHERE name='$login'");
-				mysql_query("UPDATE $db_table SET $db_columnMoney=$db_columnMoney-$unbanPrice WHERE $db_columnUser='$login'")or die("Ошибка.");
+				mysql_query("UPDATE $db_table SET $db_columnMoney=$db_columnMoney-$unbanPrice WHERE $db_columnUser='$login'")or die("errorsql.");
 				$row = mysql_fetch_assoc(mysql_query("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser='$login'"));
 				
 				echo "success:".$row[$db_columnMoney].":".$ugroup;

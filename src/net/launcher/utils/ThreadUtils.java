@@ -78,7 +78,7 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Ошибка авторизации (Логин, пароль)";
 				error = true;
-			} else if(answer.contains("error"))
+			} else if(answer.contains("errorsql"))
 			{
 				Frame.main.panel.tmpString = "Ошибка sql";
 				error = true;
@@ -135,7 +135,7 @@ public class ThreadUtils
 					{
 						Frame.main.panel.tmpString = "Ошибка авторизации (Логин, пароль)";
 						error = true;
-					} else if(answer.contains("error"))
+					} else if(answer.contains("errorsql"))
 					{
 						Frame.main.panel.tmpString = "Ошибка sql";
 						error = true;
@@ -308,7 +308,7 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Ошибка авторизации (Логин, пароль)";
 				error = true;
-			} else if(answer.contains("error"))
+			} else if(answer.contains("errorsql"))
 			{
 				Frame.main.panel.tmpString = "Ошибка sql";
 				error = true;
@@ -369,7 +369,7 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Ошибка авторизации (Логин, пароль)";
 				error = true;
-			} else if(answer.contains("error"))
+			} else if(answer.contains("errorsql"))
 			{
 				Frame.main.panel.tmpString = "Ошибка sql";
 				error = true;
@@ -426,7 +426,7 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Ошибка авторизации (Логин, пароль)";
 				error = true;
-			} else if(answer.contains("error"))
+			} else if(answer.contains("errorsql"))
 			{
 				Frame.main.panel.tmpString = "Ошибка sql";
 				error = true;
@@ -485,7 +485,7 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Ошибка авторизации (Логин, пароль)";
 				error = true;
-			} else if(answer.contains("error"))
+			} else if(answer.contains("errorsql"))
 			{
 				Frame.main.panel.tmpString = "Ошибка sql";
 				error = true;
@@ -595,7 +595,7 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Заполнены не все поля";
 				error = true;
-			} else if(answer1.contains("error"))
+			} else if(answer1.contains("errorsql"))
 			{
 				Frame.main.panel.tmpString = "Ошибка sql";
 				error = true;
@@ -651,7 +651,7 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Ошибка авторизации (Логин, пароль)";
 				error = true;
-			} else if(answer.contains("error"))
+			} else if(answer.contains("errorsql"))
 			{
 				Frame.main.panel.tmpString = "Ошибка sql";
 				error = true;

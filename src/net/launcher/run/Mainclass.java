@@ -11,7 +11,7 @@ public class Mainclass
 		Frame.start();
 		if(BaseUtils.getPropertyBoolean("Music", true))
 		{
-               MusPlay mp3 = new MusPlay(Settings.iMusicname);
-               mp3.play();}
+                  new MusPlay(Settings.iMusicname);
+                }
 	}
 }

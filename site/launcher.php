@@ -137,7 +137,7 @@ if($useban)
 		   !file_exists("clients/".$client."/bin/libraries.jar")  || !file_exists("clients/".$client."/bin/Forge.jar")  ||
 		   !file_exists("clients/".$client."/bin/extra.jar") || !file_exists("clients/".$client."/mods/")               || 
 		   !file_exists("clients/".$client."/coremods/") || !file_exists("clients/".$client."/bin/assets.zip")) 
-		   die("errorsql: клиент $client не найден");
+		   die("клиент $client не найден");
 		   
 	    
 	    $chars="0123456789abcdef";

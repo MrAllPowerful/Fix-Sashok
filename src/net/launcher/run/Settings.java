@@ -28,20 +28,9 @@ public class Settings
 	
 	public static int height                         = 532;      //Высота окна клиента
 	public static int width                          = 900;      //Ширина окна клиента
-	
-	// 1-> Имя папки клиента 
-	// 2-> ip 
-	// 3-> port 
-	// 4-> Версия клиента для автопатча директории (старые версии до 1.5.2)
-	// 5-> Тип запуска клиента 1 для старых версий 2 для новых
-	// 6-> 1 для запуска чистого клиента 1.6.2-1.6.4
-	//     2 для запуска клиента с forge без Liteloader 1.6.2-1.6.4
-	//     3 для запуска клиента с Liteloader и Liteloader+forge 1.6.2
-        //     4 для запуска клиента с Liteloader и Liteloader+forge 1.6.4
         
 	public static String[] servers =
 	{
-		//Клиент для запуска в оффлайн.
 		"Offline, localhost, 25565, 1.5.2",
 	};
 
@@ -62,12 +51,12 @@ public class Settings
 	public static boolean usePersonal		     =  false; //Использовать Личный кабинет
 	public static boolean customframe 		     =  true; //Использовать кастомный фрейм
 	public static boolean useOffline 	         =  true; //Использовать режим оффлайн
-	public static boolean useConsoleHider		 =  true; //Использовать скрытие консоли клиента
+	public static boolean useConsoleHider		 =  false; //Использовать скрытие консоли клиента
 	public static boolean useModCheckerTimer	 =  true; //Каждые 30 секунд моды будут перепроверяться
 
 	public static final String protectionKey	 = "1234567890"; //Ключ защиты сессии. Никому его не говорите.
 
-	public static boolean debug		 	         =  false; //Отображать все действия лаунчера (отладка)(true/false)
+	public static boolean debug		 	         =  true; //Отображать все действия лаунчера (отладка)(true/false)
 	public static boolean drawTracers		     =  false; //Отрисовывать границы элементов лаунчера
 	public static final String masterVersion  	 = "final_RC4"; //Версия лаунчера
 

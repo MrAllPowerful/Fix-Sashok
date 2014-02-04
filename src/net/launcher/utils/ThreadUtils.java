@@ -82,6 +82,10 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Ошибка sql";
 				error = true;
+			} else if(answer.contains("client"))
+			{
+				Frame.main.panel.tmpString = "Ошибка: "+answer.replace("client", "клиент")+" не найден";
+				error = true;
 			} else if(answer.contains("temp"))
 			{
 				Frame.main.panel.tmpString = "Подождите, перед следущей попыткой ввода (Логин Пароль)";

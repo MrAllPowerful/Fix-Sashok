@@ -57,7 +57,7 @@ public class Game extends JFrame
                 { 
                 	t = 3;
                 	cl = new URLClassLoader(urls);
-                	cl.loadClass("cpw.mods.fml.common.launcher.FMLTweaker");
+                	cl.loadClass("com.mumfrey.liteloader.launch.LiteLoaderTweake");
          		} catch(Exception e1)
          		{
                 	try {
@@ -205,12 +205,12 @@ public class Game extends JFrame
                             params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[2]);
                          }
                          }
-                         if (t == 3)
+                         if (t == 2)
                          {
                             params.add("--tweakClass");
                             params.add("cpw.mods.fml.common.launcher.FMLTweaker");
                          }
-                         if (t == 2)
+                         if (t == 3)
                          {
                             params.add("--tweakClass");  
                             params.add("com.mumfrey.liteloader.launch.LiteLoaderTweaker");

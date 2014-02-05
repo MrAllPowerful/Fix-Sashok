@@ -210,14 +210,21 @@ public class Game extends JFrame
                             params.add("--tweakClass");
                             params.add("cpw.mods.fml.common.launcher.FMLTweaker");
                          }
+                         String x = Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[3];
                          if (t == 3)
                          {
-                            params.add("--tweakClass");  
+                            params.add("--tweakClass");
                             params.add("com.mumfrey.liteloader.launch.LiteLoaderTweaker");
+                            if (x.equals("1.6.2"))
+                            {
                             params.add("--cascadedTweaks");
                             params.add("cpw.mods.fml.common.launcher.FMLTweaker");
+                            }
+                            else
+                            {
                             params.add("--tweakClass");
                             params.add("cpw.mods.fml.common.launcher.FMLTweaker");
+                            }
                          }
                           params.add("--accessToken");
                           params.add(user);

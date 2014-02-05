@@ -57,7 +57,7 @@ public class Game extends JFrame
                 { 
                 	t = 3;
                 	cl = new URLClassLoader(urls);
-                	cl.loadClass("com.mumfrey.liteloader.launch.LiteLoaderTweake");
+                	cl.loadClass("com.mumfrey.liteloader.launch.LiteLoaderTweaker");
          		} catch(Exception e1)
          		{
                 	try {

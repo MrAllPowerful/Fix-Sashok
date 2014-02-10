@@ -198,7 +198,7 @@ public class Game extends JFrame
                           params.add("--assetIndex");
                           params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[3]);
                           if(Settings.useAutoenter) {
-                          if (!Frame.main.offline.isSelected()) {          
+                          if (!Frame.main.offline.isSelected()) {
                             params.add("--server");
                             params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[1]);
                             params.add("--port");
@@ -215,16 +215,22 @@ public class Game extends JFrame
                          {
                             params.add("--tweakClass");
                             params.add("com.mumfrey.liteloader.launch.LiteLoaderTweaker");
-                            if (x.equals("1.6.2"))
-                            {
-                            params.add("--cascadedTweaks");
-                            params.add("cpw.mods.fml.common.launcher.FMLTweaker");
-                            }
-                            else
-                            {
-                            params.add("--tweakClass");
-                            params.add("cpw.mods.fml.common.launcher.FMLTweaker");
-                            }
+                        	try {
+                     			cl = new URLClassLoader(urls);
+        						cl.loadClass("cpw.mods.fml.common.launcher.FMLTweaker");
+                                if (x.equals("1.6.2"))
+                                {
+                                	params.add("--cascadedTweaks");
+                                	params.add("cpw.mods.fml.common.launcher.FMLTweaker");
+                                }
+                                else
+                                {
+                                	params.add("--tweakClass");
+                                	params.add("cpw.mods.fml.common.launcher.FMLTweaker");
+                                }
+        					} catch (ClassNotFoundException e2) {
+
+        					}
                          }
                           params.add("--accessToken");
                           params.add(user);

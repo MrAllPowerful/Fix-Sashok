@@ -11,6 +11,8 @@
 	echo "Bad login";
 	exit;
     }
+if ($user!="" && $sessionid!="" && $serverid!="")
+{
 	
 	$query = mysql_query("Select $db_columnUser From $db_table Where $db_columnUser='$user'") or die ("Ошибка");
 	$row = mysql_fetch_assoc($query);
@@ -18,7 +20,7 @@
 
 	if ($user !== $realUser)
     {
-    exit ("Bad register");
+    exit ("Bad login");
     }
 	
 	$result = mysql_query("Select $db_columnUser From $db_table Where $db_columnSesId='$sessionid' And $db_columnUser='$user' And $db_columnServer='$serverid'") or die ("Ошибка");
@@ -29,4 +31,9 @@
 		if(mysql_affected_rows() == 1) echo "OK";
 		else echo "Bad login";
 	}
+}
+else
+{
+ exit ("Bad login");
+}
 ?>

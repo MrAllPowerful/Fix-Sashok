@@ -6,13 +6,10 @@
 	$user = mysql_real_escape_string($_GET['user']);
 	$serverid = mysql_real_escape_string($_GET['serverId']);
 	
-	if (!preg_match("/^[a-zA-Z0-9_-]+$/", $user) || !preg_match("/^[a-zA-Z0-9:_-]+$/", $sessionid) || !preg_match("/^[a-zA-Z0-9_-]+$/", $serverid)){
-
-	echo "Bad login";
-	exit;
+    if (sizeof($_GET)!=3 || !empty ( $_GET['sessionId'] ) ||  !empty ( $_GET['user'] ) || !empty ( $_GET['serverId'] ) || !preg_match("/^[a-zA-Z0-9_-]+$/", $user) || !preg_match("/^[a-zA-Z0-9:_-]+$/", $sessionid) || !preg_match("/^[a-zA-Z0-9_-]+$/", $serverid)){
+    echo "Bad login!";
+    exit;
     }
-if ($user!="" && $sessionid!="" && $serverid!="")
-{
 	
 	$query = mysql_query("Select $db_columnUser From $db_table Where $db_columnUser='$user'") or die ("Ошибка");
 	$row = mysql_fetch_assoc($query);
@@ -31,9 +28,4 @@ if ($user!="" && $sessionid!="" && $serverid!="")
 		if(mysql_affected_rows() == 1) echo "OK";
 		else echo "Bad login";
 	}
-}
-else
-{
- exit ("Bad login");
-}
 ?>

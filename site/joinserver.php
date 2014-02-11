@@ -1,13 +1,14 @@
 <?php
 	define('INCLUDE_CHECK',true);
 	include("connect.php");
+    include("loger.php");
 	$sess = mysql_real_escape_string($_GET['sessionId']);
 	$sessionid   = str_replace('%3A', ':', $sess);
 	$user = mysql_real_escape_string($_GET['user']);
 	$serverid = mysql_real_escape_string($_GET['serverId']);
 	
-    if (sizeof($_GET)!=3 || !empty ( $_GET['sessionId'] ) ||  !empty ( $_GET['user'] ) || !empty ( $_GET['serverId'] ) || !preg_match("/^[a-zA-Z0-9_-]+$/", $user) || !preg_match("/^[a-zA-Z0-9:_-]+$/", $sessionid) || !preg_match("/^[a-zA-Z0-9_-]+$/", $serverid)){
-    echo "Bad login!";
+    if (sizeof($_GET)!=3 || empty ( $_GET['sessionId'] ) ||  empty ( $_GET['user'] ) || empty ( $_GET['serverId'] ) || !preg_match("/^[a-zA-Z0-9_-]+$/", $user) || !preg_match("/^[a-zA-Z0-9:_-]+$/", $sessionid) || !preg_match("/^[a-zA-Z0-9_-]+$/", $serverid)){
+    echo "Bad login";
     exit;
     }
 	

@@ -187,16 +187,36 @@ public class Game extends JFrame
                           }
                           params.add("--username");
                           params.add(user);
-                          params.add("--session");
-                          params.add(session);
+                          
+                          //params.add("--session");
+                          //params.add(session);
+                          //params.add("--accessToken");
+                          //params.add(user);
+                          //params.add("--uuid");
+                          //params.add(session);
+                          
+                      	 try {
+                   			 cl = new URLClassLoader(urls);
+      						 cl.loadClass("com.mojang.authlib.Agent");
+                             params.add("--accessToken");
+                             params.add(user);
+                             params.add("--uuid");
+                             params.add(session);
+                             params.add("--userProperties");
+                             params.add("{}");
+                             params.add("--assetIndex");
+                             params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[3]);
+      					 } catch (ClassNotFoundException e2) {
+                             params.add("--session");
+                             params.add(session);
+      					 }
+                          
                           params.add("--version");
                           params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[3]);
                           params.add("--gameDir");
                           params.add(minpath);
                           params.add("--assetsDir");
                           params.add(assets+"assets");
-                          params.add("--assetIndex");
-                          params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[3]);
                           if(Settings.useAutoenter) {
                           if (!Frame.main.offline.isSelected()) {
                             params.add("--server");
@@ -232,12 +252,6 @@ public class Game extends JFrame
 
         					}
                          }
-                          params.add("--accessToken");
-                          params.add(user);
-                          params.add("--uuid");
-                          params.add(session);
-                          params.add("--userProperties");
-                          params.add("{}");
                           ProcessBuilder pb = new ProcessBuilder(params);
                           pb.directory(new File(BaseUtils.getMcDir().toString()));
                           pb.start();

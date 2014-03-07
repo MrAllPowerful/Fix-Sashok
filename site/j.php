@@ -5,8 +5,6 @@ include("connect.php");
 if (($_SERVER['REQUEST_METHOD'] == 'POST' ) && (stripos($_SERVER["CONTENT_TYPE"], "application/json") === 0)) {
     $json = json_decode($HTTP_RAW_POST_DATA);
     
-} else {
-
 }
 
 @$aT = $json->accessToken; @$sP = @$json->selectedProfile; @$sI = $json->serverId;
@@ -15,10 +13,11 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST' ) && (stripos($_SERVER["CONTENT_TYPE"]
 @$serverid                  = mysql_real_escape_string($sI);
 //$logger->WriteLine($user.' '.$sessionid.' '.$serverid);
 
-if (!preg_match("/^[a-zA-Z0-9_-]+$/", $user) || !preg_match("/^[a-zA-Z0-9:_-]+$/", $sessionid) || !preg_match("/^[a-zA-Z0-9_-]+$/", $serverid)){
+$bad = array('error' => "Bad login",'errorMessage' => "Bad login");
+$ok = array('id' => $user);
 
-echo '{"error":"Bad login","errorMessage":"Bad login"}';
-exit;
+if (!preg_match("/^[a-zA-Z0-9_-]+$/", $user) || !preg_match("/^[a-zA-Z0-9:_-]+$/", $sessionid) || !preg_match("/^[a-zA-Z0-9_-]+$/", $serverid)){
+	exit(json_encode($bad));
 }
 	
 	$query = mysql_query("Select $db_columnUser From $db_table Where $db_columnUser='$user'") or die ("Ошибка");
@@ -26,16 +25,16 @@ exit;
 	$realUser = $row[$db_columnUser];
 
 	if ($user !== $realUser)
-        {
-         exit ('{"error":"Bad login","errorMessage":"Bad login"}');
-        }
+    {
+		exit(json_encode($bad));
+    }
 	
 	$result = mysql_query("Select $db_columnUser From $db_table Where $db_columnSesId='$sessionid' And $db_columnUser='$user' And $db_columnServer='$serverid'") or die ("Ошибка");
-	if(mysql_num_rows($result) == 1) echo '{"id":"ok"}';
+	if(mysql_num_rows($result) == 1) echo json_encode($ok);
 	else
 	{
 		$result = mysql_query("Update $db_table SET $db_columnServer='$serverid' Where $db_columnSesId='$sessionid' And $db_columnUser='$user'") or die ("Ошибка");
-		if(mysql_affected_rows() == 1) echo '{"id":"ok"}';
-		else echo '{"error":"Bad login","errorMessage":"Bad login"}';
+		if(mysql_affected_rows() == 1) echo json_encode($ok);
+		else exit(json_encode($bad));
 	}
 ?>

@@ -10,6 +10,8 @@
 	if(!file_exists($uploaddirs)) die ("Путь к скинам не является папкой! Укажите в настройках правильный путь.");
 	if(!file_exists($uploaddirp)) die ("Путь к плащам не является папкой! Укажите в настройках правильный путь.");
 	
+	try {
+	
 	if (!preg_match("/^[a-zA-Z0-9_-]+$/", $login) || !preg_match("/^[a-zA-Z0-9_-]+$/", $postPass) || !preg_match("/^[a-zA-Z0-9_-]+$/", $action)) {
 	
 		exit("errorLogin"); 	
@@ -239,9 +241,7 @@ if($useban)
 			$stmt->execute();
 			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 			$datetoexpire = 0;
-			//ПОДОЗРЕНИЕ
 			if(!$stmt) $ugroup = 'User'; else
-			// .ПОДОЗРЕНИЕ
 			{
 				$group = $row['permission'];
 				if($group == 'group-premium-until')
@@ -539,6 +539,9 @@ if($useban)
 		echo "success:".$money.":".$iconmoney;
 	} else echo "Запрос составлен неверно";
 	
+	} catch(PDOException $pe) {
+		die("errorsql".$logger->WriteLine($log_date.$pe));  //вывод ошибок MySQL в m.log
+	}
 	//===================================== Вспомогательные функции ==================================//
 
 	function xorencode($str, $key)

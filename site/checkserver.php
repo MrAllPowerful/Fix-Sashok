@@ -1,27 +1,33 @@
 <?php
 	define('INCLUDE_CHECK',true);
 	include ("connect.php");
-	$user = mysql_real_escape_string($_GET['user']);
-	$serverid = mysql_real_escape_string($_GET['serverId']);
+	$user = $_GET['user'];
+	$serverid = $_GET['serverId'];
 	
-	if (!preg_match("/^[a-zA-Z0-9_-]+$/", $user) || !preg_match("/^[a-zA-Z0-9_-]+$/", $serverid)){
-
-		echo "NO";	
+	try {
+		if (!preg_match("/^[a-zA-Z0-9_-]+$/", $user) || !preg_match("/^[a-zA-Z0-9_-]+$/", $serverid)){
+			echo "NO";	
+			exit;
+		}	
+		$stmt = $db->prepare("Select $db_columnUser From $db_table Where $db_columnUser= :user");
+		$stmt->bindValue(':user', $user);
+		$stmt->execute();
 		
-	exit;
-    }	
-    
-    $query = mysql_query("Select $db_columnUser From $db_table Where $db_columnUser='$user'") or die ("Ошибка");
-	$row = mysql_fetch_assoc($query);
-	$realUser = $row[$db_columnUser];
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		$realUser = $row[$db_columnUser];
 
-	if ($user !== $realUser)
-    {
-    exit ("NO");
-    }
-	
-	$result = mysql_query("Select $db_columnUser From $db_table Where $db_columnUser='$user' And $db_columnServer='$serverid'") or die (mysql_error());
+		if ($user !== $realUser) {
+			exit ("NO");
+		}
+		
+		$stmt = $db->prepare("Select $db_columnUser From $db_table Where $db_columnUser= :user And $db_columnServer= :serverid");
+		$stmt->bindValue(':user', $user);
+		$stmt->bindValue(':serverid', $serverid);
+		$stmt->execute();
 
-	if(mysql_num_rows($result) == 1) echo "YES";
-	else echo "NO";
+		if($stmt->fetchColumn() == 1) echo "YES";
+		else echo "NO";
+	} catch(PDOException $pe) {
+		die("Ошибка".$logger->WriteLine($log_date.$pe));  //вывод ошибок MySQL в m.log
+	}
 ?>

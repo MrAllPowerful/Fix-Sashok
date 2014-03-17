@@ -1,40 +1,57 @@
 <?php
-define('INCLUDE_CHECK',true);
-include("connect.php");
-//include("loger.php");
-if (($_SERVER['REQUEST_METHOD'] == 'POST' ) && (stripos($_SERVER["CONTENT_TYPE"], "application/json") === 0)) {
-    $json = json_decode($HTTP_RAW_POST_DATA);
-    
-}
+	define('INCLUDE_CHECK',true);
+	include("connect.php");
+	include("loger.php");
+	if (($_SERVER['REQUEST_METHOD'] == 'POST' ) && (stripos($_SERVER["CONTENT_TYPE"], "application/json") === 0)) {
+		$json = json_decode($HTTP_RAW_POST_DATA);
+		
+	}
 
-@$aT = $json->accessToken; @$sP = @$json->selectedProfile; @$sI = $json->serverId;
-@$user                      = mysql_real_escape_string($aT);
-@$sessionid                 = mysql_real_escape_string($sP);
-@$serverid                  = mysql_real_escape_string($sI);
-//$logger->WriteLine($user.' '.$sessionid.' '.$serverid);
+	@$aT = $json->accessToken; @$sP = @$json->selectedProfile; @$sI = $json->serverId;
+	@$user                      = $aT;
+	@$sessionid                 = $sP;
+	@$serverid                  = $sI;
+	//$logger->WriteLine($user.' '.$sessionid.' '.$serverid);
 
-$bad = array('error' => "Bad login",'errorMessage' => "Bad login");
-$ok = array('id' => $user);
+	$bad = array('error' => "Bad login",'errorMessage' => "Bad login");
+	$ok = array('id' => $user);
 
-if (!preg_match("/^[a-zA-Z0-9_-]+$/", $user) || !preg_match("/^[a-zA-Z0-9:_-]+$/", $sessionid) || !preg_match("/^[a-zA-Z0-9_-]+$/", $serverid)){
-	exit(json_encode($bad));
-}
-	
-	$query = mysql_query("Select $db_columnUser From $db_table Where $db_columnUser='$user'") or die ("Ошибка");
-	$row = mysql_fetch_assoc($query);
-	$realUser = $row[$db_columnUser];
+	try {
+		if (!preg_match("/^[a-zA-Z0-9_-]+$/", $user) || !preg_match("/^[a-zA-Z0-9:_-]+$/", $sessionid) || !preg_match("/^[a-zA-Z0-9_-]+$/", $serverid)){
+			exit(json_encode($bad));
+		}
+		
+		$stmt = $db->prepare("Select $db_columnUser From $db_table Where $db_columnUser= :user");
+		$stmt->bindValue(':user', $user);
+		$stmt->execute();
+		
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		$realUser = $row[$db_columnUser];
 
-	if ($user !== $realUser)
-    {
-		exit(json_encode($bad));
-    }
-	
-	$result = mysql_query("Select $db_columnUser From $db_table Where $db_columnSesId='$sessionid' And $db_columnUser='$user' And $db_columnServer='$serverid'") or die ("Ошибка");
-	if(mysql_num_rows($result) == 1) echo json_encode($ok);
-	else
-	{
-		$result = mysql_query("Update $db_table SET $db_columnServer='$serverid' Where $db_columnSesId='$sessionid' And $db_columnUser='$user'") or die ("Ошибка");
-		if(mysql_affected_rows() == 1) echo json_encode($ok);
-		else exit(json_encode($bad));
+		if ($user !== $realUser)
+		{
+			exit(json_encode($bad));
+		}
+		
+		$stmt = $db->prepare("Select $db_columnUser From $db_table Where $db_columnSesId= :sessionid And $db_columnUser= :user And $db_columnServer= :serverid");
+		$stmt->bindValue(':user', $user);
+		$stmt->bindValue(':sessionid', $sessionid);
+		$stmt->bindValue(':serverid', $serverid);
+		$stmt->execute();
+		
+		if($stmt->fetchColumn() == 1) echo json_encode($ok);
+		else
+		{
+			$stmt = $db->prepare("Update $db_table SET $db_columnServer= :serverid Where $db_columnSesId= :sessionid And $db_columnUser= :user");
+			$stmt->bindValue(':user', $user);
+			$stmt->bindValue(':sessionid', $sessionid);
+			$stmt->bindValue(':serverid', $serverid);
+			$stmt->execute();
+			
+			if($stmt->rowCount() == 1) echo json_encode($ok);
+			else exit(json_encode($bad));
+		}
+	} catch(PDOException $pe) {
+			die("Ошибка".$logger->WriteLine($log_date.$pe));  //вывод ошибок MySQL в m.log
 	}
 ?>

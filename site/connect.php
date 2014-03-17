@@ -77,8 +77,11 @@
 	$exchangeRate		=  200; //Êóðñ îáìåíà Realmoney -> IConomy
 	
 	//ÂÑÅ ×ÒÎ ÍÈÆÅ - ÍÅ ÒÐÎÃÀÒÜ!
-	$link = @mysql_connect($db_host.':'.$db_port,$db_user,$db_pass) or die(mysql_error());
-
-	mysql_select_db($db_database,$link);
-	mysql_query("SET names UTF8");
+	try {
+		$db = new PDO("mysql:host=$db_host;port=$db_port;dbname=$db_database", $db_user, $db_pass);
+		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$db->exec("set names utf8");
+	} catch(PDOException $e) {
+		echo $e->getMessage();
+	}
 ?>

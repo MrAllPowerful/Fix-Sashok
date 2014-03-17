@@ -2,132 +2,160 @@
     header('Content-Type: text/html; charset=cp1251');
 	define('INCLUDE_CHECK',true);
 	include("connect.php");
-	include("loger.php");
-	@$login 		= mysql_real_escape_string($_POST['login']);
-	@$postPass	= mysql_real_escape_string($_POST['password']);
-	@$client 	= mysql_real_escape_string($_POST['client']);
-	@$action		= mysql_real_escape_string($_POST['action']);
-	if(!file_exists($uploaddirs)) die ("Путь к скинам не является папкой! Укажите в настройках правильный путь.");
-	if(!file_exists($uploaddirp)) die ("Путь к плащам не является папкой! Укажите в настройках правильный путь.");
+	include("logger.php");
+	@$login 		= $_POST['login'];
+	@$postPass	    = $_POST['password'];
+	@$client 	    = $_POST['client'];
+	@$action		= $_POST['action'];
+	if(!file_exists($uploaddirs)) die ("РџСѓС‚СЊ Рє СЃРєРёРЅР°Рј РЅРµ СЏРІР»СЏРµС‚СЃСЏ РїР°РїРєРѕР№! РЈРєР°Р¶РёС‚Рµ РІ РЅР°СЃС‚СЂРѕР№РєР°С… РїСЂР°РІРёР»СЊРЅС‹Р№ РїСѓС‚СЊ.");
+	if(!file_exists($uploaddirp)) die ("РџСѓС‚СЊ Рє РїР»Р°С‰Р°Рј РЅРµ СЏРІР»СЏРµС‚СЃСЏ РїР°РїРєРѕР№! РЈРєР°Р¶РёС‚Рµ РІ РЅР°СЃС‚СЂРѕР№РєР°С… РїСЂР°РІРёР»СЊРЅС‹Р№ РїСѓС‚СЊ.");
 	
 	if (!preg_match("/^[a-zA-Z0-9_-]+$/", $login) || !preg_match("/^[a-zA-Z0-9_-]+$/", $postPass) || !preg_match("/^[a-zA-Z0-9_-]+$/", $action)) {
 	
-		echo "errorLogin"; 	
-		
-	exit;
+		exit("errorLogin"); 	
     }	
 	
 	if($crypt == 'hash_md5' || $crypt == 'hash_authme' || $crypt == 'hash_xauth' || $crypt == 'hash_cauth' || $crypt == 'hash_joomla' || $crypt == 'hash_wordpress' || $crypt == 'hash_dle' || $crypt == 'hash_launcher' || $crypt == 'hash_drupal' )
 	{
 	    if($useactivate)
         {
-		 $query = mysql_query("SELECT $db_columnUser,$db_columnPass,$db_columnMoney,$db_table.$db_group FROM $db_table WHERE $db_columnUser='$login'") or die("errorsql".$logger->WriteLine($log_date.mysql_error()));  //вывод ошибок MySQL в m.log
+			$stmt = $db->prepare("SELECT $db_columnUser,$db_columnPass,$db_columnMoney,$db_table.$db_group FROM $db_table WHERE $db_columnUser= :login");
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();
 		}
 		else
 		{
-		 $query = mysql_query("SELECT $db_columnUser,$db_columnPass,$db_columnMoney FROM $db_table WHERE $db_columnUser='$login'") or die("errorsql".$logger->WriteLine($log_date.mysql_error()));  //вывод ошибок MySQL в m.log
+			
+			$stmt = $db->prepare("SELECT $db_columnUser,$db_columnPass,$db_columnMoney FROM $db_table WHERE $db_columnUser= :login");
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();
+			$stmt->bindColumn($db_columnPass, $realPass);
+			$stmt->bindColumn($db_columnUser, $realUser);
+			$stmt->fetch();
 		}
-		$row = mysql_fetch_assoc($query);
-		$realPass = $row[$db_columnPass];
-		$realUser = $row[$db_columnUser];
 	} else if ($crypt == 'hash_ipb' || $crypt == 'hash_vbulletin')
 	{
-		$row = mysql_fetch_assoc(mysql_query("SELECT $db_columnUser,$db_columnPass,$db_columnSalt,$db_columnMoney FROM $db_table WHERE $db_columnUser='$login'")) or die("errorsql".$logger->WriteLine($log_date.mysql_error())); //вывод ошибок MySQL в m.log
-		$realPass = $row[$db_columnPass];
-		$salt = $row[$db_columnSalt];
-		$realUser = $row[$db_columnUser];
+		
+		$stmt = $db->prepare("SELECT $db_columnUser,$db_columnPass,$db_columnSalt,$db_columnMoney FROM $db_table WHERE $db_columnUser= :login");
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+		$stmt->bindColumn($db_columnPass, $realPass);
+		$stmt->bindColumn($db_columnSalt, $salt);
+		$stmt->bindColumn($db_columnUser, $realUser);
+		$stmt->fetch();
 	} else if($crypt == 'hash_xenforo')
 	{
-	    $query = "SELECT $db_table.$db_columnId,$db_table.$db_columnUser,$db_tableOther.$db_columnId,$db_tableOther.$db_columnPass FROM $db_table, $db_tableOther WHERE $db_table.$db_columnId = $db_tableOther.$db_columnId AND $db_table.$db_columnUser='{$login}'";
-		$result = mysql_query($query)or die("errorsql".$logger->WriteLine($log_date.mysql_error())); //вывод ошибок MySQL в m.log
-		$row = mysql_fetch_assoc($result);
-		$realPass = substr($row[$db_columnPass],22,64);
-		$realUser = $row[$db_columnUser];
-		$salt = substr($row[$db_columnPass],105,64);
+		
+		$stmt = $db->prepare("SELECT $db_table.$db_columnId,$db_table.$db_columnUser,$db_tableOther.$db_columnId,$db_tableOther.$db_columnPass FROM $db_table, $db_tableOther WHERE $db_table.$db_columnId = $db_tableOther.$db_columnId AND $db_table.$db_columnUser= :login");
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+		$stmt->bindColumn($db_columnPass, $realPass);
+		$stmt->bindColumn($db_columnUser, $realUser);
+		$stmt->bindColumn($db_columnPass, $salt);
+		$stmt->fetch();
+		$realPass = substr($realPass,22,64);
+		$salt = substr($salt,105,64);
 	} else die("badhash"); $checkPass = $crypt();
 
-if($useantibrut)
-{
-	
-    $ip  = getenv('REMOTE_ADDR');	
-    $time = time();
-    $bantime = $time+(10);
-
-    $tbip = mysql_query("Select sip,time From sip Where sip='$ip' And time>'$time'") or die("errorsql".$logger->WriteLine($log_date.mysql_error())); //вывод ошибок MySQL в m.log
-    $row = mysql_fetch_assoc($tbip);
-    $real = $row['sip'];
-    if($ip == $real)
-    {
-	 $query = mysql_query("SELECT * FROM `sip` WHERE `sip` > 0;") or die("errorsql".$logger->WriteLine($log_date.mysql_error()));
-         while($result = mysql_fetch_assoc($query))
-    {
-     if($result['time'] < $time) {
-        @mysql_query("DELETE FROM `sip` WHERE `sip`='{$result['sip']}';");
-     }
-    }
-     echo 'temp'; 		
-     exit;
-    }
-	
-    if ($login !== $realUser)
-    {
-    exit ('errorLogin'.mysql_query("INSERT INTO sip (sip, time)VALUES ('$ip', '$bantime')"));
-    }
-	if(!strcmp($realPass,$checkPass) == 0 || !$realPass) die("errorLogin".mysql_query("INSERT INTO sip (sip, time)VALUES ('$ip', '$bantime')"));
+	if($useantibrut)
+	{	
+		$ip  = getenv('REMOTE_ADDR');	
+		$time = time();
+		$bantime = $time+(10);
+		$stmt = $db->prepare("Select sip,time From sip Where sip='$ip' And time>'$time'");
+		$stmt->execute();
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		$real = $row['sip'];
+		if($ip == $real)
+		{
+			
+			$stmt = $db->prepare("SELECT * FROM `sip` WHERE `sip` > 0;");
+			$stmt->execute();
+			
+			while($result = $stmt->fetch(PDO::FETCH_ASSOC))
+			{
+				if($result['time'] < $time) {
+				$stmt = $db->prepare("DELETE FROM `sip` WHERE `sip`='{$result['sip']}';");
+				$stmt->execute();
+				}
+			}
+			echo 'temp'; 		
+			exit;
+		}
+		
+		if ($login !== $realUser)
+		{
+			$stmt = $db->prepare("INSERT INTO sip (sip, time)VALUES ('$ip', '$bantime')");
+			$stmt->execute();
+			exit ('errorLogin');
+		}
+		if(!strcmp($realPass,$checkPass) == 0 || !$realPass) {
+			$stmt = $db->prepare("INSERT INTO sip (sip, time)VALUES ('$ip', '$bantime')");
+			$stmt->execute();
+			exit("errorLogin");
+		}
 
     } else {
-    if ($login !== $realUser)
-    {
-    exit ('errorLogin');
-    }
-	if(!strcmp($realPass,$checkPass) == 0 || !$realPass) die("errorLogin");
+		if ($login !== $realUser)
+		{
+			exit ('errorLogin');
+		}
+		if(!strcmp($realPass,$checkPass) == 0 || !$realPass) die("errorLogin");
     }
 	
-if($useactivate)
-{	
-	if($row[$db_group] == $noactive)	
-	{
-    exit ("Ваш аккаунт не активирован!");
-    }
-}
+	if($useactivate)
+	{	
+		if($db_noactive == $noactive)	
+		{
+			exit ("Р’Р°С€ Р°РєРєР°СѓРЅС‚ РЅРµ Р°РєС‚РёРІРёСЂРѕРІР°РЅ!");
+		}
+	}
 if($useban)
 {
-   $time = time();
-   $tipe = '2';
-   $result = mysql_query("Select name From $banlist Where name='$login' And type<'$tipe' And temptime>'$time'") or die ("errorsql");
-   if(mysql_num_rows($result) == 1)
-    {
-      $result2 = mysql_query("Select name,temptime From $banlist Where name='$login' And type<'$tipe' And temptime>'$time'") or die ("errorsql");
-      $row = mysql_fetch_assoc($result2);
-      exit ('Временный бан до '.date('d.m.Yг. H:i', $row['temptime'])." по времени сервера");
+    $time = time();
+    $tipe = '2';
+	$stmt = $db->prepare("Select name From $banlist Where name= :login And type<'$tipe' And temptime>'$time'");
+	$stmt->bindValue(':login', $login);
+	$stmt->execute();
+   if($stmt->fetchColumn() == 1)
+	{
+		$stmt = $db->prepare("Select name,temptime From $banlist Where name= :login And type<'$tipe' And temptime>'$time'");
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		exit ('Р’СЂРµРјРµРЅРЅС‹Р№ Р±Р°РЅ РґРѕ '.date('d.m.YРі. H:i', $row['temptime'])." РїРѕ РІСЂРµРјРµРЅРё СЃРµСЂРІРµСЂР°");
     }
-      $result = mysql_query("Select name From $banlist Where name='$login' And type<'$tipe' And temptime='0'") or die ("errorsql");
-      if(mysql_num_rows($result) == 1)
+		$stmt = $db->prepare("Select name From $banlist Where name= :login And type<'$tipe' And temptime='0'");
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+	if($stmt->fetchColumn() == 1)
     {
-      exit ("Вечный бан");
+      exit ("Р’РµС‡РЅС‹Р№ Р±Р°РЅ");
     }
 }
-
-
-
-	
-	
-	if($action == 'getpersonal' && !$usePersonal) die("Использование ЛК выключено");
-	if($action == 'uploadskin' && !$canUploadSkin) die("Функция недоступна");
-	if($action == 'uploadcloak' && !$canUploadCloak) die("Функция недоступна");
-	if($action == 'buyvip' && !$canBuyVip) die("Функция недоступна");
-	if($action == 'buypremium' && !$canBuyPremium) die("Функция недоступна");
-	if($action == 'buyunban' && !$canBuyUnban) die("Функция недоступна");
-	if($action == 'exchange' && !$canExchangeMoney) die("Функция недоступна");
-	if($action == 'activatekey' && !$canActivateVaucher) die("Функция недоступна");
+	if($action == 'getpersonal' && !$usePersonal) die("РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ Р›Рљ РІС‹РєР»СЋС‡РµРЅРѕ");
+	if($action == 'uploadskin' && !$canUploadSkin) die("Р¤СѓРЅРєС†РёСЏ РЅРµРґРѕСЃС‚СѓРїРЅР°");
+	if($action == 'uploadcloak' && !$canUploadCloak) die("Р¤СѓРЅРєС†РёСЏ РЅРµРґРѕСЃС‚СѓРїРЅР°");
+	if($action == 'buyvip' && !$canBuyVip) die("Р¤СѓРЅРєС†РёСЏ РЅРµРґРѕСЃС‚СѓРїРЅР°");
+	if($action == 'buypremium' && !$canBuyPremium) die("Р¤СѓРЅРєС†РёСЏ РЅРµРґРѕСЃС‚СѓРїРЅР°");
+	if($action == 'buyunban' && !$canBuyUnban) die("Р¤СѓРЅРєС†РёСЏ РЅРµРґРѕСЃС‚СѓРїРЅР°");
+	if($action == 'exchange' && !$canExchangeMoney) die("Р¤СѓРЅРєС†РёСЏ РЅРµРґРѕСЃС‚СѓРїРЅР°");
+	if($action == 'activatekey' && !$canActivateVaucher) die("Р¤СѓРЅРєС†РёСЏ РЅРµРґРѕСЃС‚СѓРїРЅР°");
 
 	if($action == 'exchange' || $action == 'getpersonal')
 	{
-		$rowicon = mysql_fetch_assoc(mysql_query("SELECT username,balance FROM iConomy WHERE username='$login'"));
-		$iconregistered = true;
+			$stmt = $db->prepare("SELECT username,balance FROM iConomy WHERE username= :login");
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();
+			$rowicon = $stmt->fetch(PDO::FETCH_ASSOC);
+			$iconregistered = true;
+		
 		if(!$rowicon['balance'])
 		{
-			mysql_query("INSERT INTO `iConomy` (`username`, `balance`, `status`) VALUES ('$login', '$initialIconMoney.00', '0');") or $iconregistered = false;
+			$stmt = $db->prepare("INSERT INTO `iConomy` (`username`, `balance`, `status`) VALUES (:login, '$initialIconMoney.00', '0');");
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();
+			$iconregistered = false;
 		}
 	}
     
@@ -154,7 +182,6 @@ if($useban)
         $password2.=$chars2[rand(0,$size2)];
 		
 		$sessid 		= "token:".$password.":".$password2;
-		//$sessid 		= generateSessionId();
 		$md5zip			= md5_file("clients/".$client."/bin/client.zip");
 		$md5czip        = strtoint(xorencode($md5zip, $protectionKey));
 		$md52zip		= md5_file("clients/".$client."/bin/assets.zip");
@@ -167,7 +194,11 @@ if($useban)
 		$md5clwjql_util = strtoint(xorencode($md5lwjql_util, $protectionKey));
 		$md5jinput		= md5_file("clients/".$client."/bin/extra.jar");
 		$md5cjinput     = strtoint(xorencode($md5jinput, $protectionKey));
-		mysql_query("UPDATE $db_table SET $db_columnSesId='$sessid' WHERE $db_columnUser = '$login'") or die ("errorsql.");
+		
+		$stmt = $db->prepare("UPDATE $db_table SET $db_columnSesId='$sessid' WHERE $db_columnUser = :login");
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+		
 		echo "$md5czip<:>$md52czip<:>$md5cjar<:>$md5clwjql<:>$md5clwjql_util<:>$md5cjinput<:>$masterversion<br>".
 		$realUser.'<:>'.strtoint(xorencode($sessid, $protectionKey)).'<br>';
 		
@@ -192,18 +223,26 @@ if($useban)
 		$realmoney = $row[$db_columnMoney];
 
 		if($iconregistered)
-		{
-			$row = mysql_fetch_assoc(mysql_query("SELECT username,balance FROM iConomy WHERE username='$login'"));
+		{	
+			$stmt = $db->prepare("SELECT username,balance FROM iConomy WHERE username= :login");
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 			$iconmoney = $row['balance'];
 		} else $iconmoney = "0.0";
 		
 		if($canBuyVip || $canBuyPremium)
 		{
-			$sql = mysql_query("SELECT name,permission,value FROM permissions WHERE name='$login'");
+			
+			$stmt = $db->prepare("SELECT name,permission,value FROM permissions WHERE name= :login");
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 			$datetoexpire = 0;
-			if(!$sql) $ugroup = 'User'; else
+			//РџРћР”РћР—Р Р•РќРР•
+			if(!$stmt) $ugroup = 'User'; else
+			// .РџРћР”РћР—Р Р•РќРР•
 			{
-				$row = mysql_fetch_assoc($sql);
 				$group = $row['permission'];
 				if($group == 'group-premium-until')
 				{
@@ -223,21 +262,27 @@ if($useban)
 	
 		if($canUseJobs)
 		{
-			$sql = mysql_fetch_assoc(mysql_query("SELECT job FROM jobs WHERE username='$login'"));
+			$stmt = $db->prepare("SELECT job FROM jobs WHERE username= :login");
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();
+			$sql = $stmt->fetch(PDO::FETCH_ASSOC);
 			$query = $sql['job'];
-			if($query == '') { $jobname = "Безработный"; $joblvl = 0; $jobexp = 0; } else
+			if($query == '') { $jobname = "Р‘РµР·СЂР°Р±РѕС‚РЅС‹Р№"; $joblvl = 0; $jobexp = 0; } else
 			{
-				$result = mysql_query("SELECT * FROM jobs WHERE username='$login'");
-				while($data = mysql_fetch_assoc($result))
+				$stmt = $db->prepare("SELECT * FROM jobs WHERE username= :login");
+				$stmt->bindValue(':login', $login);
+				$stmt->execute();
+				
+				while($data = $stmt->fetch(PDO::FETCH_ASSOC))
 				{
-					if ($data["job"] === 'Miner') $data["job"] = 'Шахтер';
-					if ($data["job"] === 'Woodcooter') $data["job"] = 'Лесоруб';
-					if ($data["job"] === 'Builder') $data["job"] = 'Строитель';
-					if ($data["job"] === 'Digger') $data["job"] = 'Дигер';
-					if ($data["job"] === 'Farmer') $data["job"] = 'Фермер';
-					if ($data["job"] === 'Hunter') $data["job"] = 'Охотник';
-					if ($data["job"] === 'Fisherman') $data["job"] = 'Рыбак';
-					if ($data["job"] === 'Weaponsmith') $data["job"] = 'Оружейник';
+					if ($data["job"] === 'Miner') $data["job"] = 'РЁР°С…С‚РµСЂ';
+					if ($data["job"] === 'Woodcooter') $data["job"] = 'Р›РµСЃРѕСЂСѓР±';
+					if ($data["job"] === 'Builder') $data["job"] = 'РЎС‚СЂРѕРёС‚РµР»СЊ';
+					if ($data["job"] === 'Digger') $data["job"] = 'Р”РёРіРµСЂ';
+					if ($data["job"] === 'Farmer') $data["job"] = 'Р¤РµСЂРјРµСЂ';
+					if ($data["job"] === 'Hunter') $data["job"] = 'РћС…РѕС‚РЅРёРє';
+					if ($data["job"] === 'Fisherman') $data["job"] = 'Р С‹Р±Р°Рє';
+					if ($data["job"] === 'Weaponsmith') $data["job"] = 'РћСЂСѓР¶РµР№РЅРёРє';
 					
 					$jobname = $data['job'];
 					$joblvl = $data["level"];
@@ -257,172 +302,244 @@ if($useban)
 		if($canBuyUnban == 1)
 		{
 		    $ty = 2;
-			$sql2 = mysql_fetch_assoc(mysql_query("SELECT name,type FROM $banlist WHERE name='$login' and type<'$ty'"));
+			$stmt = $db->prepare("SELECT name,type FROM $banlist WHERE name= :login and type<'$ty'");
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();
+			$sql2 = $stmt->fetch(PDO::FETCH_ASSOC);
 			$query2 = $sql2['name'];
 			if(strcasecmp($query2, $login) == 0) $ugroup = "Banned";
 		}
 		
 		echo "$canUploadSkin$canUploadCloak$canBuyVip$canBuyPremium$canBuyUnban$canActivateVaucher$canExchangeMoney<:>$iconmoney<:>$realmoney<:>$cloakPrice<:>$vipPrice<:>$premiumPrice<:>$unbanPrice<:>$exchangeRate<:>$ugroup<:>$datetoexpire<:>$jobname<:>$joblvl<:>$jobexp";
 	} else
-//============================================Функции ЛК====================================//
+//============================================Р¤СѓРЅРєС†РёРё Р›Рљ====================================//
 
 	if($action == 'activatekey')
 	{
-		@$key = mysql_real_escape_string($_POST['key']);
-		$row = mysql_fetch_assoc(mysql_query("SELECT * FROM `$db_tableMoneyKeys` WHERE `$db_columnKey` = '$key'"));
+		@$key = $_POST['key'];
+		$stmt = $db->prepare("SELECT * FROM `$db_tableMoneyKeys` WHERE `$db_columnKey` = '$key'");
+		$stmt->execute();
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		$amount = $row[$db_columnAmount];
 		if($amount)
 		{
-			mysql_query("UPDATE `$db_table` SET $db_columnMoney = $db_columnMoney + $amount WHERE $db_columnUser='$login'");
-			mysql_query("DELETE FROM `$db_tableMoneyKeys` WHERE `$db_columnKey` = '$key'");
-			$row = mysql_fetch_assoc(mysql_query("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser='$login'"));
+			$stmt = $db->prepare("UPDATE `$db_table` SET $db_columnMoney = $db_columnMoney + $amount WHERE $db_columnUser= :login");
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();
+			$stmt = $db->prepare("DELETE FROM `$db_tableMoneyKeys` WHERE `$db_columnKey` = '$key'");
+			$stmt->execute();	
+			$stmt = $db->prepare("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser= :login");
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);	
 			$money = $row[$db_columnMoney];
 			echo "success:".$money;
-		} else echo "Ключ введен неверно";
+		} else echo "keyerr";
 	} else
 
 	if($action == 'uploadskin')
 	{
-		if(!is_uploaded_file($_FILES['ufile']['tmp_name'])) die("Файл не выбран");
+		if(!is_uploaded_file($_FILES['ufile']['tmp_name'])) die("nofile");
 		$imageinfo = getimagesize($_FILES['ufile']['tmp_name']);
-		if($imageinfo['mime'] != 'image/png' || $imageinfo["0"] != '64' || $imageinfo["1"] != '32') die("Этот файл не является файлом скина");
-		
-		
+		if($imageinfo['mime'] != 'image/png' || $imageinfo["0"] != '64' || $imageinfo["1"] != '32') die("skinerr");
 		$uploadfile = "".$uploaddirs."/".$login.".png";
-
 		if(move_uploaded_file($_FILES['ufile']['tmp_name'], $uploadfile)) echo "success";
-		else echo "errorsql загрузки файла";
+		else echo "fileerr";
 	} else
 	
 	if($action == 'uploadcloak')
 	{
-		$row = mysql_fetch_assoc(mysql_query("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser='$login'"));
-		$query = $row[$db_columnMoney]; if($query < $cloakPrice) die("У вас недостаточно средств!");
-		
-		if(!is_uploaded_file($_FILES['ufile']['tmp_name'])) die("Файл не выбран");
+		$stmt = $db->prepare("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser= :login");
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		$query = $row[$db_columnMoney]; if($query < $cloakPrice) die("moneyno");
+		if(!is_uploaded_file($_FILES['ufile']['tmp_name'])) die("nofile");
 		$imageinfo = getimagesize($_FILES['ufile']['tmp_name']);
 		$go = false;
 		if(($imageinfo['mime'] != 'image/png' || $imageinfo["0"] == '64' || $imageinfo["1"] == '32')){
 		$go = true;
-		} else echo 'Этот файл не является файлом плаща';
+		} else echo 'cloakerr';
 		if($go) {
 		$uploadfile = "".$uploaddirp."/".$login.".png";
-
-		if(!move_uploaded_file($_FILES['ufile']['tmp_name'], $uploadfile)) die("errorsql загрузки файла");
-		mysql_query("UPDATE $db_table SET $db_columnMoney = $db_columnMoney - $cloakPrice WHERE $db_columnUser='$login'");
-		$row = mysql_fetch_assoc(mysql_query("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser='$login'"));
+		if(!move_uploaded_file($_FILES['ufile']['tmp_name'], $uploadfile)) die("fileerr");
+		$stmt = $db->prepare("UPDATE $db_table SET $db_columnMoney = $db_columnMoney - $cloakPrice WHERE $db_columnUser= :login");
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+		$stmt = $db->prepare("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser= :login");
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		echo "success:".$row[$db_columnMoney];
 	}} else
 	
 	if($action == 'buyvip')
 	{
-		$row = mysql_fetch_assoc(mysql_query("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser='$login'"));
-		$query = $row[$db_columnMoney]; if($query < $vipPrice) die("У вас недостаточно средств!");
-		
-		$sql = mysql_query("SELECT name,permission FROM permissions WHERE name='$login'");
-		$row = mysql_fetch_assoc($sql);
+		$stmt = $db->prepare("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser= :login");
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		$query = $row[$db_columnMoney]; if($query < $vipPrice) die("moneyno");
+	    $stmt = $db->prepare("SELECT name,permission FROM permissions WHERE name= :login");
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		$group = $row['permission'];
-		
 		$pexdate = time() + 2678400;
 		if($group == 'group-vip-until')
-		{
-			mysql_query("UPDATE $db_table SET $db_columnMoney=$db_columnMoney-$vipPrice WHERE $db_columnUser='$login'")or die("errorsql.");
-			mysql_query("UPDATE permissions SET value=value+2678400 WHERE name='$login'");
+		{	
+			$stmt = $db->prepare("UPDATE $db_table SET $db_columnMoney=$db_columnMoney-$vipPrice WHERE $db_columnUser= :login");
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();
+			$stmt = $db->prepare("UPDATE permissions SET value=value+2678400 WHERE name= :login");
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();
 		} else
 		{
-			mysql_query("INSERT INTO permissions (id, name, type, permission, world, value) VALUES (NULL, '$login', '1', 'group-vip-until', ' ', '$pexdate')")or die("errorsql.");
-			mysql_query("INSERT INTO permissions_inheritance (id, child, parent, type, world) VALUES (NULL, '$login', 'vip', '1', NULL)")or die("errorsql.");
-			mysql_query("UPDATE $db_table SET $db_columnMoney=$db_columnMoney-$vipPrice WHERE $db_columnUser='$login'")or die("errorsql.");
+			$stmt = $db->prepare("INSERT INTO permissions (id, name, type, permission, world, value) VALUES (NULL, :login, '1', 'group-vip-until', ' ', '$pexdate')");
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();	
+			$stmt = $db->prepare("INSERT INTO permissions_inheritance (id, child, parent, type, world) VALUES (NULL, :login, 'vip', '1', NULL)");
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();
+			$stmt = $db->prepare("UPDATE $db_table SET $db_columnMoney=$db_columnMoney-$vipPrice WHERE $db_columnUser= :login");
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();
 		}
-		$row = mysql_fetch_assoc(mysql_query("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser='$login'"));
-		echo "success:".$row[$db_columnMoney].":";
-		$row = mysql_fetch_assoc(mysql_query("SELECT name,permission,value FROM permissions WHERE name='$login'"));
-		echo $row['value'];
+			$stmt = $db->prepare("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser= :login");
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+			echo "success:".$row[$db_columnMoney].":";
+			$stmt = $db->prepare("SELECT name,permission,value FROM permissions WHERE name= :login");
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+			echo $row['value'];
 	} else
 	
 	if($action == 'buypremium')
 	{
-		$row = mysql_fetch_assoc(mysql_query("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser='$login'"));
-		$query = $row[$db_columnMoney]; if($query < $premiumPrice) die("У вас недостаточно средств!");
-		
-		$sql = mysql_query("SELECT name,permission FROM permissions WHERE name='$login'");
-		$row = mysql_fetch_assoc($sql);
+		$stmt = $db->prepare("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser= :login");
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		$query = $row[$db_columnMoney]; if($query < $premiumPrice) die("moneyno");
+		$stmt = $db->prepare("SELECT name,permission FROM permissions WHERE name= :login");
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		$group = $row['permission'];
-		
 		$pexdate = time() + 2678400;
 		if($group == 'group-premium-until')
 		{
-			mysql_query("UPDATE $db_table SET $db_columnMoney=$db_columnMoney-$premiumPrice WHERE $db_columnUser='$login'")or die("errorsql.");
-			mysql_query("UPDATE permissions SET value=value+2678400 WHERE name='$login'");
+			$stmt = $db->prepare("UPDATE $db_table SET $db_columnMoney=$db_columnMoney-$premiumPrice WHERE $db_columnUser= :login");
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();
+			$stmt = $db->prepare("UPDATE permissions SET value=value+2678400 WHERE name= :login");
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();
 		} else
 		{
-			mysql_query("INSERT INTO permissions (id, name, type, permission, world, value) VALUES (NULL, '$login', '1', 'group-premium-until', ' ', '$pexdate')")or die("errorsql.");
-			mysql_query("INSERT INTO permissions_inheritance (id, child, parent, type, world) VALUES (NULL, '$login', 'premium', '1', NULL)")or die("errorsql.");
-			mysql_query("UPDATE $db_table SET $db_columnMoney=$db_columnMoney-$premiumPrice WHERE $db_columnUser='$login'")or die("errorsql.");
+			$stmt = $db->prepare("INSERT INTO permissions (id, name, type, permission, world, value) VALUES (NULL, :login, '1', 'group-premium-until', ' ', '$pexdate')");
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();
+			$stmt = $db->prepare("INSERT INTO permissions_inheritance (id, child, parent, type, world) VALUES (NULL, :login, 'premium', '1', NULL)");
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();
+			$stmt = $db->prepare("UPDATE $db_table SET $db_columnMoney=$db_columnMoney-$premiumPrice WHERE $db_columnUser= :login");
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();
 		}
-		$row = mysql_fetch_assoc(mysql_query("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser='$login'"));
-		echo "success:".$row[$db_columnMoney].":";
-		$row = mysql_fetch_assoc(mysql_query("SELECT name,permission,value FROM permissions WHERE name='$login'"));
-		echo $row['value'];
+			$stmt = $db->prepare("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser= :login");
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+			echo "success:".$row[$db_columnMoney].":";
+			$stmt = $db->prepare("SELECT name,permission,value FROM permissions WHERE name= :login");
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+			echo $row['value'];
 	} else
 	
 	if($action == 'buyunban')
 	{
-		$sql1 = mysql_fetch_assoc(mysql_query("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser='$login'"));
+		$stmt = $db->prepare("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser= :login");
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+		$sql1 = $stmt->fetch(PDO::FETCH_ASSOC);
 		$query1 = $sql1[$db_columnMoney];
-		$sql2 = mysql_fetch_assoc(mysql_query("SELECT name FROM $banlist WHERE name='$login'"));
+		$stmt = $db->prepare("SELECT name FROM $banlist WHERE name= :login");
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+		$sql2 = $stmt->fetch(PDO::FETCH_ASSOC);
 		$query2 = $sql2['name'];
-		
 		if(strcasecmp($query2, $login) == 0)
 		{
 			if($query1 >= $unbanPrice)
 			{
 				if($canBuyVip || $canBuyPremium)
 				{
-					$sql = mysql_query("SELECT name,permission,value FROM permissions WHERE name='$login'");
-					$row = mysql_fetch_assoc($sql);
+					$stmt = $db->prepare("SELECT name,permission,value FROM permissions WHERE name= :login");
+					$stmt->bindValue(':login', $login);
+					$stmt->execute();
+					$row = $stmt->fetch(PDO::FETCH_ASSOC);
 					$group = $row['permission'];
-					if(!$sql) $ugroup = 'User'; else
+					if(!$stmt) $ugroup = 'User'; else
 					{
 						if($group == 'group-premium-until') $ugroup = 'Premium';
 						else if($group == 'group-vip-until') $ugroup = 'VIP';
 						else $ugroup = 'User';
 					}
 				} else $ugroup = 'User';
-				
-				mysql_query("DELETE FROM $banlist WHERE name='$login'");
-				mysql_query("UPDATE $db_table SET $db_columnMoney=$db_columnMoney-$unbanPrice WHERE $db_columnUser='$login'")or die("errorsql.");
-				$row = mysql_fetch_assoc(mysql_query("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser='$login'"));
-				
+					$stmt = $db->prepare("DELETE FROM $banlist WHERE name= :login");
+					$stmt->bindValue(':login', $login);
+					$stmt->execute();
+					$stmt = $db->prepare("UPDATE $db_table SET $db_columnMoney=$db_columnMoney-$unbanPrice WHERE $db_columnUser= :login");
+					$stmt->bindValue(':login', $login);
+					$stmt->execute();
+					$stmt = $db->prepare("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser= :login");
+					$stmt->bindValue(':login', $login);
+					$stmt->execute();
+					$row = $stmt->fetch(PDO::FETCH_ASSOC);
 				echo "success:".$row[$db_columnMoney].":".$ugroup;
-			} else die('Недостаточно средств.');
-		} else die("Вы не забанены");
+			} else die('moneyno');
+		} else die("banno");
 	} else
 
 	if($action == 'exchange')
 	{
-		@$wantbuy = mysql_real_escape_string((int)$_POST['buy']);
+		@$wantbuy = (int)$_POST['buy'];
 		$gamemoneyadd = ($wantbuy * $exchangeRate);
-		$row = mysql_fetch_assoc(mysql_query("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser='$login'"));
+		$stmt = $db->prepare("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser= :login");
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		$query = $row[$db_columnMoney];
-		
-		if($wantbuy == '' || $wantbuy < 1) die("Вы не ввели сумму!");
-		if(!$iconregistered) die("Вас нет в базе iConomy");
-		if($query < $wantbuy) die("У вас недостаточно средств!");
-		
-		mysql_query("UPDATE iConomy SET balance = balance + $gamemoneyadd WHERE username='$login'");
-		mysql_query("UPDATE $db_table SET $db_columnMoney = $db_columnMoney - $wantbuy WHERE $db_columnUser='$login'");
-		
-		$row = mysql_fetch_assoc(mysql_query("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser='$login'"));
+		if($wantbuy == '' || $wantbuy < 1) die("ecoerr");
+		if(!$iconregistered) die("econo");
+		if($query < $wantbuy) die("moneyno");
+		$stmt = $db->prepare("UPDATE iConomy SET balance = balance + $gamemoneyadd WHERE username= :login");
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+		$stmt = $db->prepare("UPDATE $db_table SET $db_columnMoney = $db_columnMoney - $wantbuy WHERE $db_columnUser= :login");
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+		$stmt = $db->prepare("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser= :login");
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		$money = $row[$db_columnMoney];
-		
-		$row = mysql_fetch_assoc(mysql_query("SELECT username,balance FROM iConomy WHERE username='$login'"));
+		$stmt = $db->prepare("SELECT username,balance FROM iConomy WHERE username= :login");
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		$iconmoney = $row['balance'];
-		
 		echo "success:".$money.":".$iconmoney;
-	} else echo "Запрос составлен неверно";
+	} else echo "Р—Р°РїСЂРѕСЃ СЃРѕСЃС‚Р°РІР»РµРЅ РЅРµРІРµСЂРЅРѕ";
 	
-	//===================================== Вспомогательные функции ==================================//
+	//===================================== Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Рµ С„СѓРЅРєС†РёРё ==================================//
 
 	function xorencode($str, $key)
 	{

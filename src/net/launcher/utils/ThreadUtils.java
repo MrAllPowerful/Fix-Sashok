@@ -308,6 +308,22 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Ошибка подключения";
 				error = true;
+			} else if(answer.contains("nofile"))
+			{
+				Frame.main.panel.tmpString = "Файл не выбран";
+				error = true;
+			} else if(answer.contains("skinerr"))
+			{
+				Frame.main.panel.tmpString = "Этот файл не является файлом скина";
+				error = true;
+			} else if(answer.contains("cloakerr"))
+			{
+				Frame.main.panel.tmpString = "Этот файл не является файлом плаща";
+				error = true;
+			} else if(answer.contains("fileerr"))
+			{
+				Frame.main.panel.tmpString = "Ошибка загрузки файла!";
+				error = true;
 			} else if(answer.contains("errorLogin"))
 			{
 				Frame.main.panel.tmpString = "Ошибка авторизации (Логин, пароль)";
@@ -369,6 +385,10 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = "Ошибка подключения";
 				error = true;
+			} else if(answer.contains("keyerr"))
+			{
+				Frame.main.panel.tmpString = "Ключ введен неверно!";
+				error = true;
 			} else if(answer.contains("errorLogin"))
 			{
 				Frame.main.panel.tmpString = "Ошибка авторизации (Логин, пароль)";
@@ -425,6 +445,18 @@ public class ThreadUtils
 			if(answer == null)
 			{
 				Frame.main.panel.tmpString = "Ошибка подключения";
+				error = true;
+			} else if(answer.contains("econo"))
+			{
+				Frame.main.panel.tmpString = "Вас нет в базе Fe Economy";
+				error = true;
+			} else if(answer.contains("ecoerr"))
+			{
+				Frame.main.panel.tmpString = "Вы не ввели сумму";
+				error = true;
+			} else if(answer.contains("moneyno"))
+			{
+				Frame.main.panel.tmpString = "У вас недостаточно сретств!";
 				error = true;
 			} else if(answer.contains("errorLogin"))
 			{
@@ -484,6 +516,10 @@ public class ThreadUtils
 			if(answer == null)
 			{
 				Frame.main.panel.tmpString = "Ошибка подключения";
+				error = true;
+			} else if(answer.contains("moneyno"))
+			{
+				Frame.main.panel.tmpString = "У вас недостаточно сретств!";
 				error = true;
 			} else if(answer.contains("errorLogin"))
 			{
@@ -650,6 +686,18 @@ public class ThreadUtils
 			if(answer == null)
 			{
 				Frame.main.panel.tmpString = "Ошибка подключения";
+				error = true;
+			} else if(answer.contains("moneyno"))
+			{
+				Frame.main.panel.tmpString = "У вас недостаточно сретств!";
+				error = true;
+			} else if(answer.contains("banno"))
+			{
+				Frame.main.panel.tmpString = "Вы не забанены";
+				error = true;
+			} else if(answer.contains("moneyno"))
+			{
+				Frame.main.panel.tmpString = "У вас недостаточно сретств!";
 				error = true;
 			} else if(answer.contains("errorLogin"))
 			{

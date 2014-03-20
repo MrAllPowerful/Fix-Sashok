@@ -1,8 +1,8 @@
 <?php
 	define('INCLUDE_CHECK',true);
 	include ("connect.php");
-	$user = $_GET['user'];
-	$serverid = $_GET['serverId'];
+	@$user = $db->quote($_GET['user']);
+        @$serverid = $db->quote($_GET['serverId']);
 	
 	try {
 		if (!preg_match("/^[a-zA-Z0-9_-]+$/", $user) || !preg_match("/^[a-zA-Z0-9_-]+$/", $serverid)){

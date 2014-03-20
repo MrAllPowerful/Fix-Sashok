@@ -3,10 +3,10 @@
 	define('INCLUDE_CHECK',true);
 	include("connect.php");
 	include("logger.php");
-        @$login   = $db->quote($_POST['login']);
-        @$postPass     = $db->quote($_POST['password']);
-        @$client      = $db->quote($_POST['client']);
-        @$action  = $db->quote($_POST['action']);
+        @$login       = $_POST['login'];
+        @$postPass    = $_POST['password'];
+        @$client      = $_POST['client'];
+        @$action      = $_POST['action'];
 	if(!file_exists($uploaddirs)) die ("Путь к скинам не является папкой! Укажите в настройках правильный путь.");
 	if(!file_exists($uploaddirp)) die ("Путь к плащам не является папкой! Укажите в настройках правильный путь.");
 	
@@ -316,7 +316,7 @@ if($useban)
 
 	if($action == 'activatekey')
 	{
-		@$key = $db->quote($_POST['key']);
+		@$key = $_POST['key'];
 		$stmt = $db->prepare("SELECT * FROM `$db_tableMoneyKeys` WHERE `$db_columnKey` = '$key'");
 		$stmt->execute();
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -510,7 +510,7 @@ if($useban)
 
 	if($action == 'exchange')
 	{
-		@$wantbuy = (int)$db->quote($_POST['buy']);
+		@$wantbuy = (int)$_POST['buy'];
 		$gamemoneyadd = ($wantbuy * $exchangeRate);
 		$stmt = $db->prepare("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser= :login");
 		$stmt->bindValue(':login', $login);

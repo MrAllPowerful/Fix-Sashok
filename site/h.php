@@ -2,8 +2,8 @@
     error_reporting(0);
 	define('INCLUDE_CHECK',true);
 	include ("connect.php");
-	@$user = $_GET['username'];
-	@$serverid = $_GET['serverId'];
+	@$user = $db->quote($_GET['username']);
+        @$serverid = $db->quote($_GET['serverId']);
 	
 	$bad = array('error' => "Bad login",'errorMessage' => "Bad login");
 	$ok = array('id' => $user);

@@ -2,10 +2,10 @@
 	define('INCLUDE_CHECK',true);
 	include("connect.php");
     include("loger.php");
-	$sess = $_GET['sessionId'];
-	$sessionid   = str_replace('%3A', ':', $sess);
-	$user = $_GET['user']);
-	$serverid = $_GET['serverId'];
+	@$sess = $db->quote($_GET['sessionId']);
+        @$sessionid   = str_replace('%3A', ':', $sess);
+        @$user = $db->quote($_GET['user']);
+        @$serverid = $db->quote($_GET['serverId']);
 	
 	try {
 		if (sizeof($_GET)!=3 || empty ( $_GET['sessionId'] ) ||  empty ( $_GET['user'] ) || empty ( $_GET['serverId'] ) || !preg_match("/^[a-zA-Z0-9_-]+$/", $user) || !preg_match("/^[a-zA-Z0-9:_-]+$/", $sessionid) || !preg_match("/^[a-zA-Z0-9_-]+$/", $serverid)){

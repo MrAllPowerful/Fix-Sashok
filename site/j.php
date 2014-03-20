@@ -8,9 +8,9 @@
 	}
 
 	@$aT = $json->accessToken; @$sP = @$json->selectedProfile; @$sI = $json->serverId;
-	@$user                      = $aT;
-	@$sessionid                 = $sP;
-	@$serverid                  = $sI;
+	@$user                      = $db->quote($aT);
+        @$sessionid                 = $db->quote($sP);
+        @$serverid                  = $db->quote($sI);
 	//$logger->WriteLine($user.' '.$sessionid.' '.$serverid);
 
 	$bad = array('error' => "Bad login",'errorMessage' => "Bad login");

@@ -51,10 +51,12 @@
 		$stmt = $db->prepare("SELECT $db_table.$db_columnId,$db_table.$db_columnUser,$db_tableOther.$db_columnId,$db_tableOther.$db_columnPass FROM $db_table, $db_tableOther WHERE $db_table.$db_columnId = $db_tableOther.$db_columnId AND $db_table.$db_columnUser= :login");
 		$stmt->bindValue(':login', $login);
 		$stmt->execute();
-		$stmt->bindColumn($db_columnPass, $realPass);
-		$stmt->bindColumn($db_columnUser, $realUser);
 		$stmt->bindColumn($db_columnPass, $salt);
+		$stmt->bindColumn($db_columnUser, $realUser);
 		$stmt->fetch();
+		$stmt->execute();
+		$stmt->bindColumn($db_columnPass, $realPass);
+		$stmt->fetch();	
 		$realPass = substr($realPass,22,64);
 		$salt = substr($salt,105,64);
 	} else die("badhash"); $checkPass = $crypt();

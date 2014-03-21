@@ -1,5 +1,6 @@
 <?php
 	if(!defined('INCLUDE_CHECK')) die("You don't have permissions to run this");
+	include("loger.php");
 	/* ����� ����������� ������ ��� ���������� � ���������� ���������/�������/cms/��������
 	'hash_md5' 			- md5 �����������
 	'hash_authme'   	- ���������� � �������� AuthMe

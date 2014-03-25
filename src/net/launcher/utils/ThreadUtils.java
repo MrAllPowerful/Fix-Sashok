@@ -456,7 +456,7 @@ public class ThreadUtils
 				error = true;
 			} else if(answer.contains("moneyno"))
 			{
-				Frame.main.panel.tmpString = "У вас недостаточно сретств!";
+				Frame.main.panel.tmpString = "У вас недостаточно средств!";
 				error = true;
 			} else if(answer.contains("errorLogin"))
 			{
@@ -519,7 +519,7 @@ public class ThreadUtils
 				error = true;
 			} else if(answer.contains("moneyno"))
 			{
-				Frame.main.panel.tmpString = "У вас недостаточно сретств!";
+				Frame.main.panel.tmpString = "У вас недостаточно средств!";
 				error = true;
 			} else if(answer.contains("errorLogin"))
 			{
@@ -689,7 +689,7 @@ public class ThreadUtils
 				error = true;
 			} else if(answer.contains("moneyno"))
 			{
-				Frame.main.panel.tmpString = "У вас недостаточно сретств!";
+				Frame.main.panel.tmpString = "У вас недостаточно средств!";
 				error = true;
 			} else if(answer.contains("banno"))
 			{
@@ -697,7 +697,7 @@ public class ThreadUtils
 				error = true;
 			} else if(answer.contains("moneyno"))
 			{
-				Frame.main.panel.tmpString = "У вас недостаточно сретств!";
+				Frame.main.panel.tmpString = "У вас недостаточно средств!";
 				error = true;
 			} else if(answer.contains("errorLogin"))
 			{

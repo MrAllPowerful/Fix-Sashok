@@ -28,8 +28,13 @@
 		$stmt->bindValue(':serverid', $serverid);
 		$stmt->execute();
 
-		if($stmt->fetchColumn() == 1) echo json_encode($ok);
+        $result = $stmt->fetchColumn();
+		if($result == $user)
+		{
+			echo json_encode($ok);
+		}
 		else exit(json_encode($bad));
+
 	} catch(PDOException $pe) {
 			die("Ошибка".$logger->WriteLine($log_date.$pe));  //вывод ошибок MySQL в m.log
 	}

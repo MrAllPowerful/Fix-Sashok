@@ -9,9 +9,8 @@
 
 	@$aT = $json->accessToken; @$sP = @$json->selectedProfile; @$sI = $json->serverId;
 	@$user                      = $aT;
-        @$sessionid                 = $sP;
-        @$serverid                  = $sI;
-	//$logger->WriteLine($user.' '.$sessionid.' '.$serverid);
+    @$sessionid                 = $sP;
+    @$serverid                  = $sI;
 
 	$bad = array('error' => "Bad login",'errorMessage' => "Bad login");
 	$ok = array('id' => $user);
@@ -32,25 +31,23 @@
 		{
 			exit(json_encode($bad));
 		}
-		
-		$stmt = $db->prepare("Select $db_columnUser From $db_table Where $db_columnSesId= :sessionid And $db_columnUser= :user And $db_columnServer= :serverid");
+
+		$stmt = $db->prepare("Select $db_columnUser From $db_table Where $db_columnSesId= :sessionid And $db_columnUser= :user");
 		$stmt->bindValue(':user', $user);
 		$stmt->bindValue(':sessionid', $sessionid);
-		$stmt->bindValue(':serverid', $serverid);
 		$stmt->execute();
-		
-		if($stmt->fetchColumn() == 1) echo json_encode($ok);
-		else
+		$result = $stmt->fetchColumn();
+		if($result == $user)
 		{
 			$stmt = $db->prepare("Update $db_table SET $db_columnServer= :serverid Where $db_columnSesId= :sessionid And $db_columnUser= :user");
 			$stmt->bindValue(':user', $user);
 			$stmt->bindValue(':sessionid', $sessionid);
 			$stmt->bindValue(':serverid', $serverid);
 			$stmt->execute();
-			
-			if($stmt->rowCount() == 1) echo json_encode($ok);
+			if($stmt->rowCount() == 1) echo echo json_encode($ok);
 			else exit(json_encode($bad));
 		}
+		else exit(json_encode($bad));
 	} catch(PDOException $pe) {
 			die("Ошибка".$logger->WriteLine($log_date.$pe));  //вывод ошибок MySQL в m.log
 	}

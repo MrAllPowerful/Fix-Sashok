@@ -11,7 +11,6 @@
 	@$user                      = $aT;
     @$sessionid                 = $sP;
     @$serverid                  = $sI;
-
 	$bad = array('error' => "Bad login",'errorMessage' => "Bad login");
 	$ok = array('id' => $user);
 
@@ -44,7 +43,7 @@
 			$stmt->bindValue(':sessionid', $sessionid);
 			$stmt->bindValue(':serverid', $serverid);
 			$stmt->execute();
-			if($stmt->rowCount() == 1) echo echo json_encode($ok);
+			if($stmt->rowCount() == 1) echo json_encode($ok);
 			else exit(json_encode($bad));
 		}
 		else exit(json_encode($bad));

@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Europe/Moscow');
 	$logger = new Logger("./m.log");
     $log_date = "[" . date("d m Y H:i") . "] ";
 class Logger {

@@ -224,7 +224,7 @@ if($useban)
   
 	if($action == 'getpersonal')
 	{
-		$realmoney = $row[$db_columnMoney];
+		@$realmoney = $row[$db_columnMoney];
 
 		if($iconregistered)
 		{	

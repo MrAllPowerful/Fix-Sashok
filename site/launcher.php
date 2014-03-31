@@ -72,19 +72,10 @@
 		$real = $row['sip'];
 		if($ip == $real)
 		{
-			
-			$stmt = $db->prepare("SELECT * FROM `sip` WHERE `sip` > 0;");
+			$stmt = $db->prepare("DELETE FROM sip WHERE time < '$time';");
 			$stmt->execute();
-			
-			while($result = $stmt->fetch(PDO::FETCH_ASSOC))
-			{
-				if($result['time'] < $time) {
-				$stmt = $db->prepare("DELETE FROM `sip` WHERE `sip`='{$result['sip']}';");
-				$stmt->execute();
-				}
-			}
-			echo 'temp'; 		
-			exit;
+			echo 'temp'; 
+		   exit;
 		}
 		
 		if ($login !== $realUser)

@@ -46,7 +46,6 @@ if($stmt->rowCount())
 } catch(PDOException $pe) {
 		die("errorsql".$logger->WriteLine($log_date.$pe));  //вывод ошибок MySQL в m.log
 }
- /*************************************/
 if($crypt == 'hash_md5')
 { 
 $checkPass = md5($password);
@@ -56,20 +55,16 @@ else if($crypt == 'hash_dle')
 $checkPass = md5(md5($password));
 }
 else die("hasherror");
-/*************************************/
 if($useactivate)
 {
-//mysql_query("INSERT INTO $db_table ($db_columnUser,$db_columnPass,$db_columnMail,$db_columnDatareg,$db_columnIp,$db_table.$db_group) VALUES('$user','$checkPass','$mail',NOW(),'$ip','$noactive')");
 $stmt = $db->prepare("INSERT INTO $db_table ($db_columnUser,$db_columnPass,$db_columnMail,$db_columnDatareg,$db_columnIp,$db_table.$db_group) VALUES('$login','$checkPass','$mail',NOW(),'$ip','$noactive'");
 $stmt->execute();
 echo "done";
 }
 else
 {
-//mysql_query("INSERT INTO $db_table ($db_columnUser,$db_columnPass,$db_columnMail,$db_columnDatareg,$db_columnIp) VALUES('$user','$checkPass','$mail',NOW(),'$ip')");
 $stmt = $db->prepare("INSERT INTO $db_table ($db_columnUser,$db_columnPass,$db_columnMail,$db_columnDatareg,$db_columnIp) VALUES('$login','$checkPass','$mail',NOW(),'$ip')");
 $stmt->execute();
 echo "done";
 }
-/*************************************/
 ?>

@@ -2,7 +2,7 @@
     header('Content-Type: text/html; charset=cp1251');
 	define('INCLUDE_CHECK',true);
 	include("connect.php");
-	include("loger.php");
+	include_once("loger.php");
         @$login       = $_POST['login'];
         @$postPass    = $_POST['password'];
         @$client      = $_POST['client'];

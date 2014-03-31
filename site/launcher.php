@@ -24,6 +24,9 @@
 			$stmt = $db->prepare("SELECT $db_columnUser,$db_columnPass,$db_columnMoney,$db_table.$db_group FROM $db_table WHERE $db_columnUser= :login");
 			$stmt->bindValue(':login', $login);
 			$stmt->execute();
+			$stmt->bindColumn($db_columnPass, $realPass);
+			$stmt->bindColumn($db_columnUser, $realUser);
+			$stmt->fetch();
 		}
 		else
 		{

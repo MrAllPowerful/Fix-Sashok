@@ -29,19 +29,19 @@ $stmt = $db->prepare("SELECT $db_columnMail FROM $db_table WHERE $db_columnMail=
 $stmt->bindValue(':mail', $mail);
 $stmt->execute();
 if($stmt->rowCount())
-{ echo 'emailErrorPovtor'; }
+{ exit('emailErrorPovtor'); }
 
 $stmt = $db->prepare("SELECT $db_columnUser FROM $db_table WHERE $db_columnUser= :login");
 $stmt->bindValue(':login', $login);
 $stmt->execute();
 if($stmt->rowCount())
-{ echo 'loginErrorPovtor'; }
+{ exit('loginErrorPovtor'); }
 
 $stmt = $db->prepare("SELECT $db_columnIp FROM $db_table WHERE $db_columnIp= :ip");
 $stmt->bindValue(':ip', $ip);
 $stmt->execute();
 if($stmt->rowCount())
-{ echo 'Erroripip'; }
+{ exit('Erroripip'); }
 
 } catch(PDOException $pe) {
 		die("errorsql".$logger->WriteLine($log_date.$pe));  //вывод ошибок MySQL в m.log

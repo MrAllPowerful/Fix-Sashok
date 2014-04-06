@@ -18,3 +18,12 @@ Fix-Sashok
 "http://minecraft/site/"
 "http://minecraft/site/j.php"
 "http://minecraft/site/h.php"
+
+
+Данный мини-хак позволит вам откатится с нового алгоритма генерации хэша пароля (Core12) 
+на старый, использовавшийся на версиях XenForo младше 1.2
+
+1. Открываем php скрипт /library/XenForo/Authentication/Abstract.php
+2. Ищем функцию createDefault, примерно на 134 строке, в конце скрипта. 
+3. В теле функции заменяем XenForo_Authentication_Core12 на XenForo_Authentication_Core
+4. Для тех кто уже зарегистрирован достаточно поменять пароль.

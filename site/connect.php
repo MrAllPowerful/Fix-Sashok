@@ -5,13 +5,16 @@
 	'hash_authme'   	- интеграция с плагином AuthMe
 	'hash_cauth' 		- интеграция с плагином Cauth
 	'hash_xauth' 		- интеграция с плагином xAuth
-	'hash_joomla' 		- интеграция с Joomla (v1.6- v1.7)
+	'hash_joomla' 		- интеграция с Joomla (v1.6 - v1.7)
+	'hash_joomla_new' 	- интеграция с Joomla (v2.x - v3.x)
 	'hash_ipb' 			- интеграция с IPB
 	'hash_xenforo' 		- интеграция с XenForo
 	'hash_wordpress' 	- интеграция с WordPress
 	'hash_vbulletin' 	- интеграция с vBulletin
+	'hash_punbb'	   	- интеграция с punBB
 	'hash_dle' 			- интеграция с DLE
 	'hash_drupal'     	- интеграция с Drupal (v.7)
+	'hash_imagecms'    	- интеграция с ImageCMS Corporate
 	'hash_launcher'		- интеграция с лаунчером sashok724 (Регистрация через лаунчер)
 	*/
 	$crypt 				= 'hash_xenforo';
@@ -40,7 +43,6 @@
 	$noactive           = '1'; //Номер группы не активированных
 	
 	$useban             =  true; //Ба на на сервере = бан в лаунчере, Ultrabans плагин
-	$useactivate        =  false; //Активация аккаунта по mail
 	$useantibrut        =  true; //Защита от частых подборов пароля (Пауза 1 минута при неправильном пароле)
 	
 	$masterversion  	= 'final_RC4'; //Мастер-версия лаунчера

@@ -17,28 +17,15 @@
 		exit("errorLogin"); 	
     }	
 	
-	if($crypt == 'hash_md5' || $crypt == 'hash_authme' || $crypt == 'hash_xauth' || $crypt == 'hash_cauth' || $crypt == 'hash_joomla' || $crypt == 'hash_wordpress' || $crypt == 'hash_dle' || $crypt == 'hash_launcher' || $crypt == 'hash_drupal' )
+	if($crypt === 'hash_md5' || $crypt === 'hash_authme' || $crypt === 'hash_xauth' || $crypt === 'hash_cauth' || $crypt === 'hash_joomla' || $crypt === 'hash_joomla_new' || $crypt === 'hash_wordpress' || $crypt === 'hash_dle' || $crypt === 'hash_launcher' || $crypt === 'hash_drupal' || $crypt === 'hash_imagecms')
 	{
-	    if($useactivate)
-        {
-			$stmt = $db->prepare("SELECT $db_columnUser,$db_columnPass,$db_columnMoney,$db_table.$db_group FROM $db_table WHERE $db_columnUser= :login");
-			$stmt->bindValue(':login', $login);
-			$stmt->execute();
-			$stmt->bindColumn($db_columnPass, $realPass);
-			$stmt->bindColumn($db_columnUser, $realUser);
-			$stmt->fetch();
-		}
-		else
-		{
-			
-			$stmt = $db->prepare("SELECT $db_columnUser,$db_columnPass,$db_columnMoney FROM $db_table WHERE $db_columnUser= :login");
-			$stmt->bindValue(':login', $login);
-			$stmt->execute();
-			$stmt->bindColumn($db_columnPass, $realPass);
-			$stmt->bindColumn($db_columnUser, $realUser);
-			$stmt->fetch();
-		}
-	} else if ($crypt == 'hash_ipb' || $crypt == 'hash_vbulletin')
+		$stmt = $db->prepare("SELECT $db_columnUser,$db_columnPass,$db_columnMoney FROM $db_table WHERE $db_columnUser= :login");
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+		$stmt->bindColumn($db_columnPass, $realPass);
+		$stmt->bindColumn($db_columnUser, $realUser);
+		$stmt->fetch();
+	} else if ($crypt === 'hash_ipb' || $crypt === 'hash_vbulletin' || $crypt === 'hash_punbb')
 	{
 		
 		$stmt = $db->prepare("SELECT $db_columnUser,$db_columnPass,$db_columnSalt,$db_columnMoney FROM $db_table WHERE $db_columnUser= :login");
@@ -51,7 +38,7 @@
 	} else if($crypt == 'hash_xenforo')
 	{
 		
-		$stmt = $db->prepare("SELECT $db_table.$db_columnId,$db_table.$db_columnUser,$db_tableOther.$db_columnId,$db_tableOther.$db_columnPass FROM $db_table, $db_tableOther WHERE $db_table.$db_columnId = $db_tableOther.$db_columnId AND $db_table.$db_columnUser= :login");
+		$stmt = $db->prepare("SELECT scheme_class, $db_table.$db_columnId,$db_table.$db_columnUser,$db_tableOther.$db_columnId,$db_tableOther.$db_columnPass FROM $db_table, $db_tableOther WHERE $db_table.$db_columnId = $db_tableOther.$db_columnId AND $db_table.$db_columnUser= :login");
 		$stmt->bindValue(':login', $login);
 		$stmt->execute();
 		$stmt->bindColumn($db_columnPass, $salt);
@@ -59,10 +46,15 @@
 		$stmt->fetch();
 		$stmt->execute();
 		$stmt->bindColumn($db_columnPass, $realPass);
+		$stmt->bindColumn('scheme_class', $scheme_class);
 		$stmt->fetch();	
 		$realPass = substr($realPass,22,64);
-		$salt = substr($salt,105,64);
-	} else die("badhash"); $checkPass = $crypt();
+		if($scheme_class==='XenForo_Authentication_Core') {
+			$salt = substr($salt,105,64);
+		} else $salt = false;
+	} else die("badhash");
+
+	$checkPass = hash_name($crypt, $realPass, $postPass, @$salt);
 
 	if($useantibrut)
 	{	
@@ -101,14 +93,7 @@
 		if(!strcmp($realPass,$checkPass) == 0 || !$realPass) die("errorLogin");
     }
 	
-	if($useactivate)
-	{	
-		if($db_noactive == $noactive)	
-		{
-			exit ("Ваш аккаунт не активирован!");
-		}
-	}
-if($useban)
+/*if($useban)
 {
     $time = time();
     $tipe = '2';
@@ -130,7 +115,7 @@ if($useban)
     {
       exit ("Вечный бан");
     }
-}
+}*/
 	if($action == 'getpersonal' && !$usePersonal) die("Использование ЛК выключено");
 	if($action == 'uploadskin' && !$canUploadSkin) die("Функция недоступна");
 	if($action == 'uploadcloak' && !$canUploadCloak) die("Функция недоступна");
@@ -557,167 +542,174 @@ if($useban)
 		return $res;
 	}
 
-	function generateSessionId()
-	{
-		srand(time());
-		$randNum = rand(1000000000, 2147483647).rand(1000000000, 2147483647).rand(0,9);
-		return $randNum;
-	}
-
-	function hash_xauth()
-	{
-		global $realPass, $postPass;
+	function hash_name($ncrypt, $realPass, $postPass, $salt) {
 		$cryptPass = false;
-		$saltPos = (strlen($postPass) >= strlen($realPass) ? strlen($realPass) : strlen($postPass));
-		$salt = substr($realPass, $saltPos, 12);
-		$hash = hash('whirlpool', $salt . $postPass);
-		$cryptPass = substr($hash, 0, $saltPos) . $salt . substr($hash, $saltPos);
-		return $cryptPass;
-	}
-
-	function hash_md5()
-	{
-		global $postPass;
-		$cryptPass = false;
-		$cryptPass = md5($postPass);
-		return $cryptPass;
-	}
-
-	function hash_launcher()
-	{
-		global $postPass;
-		$cryptPass = false;
-		$cryptPass = md5($postPass);
-		return $cryptPass;
-	}
-
-	function hash_dle()
-	{
-		global $postPass;
-		$cryptPass = false;
-		$cryptPass = md5(md5($postPass));
-		return $cryptPass;
-	}
-
-	function hash_cauth()
-	{
-		global $realPass, $postPass;
-		$cryptPass = false;
-		if (strlen($realPass) < 32)
+		
+		if ($ncrypt === 'hash_xauth')
 		{
-			$cryptPass = md5($postPass);
-			$rp = str_replace('0', '', $realPass);
-			$cp = str_replace('0', '', $cryptPass);
-			(strcasecmp($rp,$cp) == 0 ? $cryptPass = $realPass : $cryptPass = false);
+				$saltPos = (strlen($postPass) >= strlen($realPass) ? strlen($realPass) : strlen($postPass));
+				$salt = substr($realPass, $saltPos, 12);
+				$hash = hash('whirlpool', $salt . $postPass);
+				$cryptPass = substr($hash, 0, $saltPos) . $salt . substr($hash, $saltPos);
 		}
-		else $cryptPass = md5($postPass);
-		return $cryptPass;
-	}
 
-	function hash_authme()
-	{
-		global $realPass, $postPass;
-		$cryptPass = false;
-		$ar = preg_split("/\\$/",$realPass);
-		$salt = $ar[2];
-		$cryptPass = '$SHA$'.$salt.'$'.hash('sha256',hash('sha256',$postPass).$salt);
-		return $cryptPass;
-	}
-
-	function hash_joomla()
-	{
-		global $realPass, $postPass;
-		$cryptPass = false;
-		$parts = explode( ':', $realPass);
-		$salt = $parts[1];
-		$cryptPass = md5($postPass . $salt) . ":" . $salt;
-		return $cryptPass;
-	}
-
-	function hash_ipb()
-	{
-		global $postPass, $salt;
-		$cryptPass = false;
-		$cryptPass = md5(md5($salt).md5($postPass));
-		return $cryptPass;
-	}
-
-	function hash_xenforo()
-	{
-		global $postPass, $salt;
-		$cryptPass = false;
-		$cryptPass = hash('sha256', hash('sha256', $postPass) . $salt);
-		return $cryptPass;
-	}
-
-	function hash_wordpress()
-	{
-		global $realPass, $postPass;
-		$cryptPass = false;
-		$itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-		$count_log2 = strpos($itoa64, $realPass[3]);
-		$count = 1 << $count_log2;
-		$salt = substr($realPass, 4, 8);
-		$input = md5($salt . $postPass, TRUE);
-		do $input = md5($input . $postPass, TRUE);
-		while (--$count);        
-		$output = substr($realPass, 0, 12);
-		$count = 16;
-		$i = 0;
-		do 
+		if ($ncrypt === 'hash_md5' or $ncrypt === 'hash_launcher')
 		{
-			$value = ord($input[$i++]);
-			$cryptPass .= $itoa64[$value & 0x3f];
-			if ($i < $count) $value |= ord($input[$i]) << 8;
-			$cryptPass .= $itoa64[($value >> 6) & 0x3f];
-			if ($i++ >= $count) break;
-			if ($i < $count) $value |= ord($input[$i]) << 16;
-			$cryptPass .= $itoa64[($value >> 12) & 0x3f];
-			if ($i++ >= $count) break;
-			$cryptPass .= $itoa64[($value >> 18) & 0x3f];
-		} while ($i < $count);
-		$cryptPass = $output . $cryptPass;
-		return $cryptPass;
-	}
+				$cryptPass = md5($postPass);
+		}
 
-	function hash_vbulletin()
-	{
-		global $postPass, $salt;
-		$cryptPass = false;
-		$cryptPass = md5(md5($postPass) . $salt);
-		return $cryptPass;
-	}
-
-	function hash_drupal()
-	{
-		global $postPass, $realPass;
-		$cryptPass = false;
-		$setting = substr($realPass, 0, 12);
-		$itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-		$count_log2 = strpos($itoa64, $setting[3]);
-		$salt = substr($setting, 4, 8);
-		$count = 1 << $count_log2;
-		$input = hash('sha512', $salt . $postPass, TRUE);
-		do $input = hash('sha512', $input . $postPass, TRUE);
-		while (--$count);
-
-		$count = strlen($input);
-		$i = 0;
-	  
-		do
+		if ($ncrypt === 'hash_dle')
 		{
-			$value = ord($input[$i++]);
-			$cryptPass .= $itoa64[$value & 0x3f];
-			if ($i < $count) $value |= ord($input[$i]) << 8;
-			$cryptPass .= $itoa64[($value >> 6) & 0x3f];
-			if ($i++ >= $count) break;
-			if ($i < $count) $value |= ord($input[$i]) << 16;
-			$cryptPass .= $itoa64[($value >> 12) & 0x3f];
-			if ($i++ >= $count) break;
-			$cryptPass .= $itoa64[($value >> 18) & 0x3f];
-		} while ($i < $count);
-		$cryptPass =  $setting . $cryptPass;
-		$cryptPass =  substr($cryptPass, 0, 55);
+				$cryptPass = md5(md5($postPass));
+		}
+
+		if ($ncrypt === 'hash_cauth')
+		{
+				if (strlen($realPass) < 32)
+				{
+						$cryptPass = md5($postPass);
+						$rp = str_replace('0', '', $realPass);
+						$cp = str_replace('0', '', $cryptPass);
+						(strcasecmp($rp,$cp) == 0 ? $cryptPass = $realPass : $cryptPass = false);
+				}
+				else $cryptPass = md5($postPass);
+		}
+
+		if ($ncrypt === 'hash_authme')
+		{
+				$ar = preg_split("/\\$/",$realPass);
+				$salt = $ar[2];
+				$cryptPass = '$SHA$'.$salt.'$'.hash('sha256',hash('sha256',$postPass).$salt);
+		}
+
+		if ($ncrypt === 'hash_joomla')
+		{
+				$parts = explode( ':', $realPass);
+				$salt = $parts[1];
+				$cryptPass = md5($postPass . $salt) . ":" . $salt;
+		}
+				
+		if ($ncrypt === 'hash_imagecms')
+		{
+		        $majorsalt = '';
+				if ($salt != '') {
+					$_password = $salt . $postPass;
+				} else {
+					$_password = $postPass;
+				}
+				
+				$_pass = str_split($_password);
+				
+				foreach ($_pass as $_hashpass) {
+					$majorsalt .= md5($_hashpass);
+				}
+				
+				$cryptPass = crypt(md5($majorsalt), $realPass);
+		}
+
+		if ($ncrypt === 'hash_joomla_new' or $ncrypt === 'hash_wordpress' or $ncrypt === 'hash_xenforo')
+		{
+		
+				if($ncrypt === 'hash_xenforo' and $salt!==false) {
+					return $cryptPass = hash('sha256', hash('sha256', $postPass) . $salt);
+				}
+				
+				$itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+				$cryptPass = '*0';
+				if (substr($realPass, 0, 2) == $cryptPass)
+					$cryptPass = '*1';
+
+				$id = substr($realPass, 0, 3);
+				# We use "$P$", phpBB3 uses "$H$" for the same thing
+				if ($id != '$P$' && $id != '$H$')
+					return $cryptPass = crypt($postPass, $realPass);
+
+				$count_log2 = strpos($itoa64, $realPass[3]);
+				if ($count_log2 < 7 || $count_log2 > 30)
+					return $cryptPass = crypt($postPass, $realPass);
+
+				$count = 1 << $count_log2;
+
+				$salt = substr($realPass, 4, 8);
+				if (strlen($salt) != 8)
+					return $cryptPass = crypt($postPass, $realPass);
+
+					$hash = md5($salt . $postPass, TRUE);
+					do {
+						$hash = md5($hash . $postPass, TRUE);
+					} while (--$count);
+
+				$cryptPass = substr($realPass, 0, 12);
+				
+				$encode64 = '';
+				$i = 0;
+				do {
+					$value = ord($hash[$i++]);
+					$encode64 .= $itoa64[$value & 0x3f];
+					if ($i < 16)
+						$value |= ord($hash[$i]) << 8;
+					$encode64 .= $itoa64[($value >> 6) & 0x3f];
+					if ($i++ >= 16)
+						break;
+					if ($i < 16)
+						$value |= ord($hash[$i]) << 16;
+					$encode64 .= $itoa64[($value >> 12) & 0x3f];
+					if ($i++ >= 16)
+						break;
+					$encode64 .= $itoa64[($value >> 18) & 0x3f];
+				} while ($i < 16);
+				
+				$cryptPass .= $encode64;
+
+				if ($cryptPass[0] == '*')
+					$cryptPass = crypt($postPass, $realPass);
+		}
+		
+		if ($ncrypt === 'hash_ipb')
+		{
+				$cryptPass = md5(md5($salt).md5($postPass));
+		}
+		
+		if ($ncrypt === 'hash_punbb')
+		{
+				$cryptPass = sha1($salt.sha1($postPass));
+		}
+
+		if ($ncrypt === 'hash_vbulletin')
+		{
+				$cryptPass = md5(md5($postPass) . $salt);
+		}
+
+		if ($ncrypt === 'hash_drupal')
+		{
+				$setting = substr($realPass, 0, 12);
+				$itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+				$count_log2 = strpos($itoa64, $setting[3]);
+				$salt = substr($setting, 4, 8);
+				$count = 1 << $count_log2;
+				$input = hash('sha512', $salt . $postPass, TRUE);
+				do $input = hash('sha512', $input . $postPass, TRUE);
+				while (--$count);
+
+				$count = strlen($input);
+				$i = 0;
+		  
+				do
+				{
+						$value = ord($input[$i++]);
+						$cryptPass .= $itoa64[$value & 0x3f];
+						if ($i < $count) $value |= ord($input[$i]) << 8;
+						$cryptPass .= $itoa64[($value >> 6) & 0x3f];
+						if ($i++ >= $count) break;
+						if ($i < $count) $value |= ord($input[$i]) << 16;
+						$cryptPass .= $itoa64[($value >> 12) & 0x3f];
+						if ($i++ >= $count) break;
+						$cryptPass .= $itoa64[($value >> 18) & 0x3f];
+				} while ($i < $count);
+				$cryptPass =  $setting . $cryptPass;
+				$cryptPass =  substr($cryptPass, 0, 55);
+		}
+		
 		return $cryptPass;
 	}
 

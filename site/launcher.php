@@ -93,7 +93,7 @@
 		if(!strcmp($realPass,$checkPass) == 0 || !$realPass) die("errorLogin");
     }
 	
-/*if($useban)
+if($useban)
 {
     $time = time();
     $tipe = '2';
@@ -115,7 +115,7 @@
     {
       exit ("Вечный бан");
     }
-}*/
+}
 	if($action == 'getpersonal' && !$usePersonal) die("Использование ЛК выключено");
 	if($action == 'uploadskin' && !$canUploadSkin) die("Функция недоступна");
 	if($action == 'uploadcloak' && !$canUploadCloak) die("Функция недоступна");

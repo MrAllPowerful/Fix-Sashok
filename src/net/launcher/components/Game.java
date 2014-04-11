@@ -192,9 +192,9 @@ public class Game extends JFrame
                    			 cl = new URLClassLoader(urls);
       						 cl.loadClass("com.mojang.authlib.Agent");
                              params.add("--accessToken");
-                             params.add(session);
-                             params.add("--uuid");
                              params.add(user);
+                             params.add("--uuid");
+                             params.add(session);
                              params.add("--userProperties");
                              params.add("{}");
                              params.add("--assetIndex");

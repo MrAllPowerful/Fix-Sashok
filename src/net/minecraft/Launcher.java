@@ -1,4 +1,4 @@
-package net.minecraft; //Имя пакета было изменено для работы с forge >= 1.3.2
+package net.minecraft;
 
 import java.applet.Applet;
 import java.applet.AppletStub;
@@ -6,12 +6,12 @@ import java.awt.BorderLayout;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.HashMap;
 import java.util.Map;
 
 import net.launcher.run.Settings;
 import net.launcher.utils.BaseUtils;
+import net.launcher.utils.java.eURLClassLoader;
 
 public class Launcher extends Applet implements AppletStub
 {
@@ -46,7 +46,7 @@ public class Launcher extends Applet implements AppletStub
 			}
 		}.run();
 
-		URLClassLoader cl = new URLClassLoader(urls);
+		eURLClassLoader cl = new eURLClassLoader(urls);
 		System.setProperty("org.lwjgl.librarypath", bin + "natives");
 		System.setProperty("net.java.games.input.librarypath", bin + "natives");
 		try

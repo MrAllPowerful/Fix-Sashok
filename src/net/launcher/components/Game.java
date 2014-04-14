@@ -151,6 +151,16 @@ public class Game extends JFrame
 		}
 		else
 		{
+			GuardUtils.checkMods(answer, true);
+			
+			if(Settings.useModCheckerTimer ) new Timer(30000, new ActionListener()
+			{
+				public void actionPerformed(ActionEvent e)
+				{
+					GuardUtils.checkMods(answer, false);
+				}
+			}).start();
+			
 			try
 			{
 				int memory = BaseUtils.getPropertyInt("memory", 512);
@@ -165,7 +175,7 @@ public class Game extends JFrame
 				System.setProperty("org.lwjgl.librarypath", jarpath+"natives");
 				System.setProperty("net.java.games.input.librarypath", jarpath+"natives");
 				System.setProperty("java.library.path", jarpath+"natives");
-                                if (t == 1)
+                if (t == 1)
 				{
 					Class = "net.minecraft.client.main.Main";  
 				}

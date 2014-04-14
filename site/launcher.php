@@ -194,8 +194,7 @@ if($useban)
 			    $basename = basename($name);
 			    $isdir = is_dir($name);
 			    if ($basename!="." and $basename!=".." and !is_dir($name)){
-			     	$str = str_replace('clients/'.$client.'/mods/', "", str_replace($basename, "", $name));
-			     	$massive = $massive.$str.$basename.':>'.md5_file($name).'<:>';
+			     	$massive = $massive.$basename.':>'.md5_file($name).'<:>';
 			    }
 		    }
 
@@ -206,8 +205,7 @@ if($useban)
 			    $basename = basename($name);
 			    $isdir = is_dir($name);
 			    if ($basename!="." and $basename!=".." and !is_dir($name)){
-			     	$str = str_replace('clients/'.$client.'/coremods/', "", str_replace($basename, "", $name));
-			     	$massive2 = $massive2.$str.$basename.':>'.md5_file($name).'<:>';
+			     	$massive2 = $massive2.$basename.':>'.md5_file($name).'<:>';
 			    }
 		    }
 

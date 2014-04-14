@@ -9,11 +9,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.List;
-
 import net.launcher.components.Frame;
 import net.launcher.components.Game;
 import net.launcher.components.PersonalContainer;
 import net.launcher.run.Settings;
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 
 public class ThreadUtils
 {
@@ -50,7 +51,7 @@ public class ThreadUtils
 		t.setName("Update news thread");
 		t.start();
 	}
-
+	
 	public static void auth(final boolean personal)
 	{
 		if(!personal && Frame.main.offline.isSelected())
@@ -62,13 +63,11 @@ public class ThreadUtils
 		Thread t = new Thread() {
 		public void run()
 		{ try {
-			String answer = BaseUtils.execute(BaseUtils.buildUrl("launcher.php"), new Object[]
+			String answer2 = BaseUtils.execute(BaseUtils.buildUrl("launcher.php"), new Object[]
 			{
-				"action", "auth",
-				"client", BaseUtils.getClientName(),
-				"login", Frame.main.login.getText(),
-				"password", new String(Frame.main.password.getPassword()),
+				"action", encrypt("auth:"+BaseUtils.getClientName()+":"+Frame.main.login.getText()+":"+new String(Frame.main.password.getPassword()), Settings.key2),
 			});
+			String answer = decrypt(answer2, Settings.key1);
 			boolean error = false;
 			if(answer == null)
 			{
@@ -126,9 +125,7 @@ public class ThreadUtils
 					Frame.main.panel.tmpString = "Загрузка данных...";
 					String personal = BaseUtils.execute(BaseUtils.buildUrl("launcher.php"), new Object[]
 					{
-						"action", "getpersonal",
-						"login", Frame.main.login.getText(),
-						"password", new String(Frame.main.password.getPassword())
+						"action", encrypt("getpersonal:0:"+Frame.main.login.getText()+":"+new String(Frame.main.password.getPassword()), Settings.key1),
 					});
 					
 					if(personal == null)
@@ -225,7 +222,6 @@ public class ThreadUtils
  			t = 2;
  		}
 		
-		//int i = Integer.parseInt(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[4]);
 	    if (t > 1)
 	    {
 	      if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[1]), Settings.protectionKey).equals(BaseUtils.getPropertyString("assetsmd5")) ||
@@ -296,11 +292,10 @@ public class ThreadUtils
 	{
 		new Thread(){ public void run()
 		{
+			String get = type > 0 ? "uploadcloak" : "uploadskin";
 			String answer = BaseUtils.execute(buildUrl("launcher.php"), new Object[]
 			{
-				"action", type > 0 ? "uploadcloak" : "uploadskin",
-				"login", Frame.main.login.getText(),
-				"password", new String(Frame.main.password.getPassword()),
+				"action", encrypt(get+":0:"+Frame.main.login.getText()+":"+new String(Frame.main.password.getPassword()), Settings.key2),
 				"ufile", file
 			});
 			boolean error = false;
@@ -375,9 +370,7 @@ public class ThreadUtils
 		{
 			String answer = BaseUtils.execute(buildUrl("launcher.php"), new Object[]
 			{
-				"action", "activatekey",
-				"login", Frame.main.login.getText(),
-				"password", new String(Frame.main.password.getPassword()),
+				"action", encrypt("activatekey:0:"+Frame.main.login.getText()+":"+new String(Frame.main.password.getPassword()), Settings.key2),
 				"key", vaucher,
 			});
 			boolean error = false;
@@ -436,9 +429,7 @@ public class ThreadUtils
 		{
 			String answer = BaseUtils.execute(buildUrl("launcher.php"), new Object[]
 			{
-				"action", "exchange",
-				"login", Frame.main.login.getText(),
-				"password", new String(Frame.main.password.getPassword()),
+				"action", encrypt("exchange:0:"+Frame.main.login.getText()+":"+new String(Frame.main.password.getPassword()), Settings.key2),
 				"buy", text,
 			});
 			boolean error = false;
@@ -506,11 +497,10 @@ public class ThreadUtils
 	{
 		new Thread(){ public void run()
 		{
+			String z = i > 0 ? "buypremium" : "buyvip";
 			String answer = BaseUtils.execute(buildUrl("launcher.php"), new Object[]
 			{
-				"action", i > 0 ? "buypremium" : "buyvip",
-				"login", Frame.main.login.getText(),			
-				"password", new String(Frame.main.password.getPassword()),
+				"action", encrypt(z+":0:"+Frame.main.login.getText()+":"+new String(Frame.main.password.getPassword()), Settings.key2),
 			});
 			boolean error = false;
 			if(answer == null)
@@ -678,9 +668,7 @@ public class ThreadUtils
 		{
 			String answer = BaseUtils.execute(buildUrl("launcher.php"), new Object[]
 			{
-				"action", "buyunban",
-				"login", Frame.main.login.getText(),
-				"password", new String(Frame.main.password.getPassword()),
+				"action", encrypt("buyunban:0:"+Frame.main.login.getText()+":"+new String(Frame.main.password.getPassword()), Settings.key2),
 			});
 			boolean error = false;
 			if(answer == null)
@@ -741,5 +729,32 @@ public class ThreadUtils
 				Frame.main.setPersonal(Frame.main.panel.pc);
 			}
 		}}.start();
+		
 	}
+	
+	static String encrypt(String input, String key){
+		  byte[] crypted = null;
+		  try{
+		    SecretKeySpec skey = new SecretKeySpec(key.getBytes(), "AES");
+		      Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+		      cipher.init(Cipher.ENCRYPT_MODE, skey);
+		      crypted = cipher.doFinal(input.getBytes());
+		    }catch(Exception e){
+		    	System.out.println(e.toString());
+		    }
+		    return new String(new sun.misc.BASE64Encoder().encode(crypted));
+		}
+
+    static String decrypt(String input, String key){
+		    byte[] output = null;
+		    try{
+		      SecretKeySpec skey = new SecretKeySpec(key.getBytes(), "AES");
+		      Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+		      cipher.init(Cipher.DECRYPT_MODE, skey);
+		      output = cipher.doFinal(new sun.misc.BASE64Decoder().decodeBuffer(input));
+		    }catch(Exception e){
+		      System.out.println(e.toString());
+		    }
+		    return new String(output);
+		} 
 }

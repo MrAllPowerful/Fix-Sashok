@@ -3,10 +3,12 @@
 	define('INCLUDE_CHECK',true);
 	include("connect.php");
 	include_once("loger.php");
-        @$login       = $_POST['login'];
-        @$postPass    = $_POST['password'];
-        @$client      = $_POST['client'];
-        @$action      = $_POST['action'];
+	include("security.php");
+    @$x  = $_POST['action'];
+    @$yd = Security::decrypt($x, $key2);
+    error_reporting(0);
+    list($action, $client, $login, $postPass) = explode(':', $yd);
+
 	if(!file_exists($uploaddirs)) die ("Путь к скинам не является папкой! Укажите в настройках правильный путь.");
 	if(!file_exists($uploaddirp)) die ("Путь к плащам не является папкой! Укажите в настройках правильный путь.");
 	
@@ -14,7 +16,7 @@
 	
 	if (!preg_match("/^[a-zA-Z0-9_-]+$/", $login) || !preg_match("/^[a-zA-Z0-9_-]+$/", $postPass) || !preg_match("/^[a-zA-Z0-9_-]+$/", $action)) {
 	
-		exit("errorLogin"); 	
+		exit(Security::encrypt("errorLogin", $key1));
     }	
 	
 	if($crypt === 'hash_md5' || $crypt === 'hash_authme' || $crypt === 'hash_xauth' || $crypt === 'hash_cauth' || $crypt === 'hash_joomla' || $crypt === 'hash_joomla_new' || $crypt === 'hash_wordpress' || $crypt === 'hash_dle' || $crypt === 'hash_launcher' || $crypt === 'hash_drupal' || $crypt === 'hash_imagecms')
@@ -52,7 +54,7 @@
 		if($scheme_class==='XenForo_Authentication_Core') {
 			$salt = substr($salt,105,64);
 		} else $salt = false;
-	} else die("badhash");
+	} else die(Security::encrypt("badhash", $key1));
 
 	$checkPass = hash_name($crypt, $realPass, $postPass, @$salt);
 
@@ -69,28 +71,27 @@
 		{
 			$stmt = $db->prepare("DELETE FROM sip WHERE time < '$time';");
 			$stmt->execute();
-			echo 'temp'; 
-		   exit;
+			exit(Security::encrypt("temp", $key1));
 		}
 		
 		if ($login !== $realUser)
 		{
 			$stmt = $db->prepare("INSERT INTO sip (sip, time)VALUES ('$ip', '$bantime')");
 			$stmt->execute();
-			exit ('errorLogin');
+			exit(Security::encrypt("errorLogin", $key1));
 		}
 		if(!strcmp($realPass,$checkPass) == 0 || !$realPass) {
 			$stmt = $db->prepare("INSERT INTO sip (sip, time)VALUES ('$ip', '$bantime')");
 			$stmt->execute();
-			exit("errorLogin");
+			exit(Security::encrypt("errorLogin", $key1));
 		}
 
     } else {
 		if ($login !== $realUser)
 		{
-			exit ('errorLogin');
+			exit(Security::encrypt("errorLogin", $key1));
 		}
-		if(!strcmp($realPass,$checkPass) == 0 || !$realPass) die("errorLogin");
+		if(!strcmp($realPass,$checkPass) == 0 || !$realPass) die(Security::encrypt("errorLogin", $key1));
     }
 	
 if($useban)
@@ -106,14 +107,14 @@ if($useban)
 		$stmt->bindValue(':login', $login);
 		$stmt->execute();
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
-		exit ('Временный бан до '.date('d.m.Yг. H:i', $row['temptime'])." по времени сервера");
+		exit(Security::encrypt('Временный бан до '.date('d.m.Yг. H:i', $row['temptime'])." по времени сервера", $key1));
     }
 		$stmt = $db->prepare("Select name From $banlist Where name= :login And type<'$tipe' And temptime='0'");
 		$stmt->bindValue(':login', $login);
 		$stmt->execute();
 	if($stmt->fetchColumn() == 1)
     {
-      exit ("Вечный бан");
+      exit(Security::encrypt("Вечный бан", $key1));
     }
 }
 	if($action == 'getpersonal' && !$usePersonal) die("Использование ЛК выключено");
@@ -148,7 +149,7 @@ if($useban)
 		   !file_exists("clients/".$client."/bin/libraries.jar")  || !file_exists("clients/".$client."/bin/Forge.jar")  ||
 		   !file_exists("clients/".$client."/bin/extra.jar") || !file_exists("clients/".$client."/mods/")               || 
 		   !file_exists("clients/".$client."/coremods/") || !file_exists("clients/".$client."/bin/assets.zip")) 
-		   die("client $client");
+		   die(Security::encrypt("client $client", $key1));
 		   
 	    
 	    $chars="0123456789abcdef";
@@ -182,28 +183,45 @@ if($useban)
 		$stmt->bindValue(':login', $login);
 		$stmt->execute();
 		
-		echo "$md5czip<:>$md52czip<:>$md5cjar<:>$md5clwjql<:>$md5clwjql_util<:>$md5cjinput<:>$masterversion<br>".
+		$echo1 = "$md5czip<:>$md52czip<:>$md5cjar<:>$md5clwjql<:>$md5clwjql_util<:>$md5cjinput<:>$masterversion<br>".
 		$realUser.'<:>'.strtoint(xorencode($sessid, $protectionKey)).'<br>';
 		
-		$colMods = 0; $files = scandir("clients/".$client."/mods");
-		for($i=0; $i < sizeof($files); $i++) if(substr($files[$i], -4) == ".zip" || substr($files[$i], -4) == ".jar" || substr($files[$i], -8) == ".litemod")
-		{
-			$echo1 = $files[$i].":>".md5_file("clients/".$client."/mods/".$files[$i])."<:>"; $colMods++;
-			echo str_replace(' ', '%20', $echo1);
-		} if($colMods == 0);
-		echo '::';
-		$colCoreMods = 0; $coremods = scandir("clients/".$client."/coremods");
-		for($i=0; $i < sizeof($coremods); $i++) if(substr($coremods[$i], -4) == ".zip" || substr($coremods[$i], -4) == ".jar")
-		{
-			$echo2 = $coremods[$i].":>".md5_file("clients/".$client."/coremods/".$coremods[$i])."<:>"; $colCoreMods++;
-			echo str_replace(' ', '%20', $echo2);
-		} if($colCoreMods == 0) echo "nomods";
+
+        $pathmods = 'clients/'.$client.'/mods/';
+		$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($pathmods), RecursiveIteratorIterator::SELF_FIRST);
+		$massive = "";
+		    foreach($objects as $name => $object) {
+			    $basename = basename($name);
+			    $isdir = is_dir($name);
+			    if ($basename!="." and $basename!=".." and !is_dir($name)){
+			     	$str = str_replace('clients/'.$client.'/mods/', "", str_replace($basename, "", $name));
+			     	$massive = $massive.$str.$basename.':>'.md5_file($name).'<:>';
+			    }
+		    }
+
+        $pathcoremods = 'clients/'.$client.'/coremods/';
+		$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($pathcoremods), RecursiveIteratorIterator::SELF_FIRST);
+		$massive2 = "";
+		    foreach($objects as $name => $object) {
+			    $basename = basename($name);
+			    $isdir = is_dir($name);
+			    if ($basename!="." and $basename!=".." and !is_dir($name)){
+			     	$str = str_replace('clients/'.$client.'/coremods/', "", str_replace($basename, "", $name));
+			     	$massive2 = $massive2.$str.$basename.':>'.md5_file($name).'<:>';
+			    }
+		    }
+
+		echo Security::encrypt($echo1.$massive.'::'.$massive2, $key1);
 
 	} else
   
 	if($action == 'getpersonal')
 	{
-		@$realmoney = $row[$db_columnMoney];
+		$stmt = $db->prepare("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser= :login");
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		$realmoney = $row[$db_columnMoney];
 
 		if($iconregistered)
 		{	
@@ -297,7 +315,7 @@ if($useban)
 
 	if($action == 'activatekey')
 	{
-		@$key = $_POST['key'];
+		$key = $_POST['key'];
 		$stmt = $db->prepare("SELECT * FROM `$db_tableMoneyKeys` WHERE `$db_columnKey` = '$key'");
 		$stmt->execute();
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -491,7 +509,7 @@ if($useban)
 
 	if($action == 'exchange')
 	{
-		@$wantbuy = (int)$_POST['buy'];
+		$wantbuy =$_POST ['buy'];
 		$gamemoneyadd = ($wantbuy * $exchangeRate);
 		$stmt = $db->prepare("SELECT $db_columnUser,$db_columnMoney FROM $db_table WHERE $db_columnUser= :login");
 		$stmt->bindValue(':login', $login);

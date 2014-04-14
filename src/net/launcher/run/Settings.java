@@ -16,7 +16,7 @@ public class Settings
 	public static final String  cloaks               = "MinecraftCloaks/"; //Папка плащей
 	/** Параметры подключения */
 	public static final String  domain	 	         = "alexandrage.dyndns.org";//Домен сайта
-	public static final String  siteDir		         = "site";//Папка с файлами лаунчера на сайте
+	public static final String  siteDir		         = "site2";//Папка с файлами лаунчера на сайте
 	public static final String  updateFile		     = "http://alexandrage.dyndns.org/site/Launcher.jar";//Ссылка на файл обновления лаунчера
 	public static final String  buyVauncherLink      = "http://plati.ru/"; //Ссылка на страницу покупки ваучеров
 	
@@ -24,7 +24,6 @@ public class Settings
 	public static final String  defaultUsername      = "player"; //Имя пользователя для одиночной игры
 	public static final String  defaultSession       = "123456"; //Номер сессии для одиночной игры
 	public static final String  iMusicname           = "001.mp3";
-	//public static boolean       Music	 	 =  true;   //Проигрывание звука запуска клиента
 	
 	public static int height                         = 532;      //Высота окна клиента
 	public static int width                          = 900;      //Ширина окна клиента
@@ -48,13 +47,16 @@ public class Settings
 	
 	public static boolean useMulticlient		 =  true; //Использовать функцию "по клиенту на сервер"
 	public static boolean useStandartWB		     =  true; //Использовать стандартный браузер для открытия ссылок
-	public static boolean usePersonal		     =  false; //Использовать Личный кабинет
+	public static boolean usePersonal		     =  true; //Использовать Личный кабинет
 	public static boolean customframe 		     =  true; //Использовать кастомный фрейм
 	public static boolean useOffline 	         =  true; //Использовать режим оффлайн
 	public static boolean useConsoleHider		 =  false; //Использовать скрытие консоли клиента
 	public static boolean useModCheckerTimer	 =  true; //Каждые 30 секунд моды будут перепроверяться
 
 	public static final String protectionKey	 = "1234567890"; //Ключ защиты сессии. Никому его не говорите.
+	public static final String key1 = "1234567891234567";
+	public static final String key2 = "1234567891234567";
+	
 
 	public static boolean debug		 	         =  true; //Отображать все действия лаунчера (отладка)(true/false)
 	public static boolean drawTracers		     =  false; //Отрисовывать границы элементов лаунчера

@@ -53,7 +53,7 @@ public class eURLClassPath {
         JAVA_VERSION = java.security.AccessController.doPrivileged(
                 new sun.security.action.GetPropertyAction("java.version"));
         DEBUG = (java.security.AccessController.doPrivileged(
-                new sun.security.action.GetPropertyAction("ru.er_log.java.eURLClassPath.debug")) != null);
+                new sun.security.action.GetPropertyAction("net.launcher.utils.java.eURLClassPath.debug")) != null);
     }
 
     /* The original search path of URLs. */

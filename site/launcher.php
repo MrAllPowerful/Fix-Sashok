@@ -209,7 +209,7 @@ if($useban)
 			    }
 		    }
 
-		echo Security::encrypt($echo1.$massive.'::'.$massive2, $key1);
+		echo Security::encrypt($echo1.str_replace(' ', '%20', $massive).'::'.str_replace(' ', '%20', $massive2), $key1);
 
 	} else
   

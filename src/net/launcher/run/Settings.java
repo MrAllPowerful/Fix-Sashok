@@ -16,7 +16,7 @@ public class Settings
 	public static final String  cloaks               = "MinecraftCloaks/"; //Папка плащей
 	/** Параметры подключения */
 	public static final String  domain	 	         = "alexandrage.dyndns.org";//Домен сайта
-	public static final String  siteDir		         = "site2";//Папка с файлами лаунчера на сайте
+	public static final String  siteDir		         = "site";//Папка с файлами лаунчера на сайте
 	public static final String  updateFile		     = "http://alexandrage.dyndns.org/site/Launcher.jar";//Ссылка на файл обновления лаунчера
 	public static final String  buyVauncherLink      = "http://plati.ru/"; //Ссылка на страницу покупки ваучеров
 	

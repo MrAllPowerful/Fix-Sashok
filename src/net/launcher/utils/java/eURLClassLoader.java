@@ -20,11 +20,11 @@ import java.security.PermissionCollection;
 import java.security.PrivilegedAction;
 import java.security.PrivilegedExceptionAction;
 import java.util.*;
-import java.util.Enumeration;
 import java.util.jar.Attributes;
 import java.util.jar.Attributes.Name;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
+
 import sun.misc.Resource;
 import sun.net.www.ParseUtil;
 import sun.security.util.SecurityConstants;
@@ -349,14 +349,15 @@ public class eURLClassLoader extends URLClassLoader implements Closeable {
      * @exception ClassNotFoundException if the class could not be found, or if
      * the loader is closed.
      */
-    protected Class<?> findClass(final String name)
+    @SuppressWarnings("rawtypes")
+	protected Class<?> findClass(final String name)
             throws ClassNotFoundException
     {
         try
         {
             return AccessController.doPrivileged(
                     new PrivilegedExceptionAction<Class>() {
-                        public Class run() throws ClassNotFoundException
+                        public Class<?> run() throws ClassNotFoundException
                         {
                             String path = name.replace('.', '/').concat(".class");
                             Resource res = ucp.getResource(path, false);
@@ -421,7 +422,7 @@ public class eURLClassLoader extends URLClassLoader implements Closeable {
      * Resource. The resulting Class must be resolved before it can be
      * used.
      */
-    private Class defineClass(String name, Resource res) throws IOException
+    private Class<?> defineClass(String name, Resource res) throws IOException
     {
         long t0 = System.nanoTime();
         int i = name.lastIndexOf('.');
@@ -833,7 +834,7 @@ final class FactoryURLClassLoader extends eURLClassLoader {
         super(urls, acc);
     }
 
-    public final Class loadClass(String name, boolean resolve)
+    public final Class<?> loadClass(String name, boolean resolve)
             throws ClassNotFoundException
     {
         // First check if we have permission to access the package. This

@@ -169,7 +169,7 @@ public class Game extends JFrame
 				String minpath = BaseUtils.getMcDir().toString();
 				String assets = BaseUtils.getAssetsDir().toString() + File.separator;
 				List<String> params = new ArrayList<>();
-				System.setProperty("mx", memory + "m");
+				System.setProperty("xmx", memory + "m");
 				System.setProperty("fml.ignoreInvalidMinecraftCertificates", "true");
 				System.setProperty("fml.ignorePatchDiscrepancies", "true");
 				System.setProperty("org.lwjgl.librarypath", jarpath+"natives");

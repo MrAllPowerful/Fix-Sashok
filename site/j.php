@@ -7,7 +7,7 @@
 		
 	}
 
-	@$user = $json->accessToken; @$sessionid = @$json->selectedProfile; @$serverid = $json->serverId;
+	@$sessionid = $json->accessToken; @$user = @$json->selectedProfile; @$serverid = $json->serverId;
 	$bad = array('error' => "Bad login",'errorMessage' => "Bad login");
 	$ok = array('id' => $user);
 

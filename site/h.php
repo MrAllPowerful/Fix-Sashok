@@ -3,7 +3,7 @@
 	define('INCLUDE_CHECK',true);
 	include ("connect.php");
 	@$user     = $_GET['username'];
-        @$serverid = $_GET['serverId'];
+    @$serverid = $_GET['serverId'];
 	
 	$bad = array('error' => "Bad login",'errorMessage' => "Bad login");
 	$ok = array('id' => $user);

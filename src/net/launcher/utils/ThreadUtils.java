@@ -67,7 +67,10 @@ public class ThreadUtils
 			{
 				"action", encrypt("auth:"+BaseUtils.getClientName()+":"+Frame.main.login.getText()+":"+new String(Frame.main.password.getPassword()), Settings.key2),
 			});
-			String answer = decrypt(answer2, Settings.key1);
+            String answer = null;
+			try {
+				answer = decrypt(answer2, Settings.key1);
+			} catch (Exception e) { }
 			boolean error = false;
 			if(answer == null)
 			{

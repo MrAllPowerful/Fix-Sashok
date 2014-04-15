@@ -7,9 +7,11 @@ package net.launcher.utils.java;
 
 import java.util.*;
 import java.util.jar.JarFile;
+
 import sun.misc.JarIndex;
 import sun.misc.InvalidJarIndexException;
 import sun.net.www.ParseUtil;
+
 import java.util.zip.ZipEntry;
 import java.util.jar.JarEntry;
 import java.util.jar.Manifest;
@@ -29,6 +31,7 @@ import java.security.CodeSigner;
 import java.security.Permission;
 import java.security.PrivilegedExceptionAction;
 import java.security.cert.Certificate;
+
 import sun.misc.ExtensionDependency;
 import sun.misc.FileURLMapper;
 import sun.misc.MetaIndex;
@@ -609,6 +612,7 @@ public class eURLClassPath {
                     eURLClassPath.check(url);
                 }
                 uc = url.openConnection();
+                @SuppressWarnings("unused")
                 InputStream in = uc.getInputStream();
                 if (uc instanceof JarURLConnection)
                 {
@@ -1013,9 +1017,8 @@ public class eURLClassPath {
 
             Resource res;
             Object[] jarFiles;
-            boolean done = false;
             int count = 0;
-            LinkedList jarFilesList = null;
+            LinkedList<?> jarFilesList = null;
 
             /* If there no jar files in the index that can potential contain
              * this resource then return immediately.

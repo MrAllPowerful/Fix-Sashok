@@ -199,7 +199,7 @@ public class ThreadUtils
 	{
 		boolean zipupdate = false;
 		boolean zipupdate2 = false;
-		List<String> files = GuardUtils.updateMods_first(answer);
+		List<String> files = GuardUtils.updateMods(answer);
 		String binfolder = BaseUtils.getMcDir() + File.separator + b + File.separator;
 		String folder = BaseUtils.getAssetsDir() + File.separator;
 		

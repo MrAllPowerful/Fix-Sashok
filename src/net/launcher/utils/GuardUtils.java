@@ -49,13 +49,16 @@ public class GuardUtils
 		}
 	}
 	
-	public static List<String> updateMods_first(String result)
+	static boolean ret = false;
+	
+	public static List<String> updateMods(String answer)
 	{  
+		ret = false;
 		List<String> files = new ArrayList<String>();
 		String[] typeMods = {"mods", "coremods"};
-		for(int array = 0; array < result.split("<br>")[2].split("::").length; array++)
+		for(int array = 0; array < answer.split("<br>")[2].split("::").length; array++)
 		{
-			if(result.split("<br>")[2].split("::")[array].equals("nomods"))
+			if(answer.split("<br>")[2].split("::")[array].equals("nomods"))
 			{
 				File dir = new File(BaseUtils.getMcDir().getAbsolutePath() + File.separator + typeMods[array]);
 				if(dir.exists() && dir.isDirectory()){
@@ -68,15 +71,16 @@ public class GuardUtils
 				{
 					File file = new File(dir.getAbsolutePath() + File.separator + cfile);
 					delete(file);
+					ret = true;
 				}
 				}
 			}
 			else
 			{
 				File dir = new File(BaseUtils.getMcDir().getAbsolutePath() + File.separator + typeMods[array]);
-				String mods = result.split("<br>")[2].split("::")[array];
+				String mods = answer.split("<br>")[2].split("::")[array];
 				
-				String[] modsArray = result.split("<br>")[2].split("::")[array].split("<:>");
+				String[] modsArray = answer.split("<br>")[2].split("::")[array].split("<:>");
 				
 				if(Frame.main.updatepr.isSelected())
 				{
@@ -99,75 +103,8 @@ public class GuardUtils
 							delete(file);
 							mods = mods.replaceAll(cfile + ":>" + md5 + "<:>", "");
 							modsArray = mods.split("<:>");
-						}
-					}
-					String dirFilesString = "";
-					for(String file : dirFiles) dirFilesString += file + ":>" + GuardUtils.getMD5(dir.getAbsolutePath() + File.separator + file) + "<:>";
-					for(String mod : modsArray) { if(!dirFilesString.contains(mod))
-					{					
-						files.add(typeMods[array] + "/" + mod.split(":>")[0]);
-					}}
-				} else for(String mod : modsArray) files.add(typeMods[array] +"/" + mod.split(":>")[0]);
-			}
-		}
-		return files;
-	  }
-	
-	
-	public static List<String> updateMods(String result)
-	{  
-		List<String> files = new ArrayList<String>();
-		String[] typeMods = {"mods", "coremods"};
-		for(int array = 0; array < result.split("<br>")[2].split("::").length; array++)
-		{
-			if(result.split("<br>")[2].split("::")[array].equals("nomods"))
-			{
-				File dir = new File(BaseUtils.getMcDir().getAbsolutePath() + File.separator + typeMods[array]);
-				if(dir.exists() && dir.isDirectory()){
-				String[] dirFiles = dir.list(new FilenameFilter() { public boolean accept(File folder, String name)
-				{
-					return name.toLowerCase().endsWith(".zip") || name.toLowerCase().endsWith(".jar") || name.toLowerCase().endsWith("");
-				}});
-				if(dirFiles == null || dirFiles.length == 0) return files;
-				for(String cfile : dirFiles)
-				{
-					File file = new File(dir.getAbsolutePath() + File.separator + cfile);
-					delete(file);
-					System.exit(0);
-					Runtime.getRuntime().exit(0);
-				}
-				}
-			}
-			else
-			{
-				File dir = new File(BaseUtils.getMcDir().getAbsolutePath() + File.separator + typeMods[array]);
-				String mods = result.split("<br>")[2].split("::")[array];
-				
-				String[] modsArray = result.split("<br>")[2].split("::")[array].split("<:>");
-				
-				if(Frame.main.updatepr.isSelected())
-				{
-					for(String mod : modsArray) files.add(typeMods[array] + "/" + mod.split(":>")[0]);
-					return files;
-				}
-				
-				if(dir.exists() && dir.isDirectory())
-				{
-					String[] dirFiles = dir.list(new FilenameFilter() { public boolean accept(File folder, String name)
-					{
-						return name.toLowerCase().endsWith(".zip") || name.toLowerCase().endsWith(".jar") || name.toLowerCase().endsWith("");
-					}});
-					for(String cfile : dirFiles)
-					{
-						File file = new File(dir.getAbsolutePath() + File.separator + cfile);
-						String md5 = GuardUtils.getMD5(file.getAbsolutePath());
-						if(!mods.contains(cfile + ":>" + md5 + "<:>"))
-						{
 							delete(file);
-							mods = mods.replaceAll(cfile + ":>" + md5 + "<:>", "");
-							modsArray = mods.split("<:>");
-							System.exit(0);
-							Runtime.getRuntime().exit(0);
+							ret = true;
 						}
 					}
 					String dirFilesString = "";
@@ -187,7 +124,6 @@ public class GuardUtils
 		if(!Frame.main.offline.isSelected())
 		{
 			BaseUtils.send("ANTICHEAT: Rechecking jars...");
-			boolean ret = false;
 			String binfolder = BaseUtils.getMcDir() + File.separator + ThreadUtils.b + File.separator;
 			if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[3]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + net.launcher.utils.ThreadUtils.l))) ret = true;
 			if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[4]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + net.launcher.utils.ThreadUtils.f))) ret = true;
@@ -204,6 +140,7 @@ public class GuardUtils
 			{
 				BaseUtils.send("ANTICHEAT: Strange mods detected");
 				System.exit(0);
+				Runtime.getRuntime().exit(0);
 				return;
 			}
 			

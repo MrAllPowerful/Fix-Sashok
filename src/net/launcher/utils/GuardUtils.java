@@ -100,7 +100,6 @@ public class GuardUtils
 						String md5 = GuardUtils.getMD5(file.getAbsolutePath());
 						if(!mods.contains(cfile + ":>" + md5 + "<:>"))
 						{
-							delete(file);
 							mods = mods.replaceAll(cfile + ":>" + md5 + "<:>", "");
 							modsArray = mods.split("<:>");
 							delete(file);

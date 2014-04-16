@@ -204,7 +204,7 @@ public class Game extends JFrame
 					params.add("--accessToken");
 					params.add(session);
 					params.add("--uuid");
-					params.add(user);
+					params.add(EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[7]), Settings.protectionKey));
 					params.add("--userProperties");
 					params.add("{}");
 					params.add("--assetIndex");

@@ -182,8 +182,15 @@ if($useban)
 		$stmt = $db->prepare("UPDATE $db_table SET $db_columnSesId='$sessid' WHERE $db_columnUser = :login");
 		$stmt->bindValue(':login', $login);
 		$stmt->execute();
-		
-		$echo1 = "$md5czip<:>$md52czip<:>$md5cjar<:>$md5clwjql<:>$md5clwjql_util<:>$md5cjinput<:>$masterversion<br>".
+
+		$md5us = md5($realUser);
+        $md5us[12] = '4';
+		$stmt = $db->prepare("UPDATE $db_table SET md5='$md5us' WHERE $db_columnUser = :login");
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();	
+        $md5user = strtoint(xorencode($md5us, $protectionKey));
+        
+		$echo1 =  "$md5czip<:>$md52czip<:>$md5cjar<:>$md5clwjql<:>$md5clwjql_util<:>$md5cjinput<:>$masterversion<:>$md5user<br>".
 		$realUser.'<:>'.strtoint(xorencode($sessid, $protectionKey)).'<br>';
 		
 

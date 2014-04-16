@@ -6,37 +6,28 @@
 		$json = json_decode($HTTP_RAW_POST_DATA);
 		
 	}
-
-	@$sessionid = $json->accessToken; @$user = @$json->selectedProfile; @$serverid = $json->serverId;
+    
+	@$md5 = $json->selectedProfile; @$sessionid = @$json->accessToken; @$serverid = $json->serverId;
 	$bad = array('error' => "Bad login",'errorMessage' => "Bad login");
-	$ok = array('id' => $user);
+	
 
 	try {
-		if (!preg_match("/^[a-zA-Z0-9_-]+$/", $user) || !preg_match("/^[a-zA-Z0-9:_-]+$/", $sessionid) || !preg_match("/^[a-zA-Z0-9_-]+$/", $serverid)){
-			exit(json_encode($bad));
-		}
-		
-		$stmt = $db->prepare("Select $db_columnUser From $db_table Where $db_columnUser= :user");
-		$stmt->bindValue(':user', $user);
-		$stmt->execute();
-		
-		$row = $stmt->fetch(PDO::FETCH_ASSOC);
-		$realUser = $row[$db_columnUser];
-
-		if ($user !== $realUser)
-		{
+		if (!preg_match("/^[a-zA-Z0-9_-]+$/", $md5) || !preg_match("/^[a-zA-Z0-9:_-]+$/", $sessionid) || !preg_match("/^[a-zA-Z0-9_-]+$/", $serverid)){
 			exit(json_encode($bad));
 		}
 
-		$stmt = $db->prepare("Select $db_columnUser From $db_table Where $db_columnSesId= :sessionid And $db_columnUser= :user");
-		$stmt->bindValue(':user', $user);
+		$stmt = $db->prepare("Select md5,$db_columnUser From $db_table Where md5= :md5 And $db_columnSesId= :sessionid");
+		$stmt->bindValue(':md5', $md5);
 		$stmt->bindValue(':sessionid', $sessionid);
 		$stmt->execute();
-		$result = $stmt->fetchColumn();
-		if($result == $user)
+		$stmt->bindColumn($db_columnUser, $realUser);
+		$stmt->bindColumn('md5', $realmd5);
+		$stmt->fetch();
+		$ok = array('id' => $realmd5, 'name' => $realUser);
+		if($realmd5 == $md5)
 		{
-			$stmt = $db->prepare("Update $db_table SET $db_columnServer= :serverid Where $db_columnSesId= :sessionid And $db_columnUser= :user");
-			$stmt->bindValue(':user', $user);
+			$stmt = $db->prepare("Update $db_table SET $db_columnServer= :serverid Where $db_columnSesId = :sessionid And md5 = :md5");
+			$stmt->bindValue(':md5', $md5);
 			$stmt->bindValue(':sessionid', $sessionid);
 			$stmt->bindValue(':serverid', $serverid);
 			$stmt->execute();
@@ -45,6 +36,6 @@
 		}
 		else exit(json_encode($bad));
 	} catch(PDOException $pe) {
-			die("Ошибка".$logger->WriteLine($log_date.$pe));  //вывод ошибок MySQL в m.log
+			die("errorsql".$logger->WriteLine($log_date.$pe));  //вывод ошибок MySQL в m.log
 	}
 ?>

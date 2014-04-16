@@ -1,5 +1,5 @@
-ALTER TABLE  `»Ãﬂ ¬¿ÿ≈… “¿¡À»÷€ — œŒÀ‹«Œ¬¿“≈ÀﬂÃ»`
+ÔªøALTER TABLE  `–¢–∞–±–ª–∏—Ü–∞ –ø–æ–ª—å–∑–æ–≤–∞—Ç–µ–ª–µ–π`
 ADD  `realmoney` int(255) DEFAULT '0',
-ADD  `bonus` int(255) DEFAULT '0',
+ADD  `md5` int(255) DEFAULT '0',
 ADD  `session` varchar(255) DEFAULT '0',
 ADD  `server` varchar(255) DEFAULT '0'

@@ -11,6 +11,7 @@ import java.net.URLConnection;
 import java.security.MessageDigest;
 import java.util.List;
 import net.launcher.components.Game;
+import net.launcher.utils.java.eURLClassLoader;
 
 
 public class UpdaterThread extends Thread
@@ -107,7 +108,7 @@ public class UpdaterThread extends Thread
         try
         {   
         	t = 1;
-            cl = new URLClassLoader(urls);
+            cl = new eURLClassLoader(urls);
             cl.loadClass("net.minecraft.client.Minecraft");
  		} catch(Exception e)
  		{

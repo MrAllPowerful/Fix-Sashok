@@ -1,5 +1,6 @@
 package net.launcher.run;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import net.launcher.utils.BaseUtils;
@@ -18,6 +19,8 @@ public class Starter
 			if (BaseUtils.getPlatform() == 2) params.add("javaw"); else params.add("java");
 			params.add("-Xmx" + memory + "m");
 			params.add("-Xms" + memory + "m");
+			params.add("-Xdock:name=Minecraft");
+			params.add("-Xdock:icon=" + new File(jarpath+"/net/launcher/theme/favicon.png"));
 			params.add("-Dsun.java2d.noddraw=true");
 			params.add("-Dsun.java2d.d3d=false");
 			params.add("-Dsun.java2d.opengl=false");

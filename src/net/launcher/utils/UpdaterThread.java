@@ -54,6 +54,15 @@ public class UpdaterThread extends Thread
 		
 		for (int i = 0; i < files.size(); i++)
 		{
+			String list = urlTo + files.get(i);
+			int test2 = list.split("/").length;
+			String folder = urlTo + files.get(i).replace("/"+list.split("/")[test2-1], "");
+            dir = new File(pathTo + folder.replace(urlTo, ""));
+    		if(!dir.exists() ) dir.mkdirs();
+		}
+		
+		for (int i = 0; i < files.size(); i++)
+		{
 			URLConnection urlconnection = new URL(urlTo + files.get(i)).openConnection();
 			urlconnection.setDefaultUseCaches(false);
 			totalsize += urlconnection.getContentLength();

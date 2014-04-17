@@ -3,7 +3,6 @@ package net.launcher.utils;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FilenameFilter;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.util.ArrayList;
@@ -58,9 +57,10 @@ public class GuardUtils
 		
 			{
 				File dir = new File(BaseUtils.getMcDir().getAbsolutePath() + File.separator + "mods");
+				String m = BaseUtils.getMcDir().getAbsolutePath() + File.separator + "mods";
 				String[] modsArray = answer.split("<br>")[2].split("<::>")[0].split("<:>");
 				String mods = answer.split("<br>")[2].split("<::>")[0];
-								
+				
 				if(Frame.main.updatepr.isSelected())
 				{
 					for(String mod : modsArray) files.add("mods" + "/" + mod.split(":>")[0]);
@@ -69,24 +69,21 @@ public class GuardUtils
 				
 				if(dir.exists() && dir.isDirectory())
 				{
-					String[] dirFiles = dir.list(new FilenameFilter() { public boolean accept(File folder, String name)
-					{
-						return name.toLowerCase().endsWith(".zip") || name.toLowerCase().endsWith(".jar") || name.toLowerCase().endsWith("");
-					}});
+					String[] dirFiles = (String[])getLibs(dir).toArray(new String[0]);
+					
 					for(String cfile : dirFiles)
-					{
-						File file = new File(dir.getAbsolutePath() + File.separator + cfile);
-						String md5 = GuardUtils.getMD5(file.getAbsolutePath());
-						if(!mods.contains(cfile + ":>" + md5 + "<:>"))
+					{   
+						File file = new File(cfile);
+						String md5 = GuardUtils.getMD5(file.toString());
+						if(!mods.contains(cfile.replace(m+File.separator, "") + ":>" + md5 + "<:>"))
 						{
-							mods = mods.replaceAll(cfile + ":>" + md5 + "<:>", "");
-							modsArray = mods.split("<:>");
+							System.err.println("delete mods");
 							delete(file);
 							ret = true;
 						}
 					}
 					String dirFilesString = "";
-					for(String file : dirFiles) dirFilesString += file + ":>" + GuardUtils.getMD5(dir.getAbsolutePath() + File.separator + file) + "<:>";
+					for(String file : dirFiles) dirFilesString += file + ":>" + GuardUtils.getMD5(file);
 					for(String mod : modsArray) { if(!dirFilesString.contains(mod))
 					{					
 						files.add("mods" + "/" + mod.split(":>")[0]);
@@ -96,35 +93,33 @@ public class GuardUtils
 
 			{
 				File dir = new File(BaseUtils.getMcDir().getAbsolutePath() + File.separator + "coremods");
+				String m = BaseUtils.getMcDir().getAbsolutePath() + File.separator + "coremods";
 				String[] modsArray = answer.split("<br>")[2].split("<::>")[1].split("<:>");
 				String mods = answer.split("<br>")[2].split("<::>")[1];
-								
+				
 				if(Frame.main.updatepr.isSelected())
 				{
-					for(String mod : modsArray) files.add("coremods" + "/" + mod.split(":>")[1]);
+					for(String mod : modsArray) files.add("coremods" + "/" + mod.split(":>")[0]);
 					return files;
 				}
 				
 				if(dir.exists() && dir.isDirectory())
 				{
-					String[] dirFiles = dir.list(new FilenameFilter() { public boolean accept(File folder, String name)
-					{
-						return name.toLowerCase().endsWith(".zip") || name.toLowerCase().endsWith(".jar") || name.toLowerCase().endsWith("");
-					}});
+					String[] dirFiles = (String[])getLibs(dir).toArray(new String[0]);
+					
 					for(String cfile : dirFiles)
-					{
-						File file = new File(dir.getAbsolutePath() + File.separator + cfile);
-						String md5 = GuardUtils.getMD5(file.getAbsolutePath());
-						if(!mods.contains(cfile + ":>" + md5 + "<:>"))
+					{   
+						File file = new File(cfile);
+						String md5 = GuardUtils.getMD5(file.toString());
+						if(!mods.contains(cfile.replace(m+File.separator, "") + ":>" + md5 + "<:>"))
 						{
-							mods = mods.replaceAll(cfile + ":>" + md5 + "<:>", "");
-							modsArray = mods.split("<:>");
+							System.err.println("delete coremods");
 							delete(file);
 							ret = true;
 						}
 					}
 					String dirFilesString = "";
-					for(String file : dirFiles) dirFilesString += file + ":>" + GuardUtils.getMD5(dir.getAbsolutePath() + File.separator + file) + "<:>";
+					for(String file : dirFiles) dirFilesString += file + ":>" + GuardUtils.getMD5(file);
 					for(String mod : modsArray) { if(!dirFilesString.contains(mod))
 					{					
 						files.add("coremods" + "/" + mod.split(":>")[0]);
@@ -145,7 +140,7 @@ public class GuardUtils
 			if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[4]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + net.launcher.utils.ThreadUtils.f))) ret = true;
 			if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[5]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + net.launcher.utils.ThreadUtils.e))) ret = true;
 			if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[2]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + net.launcher.utils.ThreadUtils.m))) ret = true;
-			if(GuardUtils.updateMods(answer).size() != 0) ret = true;
+			GuardUtils.updateMods(answer).size();
 			if(ret && action)
 			{
 				Frame.main.setError("Ошибка вторичной проверки кеша.");
@@ -172,5 +167,17 @@ public class GuardUtils
             } else file.delete();
         } catch (Exception e)
         {}
-    }	
+    }
+    
+	private static List<String> getLibs(File libsfolder) {
+		List<String> libs = new ArrayList<String>();
+		for (File file : libsfolder.listFiles()) {
+			if (file.isDirectory()) {
+				libs.addAll(getLibs(file));
+			} else {
+					libs.add(file.getAbsolutePath());
+			}
+		}
+		return libs;
+	}
 }

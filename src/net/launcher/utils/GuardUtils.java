@@ -60,7 +60,7 @@ public class GuardUtils
 				File dir = new File(BaseUtils.getMcDir().getAbsolutePath() + File.separator + "mods");
 				String[] modsArray = answer.split("<br>")[2].split("<::>")[0].split("<:>");
 				String mods = answer.split("<br>")[2].split("<::>")[0];
-								
+				
 				if(Frame.main.updatepr.isSelected())
 				{
 					for(String mod : modsArray) files.add("mods" + "/" + mod.split(":>")[0]);
@@ -69,10 +69,8 @@ public class GuardUtils
 				
 				if(dir.exists() && dir.isDirectory())
 				{
-					String[] dirFiles = dir.list(new FilenameFilter() { public boolean accept(File folder, String name)
-					{
-						return name.toLowerCase().endsWith(".zip") || name.toLowerCase().endsWith(".jar") || name.toLowerCase().endsWith("");
-					}});
+					String[] dirFiles = (String[])getLibs(dir).toArray(new String[0]);
+					
 					for(String cfile : dirFiles)
 					{
 						File file = new File(dir.getAbsolutePath() + File.separator + cfile);
@@ -94,9 +92,10 @@ public class GuardUtils
 
 			{
 				File dir = new File(BaseUtils.getMcDir().getAbsolutePath() + File.separator + "coremods");
+				System.err.println(answer.split("<br>")[2].split("<::>")[1]);
 				String[] modsArray = answer.split("<br>")[2].split("<::>")[1].split("<:>");
 				String mods = answer.split("<br>")[2].split("<::>")[1];
-								
+
 				if(Frame.main.updatepr.isSelected())
 				{
 					for(String mod : modsArray) files.add("coremods" + "/" + mod.split(":>")[1]);
@@ -105,10 +104,8 @@ public class GuardUtils
 				
 				if(dir.exists() && dir.isDirectory())
 				{
-					String[] dirFiles = dir.list(new FilenameFilter() { public boolean accept(File folder, String name)
-					{
-						return name.toLowerCase().endsWith(".zip") || name.toLowerCase().endsWith(".jar") || name.toLowerCase().endsWith("");
-					}});
+					String[] dirFiles = (String[])getLibs(dir).toArray(new String[0]);
+					
 					for(String cfile : dirFiles)
 					{
 						File file = new File(dir.getAbsolutePath() + File.separator + cfile);
@@ -168,5 +165,17 @@ public class GuardUtils
             } else file.delete();
         } catch (Exception e)
         {}
-    }	
+    }
+    
+	private static List<String> getLibs(File libsfolder) {
+		List<String> libs = new ArrayList<String>();
+		for (File file : libsfolder.listFiles()) {
+			if (file.isDirectory()) {
+				libs.addAll(getLibs(file));
+			} else {
+					libs.add(file.getAbsolutePath());
+			}
+		}
+		return libs;
+	}
 }

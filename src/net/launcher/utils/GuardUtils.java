@@ -79,8 +79,6 @@ public class GuardUtils
 						String md5 = GuardUtils.getMD5(file.getAbsolutePath());
 						if(!mods.contains(cfile + ":>" + md5 + "<:>"))
 						{
-							mods = mods.replaceAll(cfile + ":>" + md5 + "<:>", "");
-							modsArray = mods.split("<:>");
 							delete(file);
 							ret = true;
 						}
@@ -117,8 +115,6 @@ public class GuardUtils
 						String md5 = GuardUtils.getMD5(file.getAbsolutePath());
 						if(!mods.contains(cfile + ":>" + md5 + "<:>"))
 						{
-							mods = mods.replaceAll(cfile + ":>" + md5 + "<:>", "");
-							modsArray = mods.split("<:>");
 							delete(file);
 							ret = true;
 						}

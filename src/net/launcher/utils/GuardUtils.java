@@ -49,7 +49,7 @@ public class GuardUtils
 		}
 	}
 	
-	static boolean ret = false;
+	public static boolean ret = false;
 	
 	public static List<String> updateMods(String answer)
 	{  
@@ -58,22 +58,43 @@ public class GuardUtils
 		String[] typeMods = {"mods", "coremods"};
 		for(int array = 0; array < answer.split("<br>")[2].split("::").length; array++)
 		{
-			if(answer.split("<br>")[2].split("::")[array].equals("nomods"))
+			if(answer.split("<br>")[2].split("::")[array] != null)
 			{
 				File dir = new File(BaseUtils.getMcDir().getAbsolutePath() + File.separator + typeMods[array]);
-				if(dir.exists() && dir.isDirectory()){
-				String[] dirFiles = dir.list(new FilenameFilter() { public boolean accept(File folder, String name)
+				String[] modsArray = answer.split("<br>")[2].split("::")[array].split("<:>");
+				String mods = answer.split("<br>")[2].split("::")[array];
+				
+				if(Frame.main.updatepr.isSelected())
 				{
-					return name.toLowerCase().endsWith(".zip") || name.toLowerCase().endsWith(".jar") || name.toLowerCase().endsWith("");
-				}});
-				if(dirFiles == null || dirFiles.length == 0) return files;
-				for(String cfile : dirFiles)
+					for(String mod : modsArray) files.add(typeMods[array] + "/" + mod.split(":>")[0]);
+					return files;
+				}
+				
+				if(dir.exists() && dir.isDirectory())
 				{
-					File file = new File(dir.getAbsolutePath() + File.separator + cfile);
-					delete(file);
-					ret = true;
-				}
-				}
+					String[] dirFiles = dir.list(new FilenameFilter() { public boolean accept(File folder, String name)
+					{
+						return name.toLowerCase().endsWith(".zip") || name.toLowerCase().endsWith(".jar") || name.toLowerCase().endsWith("");
+					}});
+					for(String cfile : dirFiles)
+					{
+						File file = new File(dir.getAbsolutePath() + File.separator + cfile);
+						String md5 = GuardUtils.getMD5(file.getAbsolutePath());
+						if(!mods.contains(cfile + ":>" + md5 + "<:>"))
+						{
+							mods = mods.replaceAll(cfile + ":>" + md5 + "<:>", "");
+							modsArray = mods.split("<:>");
+							delete(file);
+							ret = true;
+						}
+					}
+					String dirFilesString = "";
+					for(String file : dirFiles) dirFilesString += file + ":>" + GuardUtils.getMD5(dir.getAbsolutePath() + File.separator + file) + "<:>";
+					for(String mod : modsArray) { if(!dirFilesString.contains(mod))
+					{					
+						files.add(typeMods[array] + "/" + mod.split(":>")[0]);
+					}}
+			    }
 			}
 			else
 			{
@@ -116,7 +137,7 @@ public class GuardUtils
 			}
 		}
 		return files;
-	  }
+	}
 
 	public static void checkMods(String answer, boolean action)
 	{
@@ -129,7 +150,6 @@ public class GuardUtils
 			if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[5]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + net.launcher.utils.ThreadUtils.e))) ret = true;
 			if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[2]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + net.launcher.utils.ThreadUtils.m))) ret = true;
 			if(GuardUtils.updateMods(answer).size() != 0) ret = true;
-			
 			if(ret && action)
 			{
 				Frame.main.setError("Ошибка вторичной проверки кеша.");

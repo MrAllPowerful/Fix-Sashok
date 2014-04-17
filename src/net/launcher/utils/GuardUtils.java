@@ -58,7 +58,6 @@ public class GuardUtils
 		String[] typeMods = {"mods", "coremods"};
 		for(int array = 0; array < answer.split("<br>")[2].split("::").length; array++)
 		{
-			if(answer.split("<br>")[2].split("::")[array] != null)
 			{
 				File dir = new File(BaseUtils.getMcDir().getAbsolutePath() + File.separator + typeMods[array]);
 				String[] modsArray = answer.split("<br>")[2].split("::")[array].split("<:>");
@@ -95,45 +94,6 @@ public class GuardUtils
 						files.add(typeMods[array] + "/" + mod.split(":>")[0]);
 					}}
 			    }
-			}
-			else
-			{
-				File dir = new File(BaseUtils.getMcDir().getAbsolutePath() + File.separator + typeMods[array]);
-				String mods = answer.split("<br>")[2].split("::")[array];
-				
-				String[] modsArray = answer.split("<br>")[2].split("::")[array].split("<:>");
-				
-				if(Frame.main.updatepr.isSelected())
-				{
-					for(String mod : modsArray) files.add(typeMods[array] + "/" + mod.split(":>")[0]);
-					return files;
-				}
-				
-				if(dir.exists() && dir.isDirectory())
-				{
-					String[] dirFiles = dir.list(new FilenameFilter() { public boolean accept(File folder, String name)
-					{
-						return name.toLowerCase().endsWith(".zip") || name.toLowerCase().endsWith(".jar") || name.toLowerCase().endsWith("");
-					}});
-					for(String cfile : dirFiles)
-					{
-						File file = new File(dir.getAbsolutePath() + File.separator + cfile);
-						String md5 = GuardUtils.getMD5(file.getAbsolutePath());
-						if(!mods.contains(cfile + ":>" + md5 + "<:>"))
-						{
-							mods = mods.replaceAll(cfile + ":>" + md5 + "<:>", "");
-							modsArray = mods.split("<:>");
-							delete(file);
-							ret = true;
-						}
-					}
-					String dirFilesString = "";
-					for(String file : dirFiles) dirFilesString += file + ":>" + GuardUtils.getMD5(dir.getAbsolutePath() + File.separator + file) + "<:>";
-					for(String mod : modsArray) { if(!dirFilesString.contains(mod))
-					{					
-						files.add(typeMods[array] + "/" + mod.split(":>")[0]);
-					}}
-				} else for(String mod : modsArray) files.add(typeMods[array] +"/" + mod.split(":>")[0]);
 			}
 		}
 		return files;

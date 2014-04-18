@@ -13,6 +13,8 @@ public class Starter
 	public static void main(String[] args) throws Exception
 	{	
 		
+		File dir = new File(BaseUtils.getAssetsDir().toString());
+		if(!dir.exists()) dir.mkdirs();
 		InputStream stream = Starter.class.getResourceAsStream("/net/launcher/theme/favicon.png");
 	    if (stream == null) {
 	    }
@@ -38,7 +40,7 @@ public class Starter
 			
 			ArrayList<String> params = new ArrayList<String>();
            
-			if (BaseUtils.getPlatform() == 2) params.add("javaw"); else params.add("java");
+			params.add("java");
 			params.add("-Xmx" + memory + "m");
 			params.add("-Xms" + memory + "m");
 			params.add("-Xdock:name=Minecraft");

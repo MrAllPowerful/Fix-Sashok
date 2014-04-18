@@ -28,7 +28,7 @@ public class Starter
 			params.add("net.launcher.run.Mainclass");
 
 			ProcessBuilder pb = new ProcessBuilder(params);
-			pb.directory(new File(BaseUtils.getMcDir().toString()));
+			pb.directory(new File(BaseUtils.getAssetsDir().toString()));
 			Process process = pb.start();
 			if (process == null) throw new Exception("Launcher can't be started!");
 			System.exit(0);

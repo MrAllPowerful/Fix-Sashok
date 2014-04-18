@@ -43,8 +43,11 @@ public class Starter
 			params.add("java");
 			params.add("-Xmx" + memory + "m");
 			params.add("-Xms" + memory + "m");
-			params.add("-Xdock:name=Minecraft");
-			params.add("-Xdock:icon=" + BaseUtils.getAssetsDir().toString()+"/favicon.png");
+			if(System.getProperty("os.name").toLowerCase().startsWith("mac"))
+			{
+				params.add("-Xdock:name=Minecraft");
+				params.add("-Xdock:icon=" + BaseUtils.getAssetsDir().toString()+"/favicon.png");
+			}
 			params.add("-Dsun.java2d.noddraw=true");
 			params.add("-Dsun.java2d.d3d=false");
 			params.add("-Dsun.java2d.opengl=false");

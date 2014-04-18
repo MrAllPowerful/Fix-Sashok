@@ -163,13 +163,11 @@ public class Game extends JFrame
 			
 			try
 			{
-				int memory = BaseUtils.getPropertyInt("memory", 512);
 				System.out.println("Running Minecraft");
 				String jarpath = BaseUtils.getMcDir().toString() + File.separator + ThreadUtils.b + File.separator;
 				String minpath = BaseUtils.getMcDir().toString();
 				String assets = BaseUtils.getAssetsDir().toString() + File.separator;
-				List<String> params = new ArrayList<>();
-				System.setProperty("xmx", memory + "m");
+				List<String> params = new ArrayList<String>();
 				System.setProperty("fml.ignoreInvalidMinecraftCertificates", "true");
 				System.setProperty("fml.ignorePatchDiscrepancies", "true");
 				System.setProperty("org.lwjgl.librarypath", jarpath+"natives");

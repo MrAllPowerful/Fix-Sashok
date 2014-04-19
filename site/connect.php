@@ -43,13 +43,12 @@
 	
 	$masterversion  	= 'final_RC4'; //Мастер-версия лаунчера
 	$protectionKey		= '1234567890'; 
-	$key1  = "1234567891234567";  //16 Character Key Ключ пост запросов
-	$key2  = "1234567891234567"; //16 Character  Key  Ключ пост запросов
+	$key1               = "1234567891234567";  //16 Character Key Ключ пост запросов
+	$key2               = "1234567891234567"; //16 Character  Key  Ключ пост запросов
 
-    $checklauncher = false; //Проверка хеша лаунчера
-
-	$md5launcherexe = md5(file_get_contents("./launcher/fix.jar"));  // Сверяем MD5
-	$md5launcherjar = md5(file_get_contents("./launcher/fix.exe"));  // Сверяем MD5
+    $checklauncher      = false; //Проверка хеша лаунчера
+	$md5launcherexe     = md5(@file_get_contents("launcher/fix.jar"));  // Сверяем MD5
+	$md5launcherjar     = md5(@file_get_contents("launcher/fix.exe"));  // Сверяем MD5
 
 //========================= Настройки ЛК =======================//	
 
@@ -59,8 +58,8 @@
 	$db_columnKey		= 'key'; 	//Колонка с ключами
 	$db_columnAmount	= 'amount'; //Колонка с ценами ключей
 	
-	$uploaddirs = 'MinecraftSkins';  //Папка скинов
-	$uploaddirp = 'MinecraftCloaks'; //Папка плащей
+	$uploaddirs         = 'MinecraftSkins';  //Папка скинов
+	$uploaddirp         = 'MinecraftCloaks'; //Папка плащей
 	
 	$usePersonal 		=  true; //Использовать личный кабинет
 	$canUploadSkin		=  true; //Можно ли заливать скины

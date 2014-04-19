@@ -14,7 +14,6 @@ import net.launcher.components.Frame;
 import net.launcher.components.Game;
 import net.launcher.components.PersonalContainer;
 import net.launcher.run.Settings;
-import net.launcher.run.Starter;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;

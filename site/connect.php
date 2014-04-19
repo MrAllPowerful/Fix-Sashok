@@ -47,8 +47,8 @@
 	$key2               = "1234567891234567"; //16 Character  Key  Ключ пост запросов
 
     $checklauncher      = false; //Проверка хеша лаунчера
-	$md5launcherexe     = md5(@file_get_contents("launcher/fix.jar"));  // Сверяем MD5
-	$md5launcherjar     = md5(@file_get_contents("launcher/fix.exe"));  // Сверяем MD5
+	$md5launcherexe     = md5(@file_get_contents("launcher/fix.exe"));  // Сверяем MD5
+	$md5launcherjar     = md5(@file_get_contents("launcher/fix.jar"));  // Сверяем MD5
 
 //========================= Настройки ЛК =======================//	
 

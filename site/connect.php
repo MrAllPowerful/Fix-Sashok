@@ -36,8 +36,7 @@
 	$db_columnDatareg   = 'create_time'; // Колонка даты регистрации
 	$db_columnMail      = 'email'; // Колонка mail
 
-	$banlist            = 'banlist'; //Таблица плагина Ultrabans
-	$noactive           = '1'; //Номер группы не активированных
+	$banlist            = 'banlist'; //Таблица плагина Ultraban
 	
 	$useban             =  false; //Ба на на сервере = бан в лаунчере, Ultrabans плагин
 	$useantibrut        =  true; //Защита от частых подборов пароля (Пауза 1 минута при неправильном пароле)

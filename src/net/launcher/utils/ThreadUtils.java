@@ -9,10 +9,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.List;
+
 import net.launcher.components.Frame;
 import net.launcher.components.Game;
 import net.launcher.components.PersonalContainer;
 import net.launcher.run.Settings;
+import net.launcher.run.Starter;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -65,7 +68,7 @@ public class ThreadUtils
 		{ try {
 			String answer2 = BaseUtils.execute(BaseUtils.buildUrl("launcher.php"), new Object[]
 			{
-				"action", encrypt("auth:"+BaseUtils.getClientName()+":"+Frame.main.login.getText()+":"+new String(Frame.main.password.getPassword()), Settings.key2),
+				"action", encrypt("auth:"+BaseUtils.getClientName()+":"+Frame.main.login.getText()+":"+new String(Frame.main.password.getPassword())+":"+GuardUtils.getMD5(Starter.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()), Settings.key2),
 			});
             String answer = null;
 			try {
@@ -75,6 +78,10 @@ public class ThreadUtils
 			if(answer == null)
 			{
 				Frame.main.panel.tmpString = "Ошибка подключения";
+				error = true;
+			} else if(answer.contains("badlauncher"))
+			{
+				Frame.main.panel.tmpString = "Лаунчер поврежден!";
 				error = true;
 			} else if(answer.contains("errorLogin"))
 			{

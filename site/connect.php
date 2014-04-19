@@ -36,16 +36,20 @@
 	$db_columnDatareg   = 'create_time'; // Колонка даты регистрации
 	$db_columnMail      = 'email'; // Колонка mail
 
-	$banlist            = 'banlist'; //Таблица плагина Ultraban
+	$banlist            = 'banlist'; //Таблица плагина Ultrabans
 	
 	$useban             =  false; //Ба на на сервере = бан в лаунчере, Ultrabans плагин
 	$useantibrut        =  true; //Защита от частых подборов пароля (Пауза 1 минута при неправильном пароле)
 	
 	$masterversion  	= 'final_RC4'; //Мастер-версия лаунчера
 	$protectionKey		= '1234567890'; 
-
 	$key1  = "1234567891234567";  //16 Character Key Ключ пост запросов
 	$key2  = "1234567891234567"; //16 Character  Key  Ключ пост запросов
+
+    $checklauncher = false; //Проверка хеша лаунчера
+
+	$md5launcherexe = md5(file_get_contents("./launcher/fix.jar"));  // Сверяем MD5
+	$md5launcherjar = md5(file_get_contents("./launcher/fix.exe"));  // Сверяем MD5
 
 //========================= Настройки ЛК =======================//	
 

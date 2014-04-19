@@ -7,7 +7,26 @@
     @$x  = $_POST['action'];
     @$yd = Security::decrypt($x, $key2);
     error_reporting(0);
-    list($action, $client, $login, $postPass) = explode(':', $yd);
+    list($action, $client, $login, $postPass, $launchermd5) = explode(':', $yd);
+
+    if($checklauncher)
+    {
+	    if($launchermd5 != null)
+	    {
+		    if($launchermd5 == $md5launcherexe)
+		    {
+		       $check = "1";
+		    }
+		    if($launchermd5 == $md5launcherjar)
+		    {
+		       $check = "1";
+		    }
+		}
+		if(!$check == "1")
+		{
+			exit(Security::encrypt("badlauncher", $key1));
+		}
+	}
 
 	if(!file_exists($uploaddirs)) die ("Путь к скинам не является папкой! Укажите в настройках правильный путь.");
 	if(!file_exists($uploaddirp)) die ("Путь к плащам не является папкой! Укажите в настройках правильный путь.");

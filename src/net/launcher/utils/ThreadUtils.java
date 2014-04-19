@@ -68,7 +68,7 @@ public class ThreadUtils
 		{ try {
 			String answer2 = BaseUtils.execute(BaseUtils.buildUrl("launcher.php"), new Object[]
 			{
-				"action", encrypt("auth:"+BaseUtils.getClientName()+":"+Frame.main.login.getText()+":"+new String(Frame.main.password.getPassword())+":"+GuardUtils.getMD5(Starter.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()), Settings.key2),
+				"action", encrypt("auth:"+BaseUtils.getClientName()+":"+Frame.main.login.getText()+":"+new String(Frame.main.password.getPassword())+":"+GuardUtils.getMD5(ThreadUtils.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()), Settings.key2),
 			});
             String answer = null;
 			try {

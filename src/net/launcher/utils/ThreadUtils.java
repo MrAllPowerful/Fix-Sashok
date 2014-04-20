@@ -210,7 +210,7 @@ public class ThreadUtils
 		String folder = BaseUtils.getAssetsDir() + File.separator;
 		
 		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[0]), Settings.protectionKey).equals(BaseUtils.getPropertyString(BaseUtils.getClientName() + "_zipmd5")) ||
-		!new File(binfolder + "natives").exists() || Frame.main.updatepr.isSelected()) { files.add(b+"/client.zip");  zipupdate = true; }
+		!new File(binfolder + "natives").exists() || Frame.main.updatepr.isSelected()) { files.add(BaseUtils.getClientName()+"/"+b+"/client.zip");  zipupdate = true; }
 		
 		URLClassLoader cl;
 		int t = 1;
@@ -234,16 +234,16 @@ public class ThreadUtils
 	    if (t > 1)
 	    {
 	      if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[1]), Settings.protectionKey).equals(BaseUtils.getPropertyString("assetsmd5")) ||
-		  !new File(folder + "assets").exists() || Frame.main.updatepr.isSelected()) { files.add(b+"/assets.zip");  zipupdate2 = true; }
+		  !new File(folder + "assets").exists() || Frame.main.updatepr.isSelected()) { files.add(BaseUtils.getClientName()+"/"+b+"/assets.zip");  zipupdate2 = true; }
 	    }
         else
         {
         	
         }
-		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[3]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + l))) files.add(b+"/"+l);
-		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[4]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + f))) files.add(b+"/"+f);
-		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[5]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + e))) files.add(b+"/"+e);
-		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[2]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + m))) files.add(b+"/"+m);
+		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[3]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + l))) files.add(BaseUtils.getClientName()+"/"+b+"/"+l);
+		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[4]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + f))) files.add(BaseUtils.getClientName()+"/"+b+"/"+f);
+		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[5]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + e))) files.add(BaseUtils.getClientName()+"/"+b+"/"+e);
+		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[2]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + m))) files.add(BaseUtils.getClientName()+"/"+b+"/"+m);
 
 		
 		BaseUtils.send("---- Filelist start ----");

@@ -40,15 +40,9 @@ public class UpdaterThread extends Thread
 	
 	public void run()
 	{ try {
-		String pathTo = BaseUtils.getMcDir().getAbsolutePath() + File.separator;
-		String urlTo = BaseUtils.buildUrl("clients/" + BaseUtils.getClientName() + "/");
-		
-		File dir = new File(pathTo + "bin" + File.separator);
-		if(!dir.exists()) dir.mkdirs();
-		dir = new File(pathTo + "mods" + File.separator);
-		if(!dir.exists() ) dir.mkdirs();
-		dir = new File(pathTo + "coremods" + File.separator);
-		if(!dir.exists() ) dir.mkdirs();
+		String pathTo = BaseUtils.getAssetsDir().getAbsolutePath() + File.separator;
+		String urlTo = BaseUtils.buildUrl("clients/");
+		File dir;
 		
 		state = "Определение размера...";
 		

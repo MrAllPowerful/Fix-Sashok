@@ -63,9 +63,11 @@ public class GuardUtils
 				
 				if(Frame.main.updatepr.isSelected())
 				{
-					for(String mod : modsArray) files.add("mods" + "/" + mod.split(":>")[0]);
+					for(String mod : modsArray) files.add(BaseUtils.getClientName()+"/"+"mods" + "/" + mod.split(":>")[0]);
 					return files;
 				}
+				
+				for(String mod : modsArray) files.add(BaseUtils.getClientName()+"/"+"mods" + "/" + mod.split(":>")[0]);
 				
 				if(dir.exists() && dir.isDirectory())
 				{
@@ -86,7 +88,7 @@ public class GuardUtils
 					for(String file : dirFiles) dirFilesString += file + ":>" + GuardUtils.getMD5(file);
 					for(String mod : modsArray) { if(!dirFilesString.contains(mod))
 					{					
-						files.add("mods" + "/" + mod.split(":>")[0]);
+						files.add(BaseUtils.getClientName()+"/"+"mods" + "/" + mod.split(":>")[0]);
 					}}
 			    }
 			}
@@ -99,7 +101,7 @@ public class GuardUtils
 				
 				if(Frame.main.updatepr.isSelected())
 				{
-					for(String mod : modsArray) files.add("coremods" + "/" + mod.split(":>")[0]);
+					for(String mod : modsArray) files.add(BaseUtils.getClientName()+"/"+"coremods" + "/" + mod.split(":>")[0]);
 					return files;
 				}
 				
@@ -122,7 +124,7 @@ public class GuardUtils
 					for(String file : dirFiles) dirFilesString += file + ":>" + GuardUtils.getMD5(file);
 					for(String mod : modsArray) { if(!dirFilesString.contains(mod))
 					{					
-						files.add("coremods" + "/" + mod.split(":>")[0]);
+						files.add(BaseUtils.getClientName()+"/"+"coremods" + "/" + mod.split(":>")[0]);
 					}}
 			    }
 			}
@@ -156,6 +158,7 @@ public class GuardUtils
 			BaseUtils.send("ANTICHEAT: Mod checking done");
 		}
 	}
+	
     public static void delete(File file)
     {
         try {

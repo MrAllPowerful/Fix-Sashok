@@ -12,6 +12,6 @@ public class Mainclass
 		if(BaseUtils.getPropertyBoolean("Music", true))
 		{
                   new MusPlay(Settings.iMusicname);
-                }
+        }
 	}
 }

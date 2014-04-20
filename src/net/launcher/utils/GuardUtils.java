@@ -61,7 +61,7 @@ public class GuardUtils
 				String[] modsArray = answer.split("<br>")[2].split("<::>")[0].split("<:>");
 				String mods = answer.split("<br>")[2].split("<::>")[0];
 				
-				for(String mod : modsArray) files.add(BaseUtils.getClientName()+"/"+"mods" + "/" + mod.split(":>")[0]);
+				if(!dir.exists() ) dir.mkdirs();
 				
 				if(dir.exists() && dir.isDirectory())
 				{
@@ -93,7 +93,7 @@ public class GuardUtils
 				String[] modsArray = answer.split("<:::>")[1].split("<::>")[0].split("<:>");
 				String mods = answer.split("<:::>")[1].split("<::>")[0];
 				
-				for(String mod : modsArray) files.add(BaseUtils.getClientName()+"/"+"coremods" + "/" + mod.split(":>")[0]);
+	    		if(!dir.exists() ) dir.mkdirs();
 				
 				if(dir.exists() && dir.isDirectory())
 				{

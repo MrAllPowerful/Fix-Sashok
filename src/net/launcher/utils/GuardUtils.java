@@ -73,7 +73,6 @@ public class GuardUtils
 						String md5 = GuardUtils.getMD5(file.toString());
 						if(!mods.contains(cfile.replace(m+File.separator, "") + ":>" + md5 + "<:>"))
 						{
-							System.err.println("delete mods");
 							delete(file);
 							ret = true;
 						}
@@ -105,7 +104,6 @@ public class GuardUtils
 						String md5 = GuardUtils.getMD5(file.toString());
 						if(!mods.contains(cfile.replace(m+File.separator, "") + ":>" + md5 + "<:>"))
 						{
-							System.err.println("delete coremods");
 							delete(file);
 							ret = true;
 						}

@@ -90,8 +90,8 @@ public class GuardUtils
 			{
 				File dir = new File(BaseUtils.getMcDir().getAbsolutePath() + File.separator + "coremods");
 				String m = BaseUtils.getMcDir().getAbsolutePath() + File.separator + "coremods";
-				String[] modsArray = answer.split("<br>")[2].split("<::>")[1].split("<:>");
-				String mods = answer.split("<br>")[2].split("<::>")[1];
+				String[] modsArray = answer.split("<:::>")[1].split("<::>")[0].split("<:>");
+				String mods = answer.split("<:::>")[1].split("<::>")[0];
 				
 				for(String mod : modsArray) files.add(BaseUtils.getClientName()+"/"+"coremods" + "/" + mod.split(":>")[0]);
 				

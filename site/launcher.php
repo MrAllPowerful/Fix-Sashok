@@ -237,7 +237,7 @@ if($useban)
 			    }
 		    }
 
-		echo Security::encrypt($echo1.$massive.'<::><:::>'.$massive2.'<::>', $key1);
+		echo Security::encrypt($echo1.$massive.'<::>|<::>'.$massive2.'<::>|', $key1);
 
 	} else
   

@@ -85,14 +85,14 @@ public class GuardUtils
 					}}
 			    }
 			}
-
+            
 			{
 				File dir = new File(BaseUtils.getMcDir().getAbsolutePath() + File.separator + "coremods");
 				String m = BaseUtils.getMcDir().getAbsolutePath() + File.separator + "coremods";
-				String[] modsArray = answer.split("<:::>")[1].split("<::>")[0].split("<:>");
-				String mods = answer.split("<:::>")[1].split("<::>")[0];
-				
-	    		if(!dir.exists() ) dir.mkdirs();
+				String[] modsArray = answer.split("<::>")[2].split("<::>")[0].split("<:>");
+				String mods = answer.split("<::>")[2].split("<::>")[0];
+
+	    		if(!dir.exists()) dir.mkdirs();
 				
 				if(dir.exists() && dir.isDirectory())
 				{
@@ -130,7 +130,7 @@ public class GuardUtils
 			if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[4]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + net.launcher.utils.ThreadUtils.f))) ret = true;
 			if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[5]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + net.launcher.utils.ThreadUtils.e))) ret = true;
 			if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[2]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + net.launcher.utils.ThreadUtils.m))) ret = true;
-			GuardUtils.updateMods(answer).size();
+			GuardUtils.updateMods(answer);
 			if(ret && action)
 			{
 				Frame.main.setError("Ошибка вторичной проверки кеша.");

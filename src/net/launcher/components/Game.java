@@ -14,10 +14,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JFrame;
 import javax.swing.Timer;
-
 import net.minecraft.Launcher;
 import net.launcher.run.Settings;
 import net.launcher.utils.BaseUtils;
@@ -33,6 +31,7 @@ public class Game extends JFrame
 	private eURLClassLoader cl;
 	public static int t = 1;
 	String Class = null;
+	
 	public Game(final String answer)
 	{
 		
@@ -77,13 +76,20 @@ public class Game extends JFrame
 		
 		if (t == 4)
 		{		
-			if(Settings.useModCheckerTimer ) new Timer(30000, new ActionListener()
-			{
-				public void actionPerformed(ActionEvent e)
-				{
-					GuardUtils.checkMods(answer, false);
-				}
-			}).start();
+			Thread check = new Thread(new Runnable() {
+			    @Override
+				public void run() {
+			    	GuardUtils.checkMods(answer, true);
+					if(Settings.useModCheckerTimer ) new Timer(30000, new ActionListener()
+					{
+						public void actionPerformed(ActionEvent e)
+						{
+							GuardUtils.checkMods(answer, false);
+						}
+					}).start();
+			    }
+			});
+			check.start();
 			
 			try
 			{
@@ -148,14 +154,21 @@ public class Game extends JFrame
 			}
 		}
 		else
-		{			
-			if(Settings.useModCheckerTimer ) new Timer(30000, new ActionListener()
-			{
-				public void actionPerformed(ActionEvent e)
-				{
-					GuardUtils.checkMods(answer, false);
-				}
-			}).start();
+		{
+			Thread check = new Thread(new Runnable() {
+			    @Override
+				public void run() {
+			    	GuardUtils.checkMods(answer, true);
+					if(Settings.useModCheckerTimer ) new Timer(30000, new ActionListener()
+					{
+						public void actionPerformed(ActionEvent e)
+						{
+							GuardUtils.checkMods(answer, false);
+						}
+					}).start();
+			    }
+			});
+			check.start();
 			
 			try
 			{
@@ -264,5 +277,9 @@ public class Game extends JFrame
 				}
 			} catch (Exception e) {}
 		}
+	}
+	private void stop() {
+		// TODO Auto-generated method stub
+		
 	}
 }

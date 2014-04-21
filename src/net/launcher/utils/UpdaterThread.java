@@ -8,7 +8,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.util.List;
 
@@ -64,8 +63,7 @@ public class UpdaterThread extends Thread
 		for (int i = 0; i < files.size(); i++)
 		{
 			currentfile = files.get(i);
-			String URLEncodedFileName = URLEncoder.encode(currentfile, "UTF-8");
-			String file = URLEncodedFileName.replace("%2F", "/").replace("+", "%20");
+			String file = currentfile.replace("+", "%20");
 			BaseUtils.send("Downloading file: " + currentfile);
 			InputStream is = new BufferedInputStream(new URL(urlTo + file).openStream());
 			FileOutputStream fos = new FileOutputStream(pathTo + currentfile);

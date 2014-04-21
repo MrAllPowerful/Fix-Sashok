@@ -63,7 +63,7 @@ public class UpdaterThread extends Thread
 		for (int i = 0; i < files.size(); i++)
 		{
 			currentfile = files.get(i);
-			String file = currentfile.replace("+", "%20");
+			String file = currentfile.replace(" ", "%20");
 			BaseUtils.send("Downloading file: " + currentfile);
 			InputStream is = new BufferedInputStream(new URL(urlTo + file).openStream());
 			FileOutputStream fos = new FileOutputStream(pathTo + currentfile);

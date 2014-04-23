@@ -1,5 +1,5 @@
 ﻿ALTER TABLE  `Таблица пользователей`
 ADD  `realmoney` int(255) DEFAULT '0',
-ADD  `md5` int(255) DEFAULT '0',
+ADD  `md5` varchar(255) DEFAULT '0',
 ADD  `session` varchar(255) DEFAULT '0',
 ADD  `server` varchar(255) DEFAULT '0'

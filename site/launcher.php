@@ -4,6 +4,7 @@
 	include("connect.php");
 	include_once("loger.php");
 	include("security.php");
+
     @$x  = $_POST['action'];
     @$yd = Security::decrypt($x, $key2);
     error_reporting(0);
@@ -237,7 +238,7 @@ if($useban)
 			    }
 		    }
 
-		echo Security::encrypt($echo1.$massive.'<::>|<::>'.$massive2.'<::>|', $key1);
+		echo Security::encrypt($echo1.$massive.'<::>|<::>'.$massive2.'<::>|<::>', $key1);
 
 	} else
   

@@ -10,7 +10,6 @@ import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.PrintStream;
 import java.lang.reflect.Method;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,52 +28,25 @@ public class Game extends JFrame
 	private static final long serialVersionUID = 1L;
 	public static Launcher mcapplet;
 	private eURLClassLoader cl;
-	public static int t = 1;
 	String Class = null;
 	
 	public Game(final String answer)
 	{
 		
-		String bin = BaseUtils.getMcDir().toString() + File.separator + ThreadUtils.b + File.separator;
-		URL[] urls = new URL[4];
+		String bin = BaseUtils.getMcDir().toString() + File.separator + ThreadUtils.b + File.separator;	
+		cl = new eURLClassLoader(GuardUtils.url.toArray(new URL[GuardUtils.url.size()]));
 		
-
-		try {
-			urls[0] = new File(bin, net.launcher.utils.ThreadUtils.l).toURI().toURL();
-			urls[1] = new File(bin, net.launcher.utils.ThreadUtils.e).toURI().toURL();
-			urls[2] = new File(bin, net.launcher.utils.ThreadUtils.f).toURI().toURL();
-			urls[3] = new File(bin, net.launcher.utils.ThreadUtils.m).toURI().toURL();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
+		boolean old = false;
 		try
 		{   
-			t = 4;
-			cl = new eURLClassLoader(urls);
 			cl.loadClass("net.minecraft.client.Minecraft");
-		} catch(Exception e)
-		{
-			try
-			{ 
-				t = 3;
-				cl = new eURLClassLoader(urls);
-				cl.loadClass("com.mumfrey.liteloader.launch.LiteLoaderTweaker");
-			} catch(Exception e1)
-			{
-				try {
-					t = 2;
-					cl = new eURLClassLoader(urls);
-					cl.loadClass("cpw.mods.fml.common.launcher.FMLTweaker");
-				} catch (ClassNotFoundException e2) {
-					t = 1;
-				}
-			}
-		}
+			old = true;
+		} catch(Exception e) {}
 		
 		String user = Frame.main.offline.isSelected() ? Settings.defaultUsername : answer.split("<br>")[1].split("<:>")[0];
 		String session = Frame.main.offline.isSelected() ? Settings.defaultSession : EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[1].split("<:>")[1]), Settings.protectionKey);
 		
-		if (t == 4)
+		if(old)
 		{		
 			Thread check = new Thread(new Runnable() {
 			    @Override
@@ -111,7 +83,7 @@ public class Game extends JFrame
 				setForeground(Color.BLACK);
 				setBackground(Color.BLACK);
 				
-				mcapplet = new Launcher(bin, urls);
+				mcapplet = new Launcher(bin, GuardUtils.url.toArray(new URL[GuardUtils.url.size()]));
 				mcapplet.customParameters.put("username", user);
 				mcapplet.customParameters.put("sessionid", session);
 				mcapplet.customParameters.put("stand-alone", "true");
@@ -152,9 +124,9 @@ public class Game extends JFrame
 			{
 				e.printStackTrace();
 			}
-		}
-		else
-		{
+			
+		} else {
+			
 			Thread check = new Thread(new Runnable() {
 			    @Override
 				public void run() {
@@ -182,14 +154,6 @@ public class Game extends JFrame
 				System.setProperty("org.lwjgl.librarypath", jarpath+"natives");
 				System.setProperty("net.java.games.input.librarypath", jarpath+"natives");
 				System.setProperty("java.library.path", jarpath+"natives");
-                if (t == 1)
-				{
-					Class = "net.minecraft.client.main.Main";  
-				}
-				else
-				{
-					Class = "net.minecraft.launchwrapper.Launch";
-				}
 				if(BaseUtils.getPropertyBoolean("fullscreen"))
 				{          
 					params.add("--fullscreen");
@@ -201,32 +165,7 @@ public class Game extends JFrame
 					params.add(String.valueOf(Settings.width));
 					params.add("--height");
 					params.add(String.valueOf(Settings.height));
-				}
-				params.add("--username");
-				params.add(user);
-				
-				try {
-					cl = new eURLClassLoader(urls);
-					cl.loadClass("com.mojang.authlib.Agent");
-					params.add("--accessToken");
-					params.add(session);
-					params.add("--uuid");
-					params.add(EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[7]), Settings.protectionKey));
-					params.add("--userProperties");
-					params.add("{}");
-					params.add("--assetIndex");
-					params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[3]);
-				} catch (ClassNotFoundException e2) {
-					params.add("--session");
-					params.add(session);
-				}
-				
-				params.add("--version");
-				params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[3]);
-				params.add("--gameDir");
-				params.add(minpath);
-				params.add("--assetsDir");
-				params.add(assets+"assets");
+				}	
 				if(Settings.useAutoenter) {
 					if (!Frame.main.offline.isSelected()) {
 						params.add("--server");
@@ -234,40 +173,58 @@ public class Game extends JFrame
 						params.add("--port");
 						params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[2]);
 					}
-				}
-				if (t == 2)
+				}		
+				try {
+					cl.loadClass("com.mojang.authlib.Agent");
+					params.add("--accessToken");
+					params.add(session);
+					params.add("--uuid");
+					params.add(EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[1]), Settings.protectionKey));
+					params.add("--userProperties");
+					params.add("{}");
+					params.add("--assetIndex");
+					params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[3]);
+				} catch (ClassNotFoundException e2) {
+					params.add("--session");
+					params.add(session);
+				}		
+				params.add("--username");
+				params.add(user);
+				params.add("--version");
+				params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[3]);
+				params.add("--gameDir");
+				params.add(minpath);
+				params.add("--assetsDir");
+				if(Integer.parseInt(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[3].replace(".", "")) < 172)
 				{
-					params.add("--tweakClass");
-					params.add("cpw.mods.fml.common.launcher.FMLTweaker");
+					params.add(assets+"assets/virtual/legacy");
+				} else {
+					params.add(assets+"assets");
 				}
-				String x = Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[3];
-				if (t == 3)
-				{
+				boolean tweakClass = false;
+				try {
+					cl.loadClass("com.mumfrey.liteloader.launch.LiteLoaderTweaker");
 					params.add("--tweakClass");
 					params.add("com.mumfrey.liteloader.launch.LiteLoaderTweaker");
-					try {
-						cl = new eURLClassLoader(urls);
-						cl.loadClass("cpw.mods.fml.common.launcher.FMLTweaker");
-						if (x.equals("1.6.2"))
-						{
-							params.add("--cascadedTweaks");
-							params.add("cpw.mods.fml.common.launcher.FMLTweaker");
-						}
-						else
-						{
-							params.add("--tweakClass");
-							params.add("cpw.mods.fml.common.launcher.FMLTweaker");
-						}
-					} catch (ClassNotFoundException e2) {
-
-					}
+					tweakClass = true;
+				} catch (ClassNotFoundException e) {}	
+				try {
+					cl.loadClass("cpw.mods.fml.common.launcher.FMLTweaker");
+					params.add("--tweakClass");
+					params.add("cpw.mods.fml.common.launcher.FMLTweaker");
+					tweakClass = true;
+				} catch (ClassNotFoundException e) {}
+	            if(tweakClass)
+				{
+					Class = "net.minecraft.launchwrapper.Launch";
+				} else {
+					Class = "net.minecraft.client.main.Main";
 				}
 				
                 Frame.main.setVisible(false);
 				try
 				{
-                    @SuppressWarnings("resource")
-					eURLClassLoader loader = new eURLClassLoader(urls);
+					eURLClassLoader loader = cl;
 					Class<?> start = loader.loadClass(Class);
 					Method main = start.getMethod("main", new Class[] { String[].class });
 					main.invoke(null, new Object[] { params.toArray(new String[0]) });
@@ -277,9 +234,5 @@ public class Game extends JFrame
 				}
 			} catch (Exception e) {}
 		}
-	}
-	private void stop() {
-		// TODO Auto-generated method stub
-		
 	}
 }

@@ -67,24 +67,12 @@ public class BaseUtils
 
 	public static void send(String msg)
 	{
-		String prefix = null;
-		if(Integer.toString(logNumber).length() == 1) prefix = "00" + logNumber + " ";
-		else if(Integer.toString(logNumber).length() == 2) prefix = "0" + logNumber + " ";
-		else if(Integer.toString(logNumber).length() == 3) prefix = logNumber + " ";
-		else prefix = "999 ";
-		if(Settings.debug) System.out.println(prefix + msg);
-		logNumber++;
+		if(Settings.debug) System.out.println(msg);
 	}
 
 	public static void sendErr(String err)
 	{
-		String prefix = null;
-		if(Integer.toString(logNumber).length() == 1) prefix = "00" + logNumber + " ";
-		else if(Integer.toString(logNumber).length() == 2) prefix = "0" + logNumber + " ";
-		else if(Integer.toString(logNumber).length() == 3) prefix = logNumber + " ";
-		else prefix = "999 ";
-		if(Settings.debug)System.err.println(prefix + err);
-		logNumber++;
+		if(Settings.debug)System.err.println(err);
 	}
 
 	public static boolean contains(int x, int y, int xx, int yy, int w, int h)
@@ -100,10 +88,10 @@ public class BaseUtils
 		{
 			case 1: return new File(System.getProperty("user.home", "") + path);
 			case 2:
-				String appData = System.getenv(Settings.basedir);
+				String appData = System.getenv("SYSTEMDRIVE");
 				if(appData != null) return new File(appData + path);
 				else return new File(home + path);
-			case 3: return new File(home, "Library/Application Support/" + path);
+			case 3: return new File(home, path);
 			default: return new File(home + path);
 		}
 	}
@@ -116,10 +104,10 @@ public class BaseUtils
 		{
 			case 1: return new File(System.getProperty("user.home", "") + path);
 			case 2:
-				String appData = System.getenv(Settings.basedir);
+				String appData = System.getenv("SYSTEMDRIVE");
 				if(appData != null) return new File(appData + path);
 				else return new File(home + path);
-			case 3: return new File(home, "Library/Application Support/" + path);
+			case 3: return new File(home, path);
 			default: return new File(home + path);
 		}
 	}	
@@ -132,10 +120,10 @@ public class BaseUtils
 		{
 			case 1: return new File(System.getProperty("user.home", ""), path);
 			case 2:
-				String appData = System.getenv(Settings.basedir);
+				String appData = System.getenv("SYSTEMDRIVE");
 				if(appData != null) return new File(appData, path);
 				else return new File(home, path);
-			case 3: return new File(home, "Library/Application Support/" + path);
+			case 3: return new File(home, path);
 			default: return new File(home, path);
 		}
 	}
@@ -360,7 +348,6 @@ public class BaseUtils
 
 			String str1 = response.toString().trim();
 			send("Stream opened for " + surl + " completed, return answer: ");
-			send("	\"" + str1 + "\"");
 			return str1;
 		} catch(Exception e)
 		{

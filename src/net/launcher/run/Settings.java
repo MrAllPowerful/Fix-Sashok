@@ -9,14 +9,13 @@ public class Settings
 	/** Настройка заголовка лаунчера */
 	public static final String  title		         = "Launcher"; //Заголовок лаунчера
 	public static final String  titleInGame  	     = "Minecraft"; //Заголовок лаунчера после авторизации
-	public static final String  basedir	             = "AppData"; //Родительская папка для Minecraft (только для Windows) [ProgramFiles, AppData]
 	public static final String  baseconf		     = "voxelaria"; //Папка с файлом конфигурации
 	public static final String  pathconst		     = "voxelaria/%SERVERNAME%"; //Конструктор пути к папке с MC
 	public static final String  skins                = "MinecraftSkins/"; //Папка скинов
 	public static final String  cloaks               = "MinecraftCloaks/"; //Папка плащей
 	/** Параметры подключения */
 	public static final String  domain	 	         = "alexandrage.dyndns.org";//Домен сайта
-	public static final String  siteDir		         = "site";//Папка с файлами лаунчера на сайте
+	public static final String  siteDir		         = "site2";//Папка с файлами лаунчера на сайте
 	public static final String  updateFile		     = "http://alexandrage.dyndns.org/site/Launcher.jar";//Ссылка на файл обновления лаунчера
 	public static final String  buyVauncherLink      = "http://plati.ru/"; //Ссылка на страницу покупки ваучеров
 	
@@ -60,7 +59,7 @@ public class Settings
 
 	public static boolean debug		 	         =  true; //Отображать все действия лаунчера (отладка)(true/false)
 	public static boolean drawTracers		     =  false; //Отрисовывать границы элементов лаунчера
-	public static final String masterVersion  	 = "final_RC4"; //Версия лаунчера
+	public static final String masterVersion     = "final_RC4"; //Версия лаунчера
 
 	public static boolean patchDir 		         =  true; //Использовать автоматическую замену директории игры (true/false)
 	

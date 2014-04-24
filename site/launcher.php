@@ -4,7 +4,6 @@
 	include("connect.php");
 	include_once("loger.php");
 	include("security.php");
-
     @$x  = $_POST['action'];
     @$yd = Security::decrypt($x, $key2);
     error_reporting(0);
@@ -164,13 +163,7 @@ if($useban)
 	}
     
 	if($action == 'auth')
-	{
-		if(!file_exists("clients/".$client."/bin/client.zip") || !file_exists("clients/".$client."/bin/minecraft.jar") ||
-		   !file_exists("clients/".$client."/bin/libraries.jar")  || !file_exists("clients/".$client."/bin/Forge.jar")  ||
-		   !file_exists("clients/".$client."/bin/extra.jar") || !file_exists("clients/".$client."/mods/")               || 
-		   !file_exists("clients/".$client."/coremods/") || !file_exists("clients/".$client."/bin/assets.zip")) 
-		   die(Security::encrypt("client $client", $key1));
-		   
+	{	   
 	    
 	    $chars="0123456789abcdef";
         $max=32;
@@ -185,19 +178,7 @@ if($useban)
         while($max2--)
         $password2.=$chars2[rand(0,$size2)];
 		
-		$sessid 		= "token:".$password.":".$password2;
-		$md5zip			= md5_file("clients/".$client."/bin/client.zip");
-		$md5czip        = strtoint(xorencode($md5zip, $protectionKey));
-		$md52zip		= md5_file("clients/".$client."/bin/assets.zip");
-		$md52czip       = strtoint(xorencode($md52zip, $protectionKey));
-		$md5jar         = md5_file("clients/".$client."/bin/minecraft.jar");
-		$md5cjar        = strtoint(xorencode($md5jar, $protectionKey));
-		$md5lwjql		= md5_file("clients/".$client."/bin/libraries.jar");
-		$md5clwjql      = strtoint(xorencode($md5lwjql, $protectionKey));
-		$md5lwjql_util	= md5_file("clients/".$client."/bin/Forge.jar");
-		$md5clwjql_util = strtoint(xorencode($md5lwjql_util, $protectionKey));
-		$md5jinput		= md5_file("clients/".$client."/bin/extra.jar");
-		$md5cjinput     = strtoint(xorencode($md5jinput, $protectionKey));
+		$sessid = "token:".$password.":".$password2;
 		
 		$stmt = $db->prepare("UPDATE $db_table SET $db_columnSesId='$sessid' WHERE $db_columnUser = :login");
 		$stmt->bindValue(':login', $login);
@@ -208,12 +189,11 @@ if($useban)
 		$stmt = $db->prepare("UPDATE $db_table SET md5='$md5us' WHERE $db_columnUser = :login");
 		$stmt->bindValue(':login', $login);
 		$stmt->execute();	
-        $md5user = strtoint(xorencode($md5us, $protectionKey));
-        
-		$echo1 =  "$md5czip<:>$md52czip<:>$md5cjar<:>$md5clwjql<:>$md5clwjql_util<:>$md5cjinput<:>$masterversion<:>$md5user<br>".
-		$realUser.'<:>'.strtoint(xorencode($sessid, $protectionKey)).'<br>';
-		
 
+        $md5user = strtoint(xorencode($md5us, $protectionKey));
+        $md5zip	 = md5_file("clients/".$client."/config.zip");
+		$echo1 =  "$masterversion<:>$md5user<:>".$client."<br>".$realUser.'<:>'.strtoint(xorencode($sessid, $protectionKey)).'<br>';
+		
         $pathmods = 'clients/'.$client.'/mods/';
 		$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($pathmods), RecursiveIteratorIterator::SELF_FIRST);
 		$massive = "";
@@ -221,7 +201,7 @@ if($useban)
 			    $basename = basename($name);
 			    $isdir = is_dir($name);
 			    if ($basename!="." and $basename!=".." and !is_dir($name)){
-			     	$str = str_replace('clients/'.$client.'/mods/', "", str_replace($basename, "", $name));
+			     	$str = str_replace('clients/', "", str_replace($basename, "", $name));
 			     	$massive = $massive.$str.$basename.':>'.md5_file($name).'<:>';
 			    }
 		    }
@@ -233,12 +213,36 @@ if($useban)
 			    $basename = basename($name);
 			    $isdir = is_dir($name);
 			    if ($basename!="." and $basename!=".." and !is_dir($name)){
-			    	$str = str_replace('clients/'.$client.'/coremods/', "", str_replace($basename, "", $name));
+			    	$str = str_replace('clients/', "", str_replace($basename, "", $name));
 			     	$massive2 = $massive2.$str.$basename.':>'.md5_file($name).'<:>';
 			    }
 		    }
 
-		echo Security::encrypt($echo1.$massive.'<::>|<::>'.$massive2.'<::>|<::>', $key1);
+		$pathbin = 'clients/'.$client.'/bin/';
+		$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($pathbin), RecursiveIteratorIterator::SELF_FIRST);
+		$massive3 = "";
+		    foreach($objects as $name => $object) {
+			    $basename = basename($name);
+			    $isdir = is_dir($name);
+			    if ($basename!="." and $basename!=".." and !is_dir($name)){
+			     	$str = str_replace('clients/', "", str_replace($basename, "", $name));
+			     	$massive3 = $massive3.$str.$basename.':>'.md5_file($name).'<:>';
+			    }
+		    }
+
+		$pathcassets = 'clients/assets/';
+		$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($pathcassets), RecursiveIteratorIterator::SELF_FIRST);
+		$massive4 = "";
+		    foreach($objects as $name => $object) {
+			    $basename = basename($name);
+			    $isdir = is_dir($name);
+			    if ($basename!="." and $basename!=".." and !is_dir($name)){
+			    	$str = str_replace('clients/', "", str_replace($basename, "", $name));
+			     	$massive4 = $massive4.$str.$basename.':>'.md5_file($name).'<:>';
+			    }
+		    }
+
+		echo Security::encrypt($echo1.$massive.$massive2.$massive3.$massive4.$scn_list.'<::>assets<:b:>bin<:b:>mods<:b:>coremods<:b:>', $key1);
 
 	} else
   

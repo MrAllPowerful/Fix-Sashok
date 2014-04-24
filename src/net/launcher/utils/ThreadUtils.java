@@ -5,9 +5,6 @@ import static net.launcher.utils.BaseUtils.buildUrl;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.List;
 
 import net.launcher.components.Frame;
@@ -120,7 +117,7 @@ public class ThreadUtils
 				Frame.main.setAuthComp();
 			} else
 			{
-				String version = answer.split("<br>")[0].split("<:>")[6];
+				String version = answer.split("<br>")[0].split("<:>")[0];
 				
 				if(!version.equals(Settings.masterVersion))
 				{
@@ -204,47 +201,15 @@ public class ThreadUtils
 	public static void runUpdater(String answer)
 	{
 		boolean zipupdate = false;
-		boolean zipupdate2 = false;
 		List<String> files = GuardUtils.updateMods(answer);
-		String binfolder = BaseUtils.getMcDir() + File.separator + b + File.separator;
-		String folder = BaseUtils.getAssetsDir() + File.separator;
 		
-		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[0]), Settings.protectionKey).equals(BaseUtils.getPropertyString(BaseUtils.getClientName() + "_zipmd5")) ||
-		!new File(binfolder + "natives").exists() || Frame.main.updatepr.isSelected()) { files.add(BaseUtils.getClientName()+"/"+b+"/client.zip");  zipupdate = true; }
-		
-		URLClassLoader cl;
-		int t = 1;
-        String bin = BaseUtils.getMcDir().toString() + File.separator + ThreadUtils.b + File.separator;
-        URL[] urls = new URL[1];
-        try {
-            urls[0] = new File(bin, net.launcher.utils.ThreadUtils.m).toURI().toURL();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
+		String folder = BaseUtils.getMcDir().getAbsolutePath()+File.separator;
+		if(!answer.split("<br>")[0].split("<:>")[2].equals(BaseUtils.getPropertyString(BaseUtils.getClientName() + "_zipmd5")) ||
+		!new File(folder+"config").exists() || 
+		Frame.main.updatepr.isSelected())
+		{ 
+			files.add(BaseUtils.getClientName()+"/config.zip");  zipupdate = true; 
 		}
-        try
-        {   
-        	t = 1;
-            cl = new URLClassLoader(urls);
-            cl.loadClass("net.minecraft.client.Minecraft");
- 		} catch(Exception e)
- 		{
- 			t = 2;
- 		}
-		
-	    if (t > 1)
-	    {
-	      if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[1]), Settings.protectionKey).equals(BaseUtils.getPropertyString("assetsmd5")) ||
-		  !new File(folder + "assets").exists() || Frame.main.updatepr.isSelected()) { files.add(BaseUtils.getClientName()+"/"+b+"/assets.zip");  zipupdate2 = true; }
-	    }
-        else
-        {
-        	
-        }
-		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[3]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + l))) files.add(BaseUtils.getClientName()+"/"+b+"/"+l);
-		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[4]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + f))) files.add(BaseUtils.getClientName()+"/"+b+"/"+f);
-		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[5]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + e))) files.add(BaseUtils.getClientName()+"/"+b+"/"+e);
-		if(!EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[0].split("<:>")[2]), Settings.protectionKey).equals(GuardUtils.getMD5(binfolder + m))) files.add(BaseUtils.getClientName()+"/"+b+"/"+m);
-
 		
 		BaseUtils.send("---- Filelist start ----");
 		for(Object s : files.toArray())
@@ -253,7 +218,7 @@ public class ThreadUtils
 		}
 		BaseUtils.send("---- Filelist end ----");
 		BaseUtils.send("Running updater...");
-		updaterThread = new UpdaterThread(files, zipupdate, zipupdate2, answer);
+		updaterThread = new UpdaterThread(files, zipupdate, answer);
 		updaterThread.setName("Updater thread");
 		Frame.main.setUpdateState();
 		updaterThread.run();

@@ -14,7 +14,7 @@ public class ZipUtils
 	{
 		try {
 		String path = BaseUtils.getMcDir().getAbsolutePath() + File.separator;
-		String file = path + "bin" + File.separator + "client.zip";
+		String file = path + File.separator + "config.zip";
 	
 		Vector<ZipEntry> zipentry = new Vector<ZipEntry>();
 		ZipFile zipfile = new ZipFile(file);    

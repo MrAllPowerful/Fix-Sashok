@@ -522,7 +522,7 @@ if($useban)
 	} else echo "Запрос составлен неверно";
 	
 	} catch(PDOException $pe) {
-		die("errorsql".$logger->WriteLine($log_date.$pe));  //вывод ошибок MySQL в m.log
+		die(Security::encrypt("errorsql".$logger->WriteLine($log_date.$pe)));  //вывод ошибок MySQL в m.log
 	}
 	//===================================== Вспомогательные функции ==================================//
 

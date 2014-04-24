@@ -53,8 +53,8 @@ public class Settings
 	public static boolean useModCheckerTimer	 =  true; //Каждые 30 секунд моды будут перепроверяться
 
 	public static final String protectionKey	 = "1234567890"; //Ключ защиты сессии. Никому его не говорите.
-	public static final String key1              = "1234567891234567";
-	public static final String key2              = "1234567891234567";
+	public static final String key1              = "1234567891234567"; //16 Character Key Ключ пост запросов
+	public static final String key2              = "1234567891234567"; //16 Character Key Ключ пост запросов
 	
 
 	public static boolean debug		 	         =  true; //Отображать все действия лаунчера (отладка)(true/false)

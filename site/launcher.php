@@ -193,56 +193,8 @@ if($useban)
         $md5user = strtoint(xorencode($md5us, $protectionKey));
         $md5zip	 = md5_file("clients/".$client."/config.zip");
 		$echo1 =  "$masterversion<:>$md5user<:>".$client."<br>".$realUser.'<:>'.strtoint(xorencode($sessid, $protectionKey)).'<br>';
-		
-        $pathmods = 'clients/'.$client.'/mods/';
-		$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($pathmods), RecursiveIteratorIterator::SELF_FIRST);
-		$massive = "";
-		    foreach($objects as $name => $object) {
-			    $basename = basename($name);
-			    $isdir = is_dir($name);
-			    if ($basename!="." and $basename!=".." and !is_dir($name)){
-			     	$str = str_replace('clients/', "", str_replace($basename, "", $name));
-			     	$massive = $massive.$str.$basename.':>'.md5_file($name).'<:>';
-			    }
-		    }
 
-        $pathcoremods = 'clients/'.$client.'/coremods/';
-		$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($pathcoremods), RecursiveIteratorIterator::SELF_FIRST);
-		$massive2 = "";
-		    foreach($objects as $name => $object) {
-			    $basename = basename($name);
-			    $isdir = is_dir($name);
-			    if ($basename!="." and $basename!=".." and !is_dir($name)){
-			    	$str = str_replace('clients/', "", str_replace($basename, "", $name));
-			     	$massive2 = $massive2.$str.$basename.':>'.md5_file($name).'<:>';
-			    }
-		    }
-
-		$pathbin = 'clients/'.$client.'/bin/';
-		$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($pathbin), RecursiveIteratorIterator::SELF_FIRST);
-		$massive3 = "";
-		    foreach($objects as $name => $object) {
-			    $basename = basename($name);
-			    $isdir = is_dir($name);
-			    if ($basename!="." and $basename!=".." and !is_dir($name)){
-			     	$str = str_replace('clients/', "", str_replace($basename, "", $name));
-			     	$massive3 = $massive3.$str.$basename.':>'.md5_file($name).'<:>';
-			    }
-		    }
-
-		$pathcassets = 'clients/assets/';
-		$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($pathcassets), RecursiveIteratorIterator::SELF_FIRST);
-		$massive4 = "";
-		    foreach($objects as $name => $object) {
-			    $basename = basename($name);
-			    $isdir = is_dir($name);
-			    if ($basename!="." and $basename!=".." and !is_dir($name)){
-			    	$str = str_replace('clients/', "", str_replace($basename, "", $name));
-			     	$massive4 = $massive4.$str.$basename.':>'.md5_file($name).'<:>';
-			    }
-		    }
-
-		echo Security::encrypt($echo1.$massive.$massive2.$massive3.$massive4.$scn_list.'<::>assets<:b:>bin<:b:>mods<:b:>coremods<:b:>', $key1);
+		echo Security::encrypt($echo1.checkfiles('clients/'.$client.'/bin/').checkfiles('clients/'.$client.'/mods/').checkfiles('clients/'.$client.'/coremods/').checkfiles('clients/assets').$scn_list.'<::>assets<:b:>bin<:b:>mods<:b:>coremods<:b:>', $key1);
 
 	} else
   
@@ -761,5 +713,19 @@ if($useban)
 		
 		return $cryptPass;
 	}
+
+	    function checkfiles($path) {
+        $objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::SELF_FIRST);
+        $massive = "";
+		    foreach($objects as $name => $object) {
+			    $basename = basename($name);
+			    $isdir = is_dir($name);
+			    if ($basename!="." and $basename!=".." and !is_dir($name)){
+			     	$str = str_replace('clients/', "", str_replace($basename, "", $name));
+			     	$massive = $massive.$str.$basename.':>'.md5_file($name).'<:>';
+			    }
+		    }
+		    return $massive;
+        }
 
 ?>

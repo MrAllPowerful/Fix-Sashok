@@ -90,7 +90,7 @@ public class UpdaterThread extends Thread
 		
 		if(zipupdate)
 		{
-			BaseUtils.setProperty(BaseUtils.getClientName() + "_zipmd5", GuardUtils.getMD5(BaseUtils.getMcDir().getAbsolutePath() + File.separator + "client.zip"));
+			BaseUtils.setProperty(BaseUtils.getClientName() + "_zipmd5", GuardUtils.getMD5(BaseUtils.getMcDir().getAbsolutePath() + File.separator + "config.zip"));
 			ZipUtils.unzip();
 		}
 		

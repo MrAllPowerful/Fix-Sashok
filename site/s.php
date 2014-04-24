@@ -10,5 +10,5 @@ $stmt->execute();
 $stmt->bindColumn($db_columnUser, $realUser);
 $stmt->fetch();
 $time = time();
-$base64 = '{"timestamp":1397399426425,"profileId":"064e1199393744c69c92854f8daa0e01","profileName":"zenit_","textures":{"SKIN":{"url":"http://alexandrage.dyndns.org/site/MinecraftSkins/zenit.png"}}}';
-echo '{"id":"064e1199393744c69c92854f8daa0e01","name":"zenit_","properties":[{"name":"textures","value":"'.base64_encode($base64).'","signature":""}]}';
+$base64 = '{"timestamp":'.$time.'","profileId":"'.$md5.'","profileName":"'.$realUser.'","textures":{"SKIN":{"url":"http://alexandrage.dyndns.org/site/MinecraftSkins/'.$realUser.'.png"}}}';
+echo '{"id":"'.$md5.'","name":"'.$realUser.'","properties":[{"name":"textures","value":"'.base64_encode($base64).'","signature":""}]}';

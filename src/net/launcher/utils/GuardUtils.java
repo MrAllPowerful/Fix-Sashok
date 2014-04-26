@@ -66,7 +66,7 @@ public class GuardUtils
 				
 				String[] scn_dirs = answer.split("<::>")[1].split("<:b:>");
 				for (int i = 0; i < scn_dirs.length; i++) {
-					    client.addAll(getLibs(new File(dir+File.separator+scn_dirs[i])));
+						cl.addAll(getLibs(new File(dir+File.separator+scn_dirs[i])));
 					  }
 				for(String rpl : cl)
 				{

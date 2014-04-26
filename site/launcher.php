@@ -192,7 +192,7 @@ if($useban)
 
         $md5user = strtoint(xorencode($md5us, $protectionKey));
         $md5zip	 = md5_file("clients/".$client."/config.zip");
-		$echo1 =  "$masterversion<:>$md5user<:>".$client."<br>".$realUser.'<:>'.strtoint(xorencode($sessid, $protectionKey)).'<br>';
+		$echo1 =  "$masterversion<:>$md5user<:>".$md5zip."<br>".$realUser.'<:>'.strtoint(xorencode($sessid, $protectionKey)).'<br>';
 
 		echo Security::encrypt($echo1.checkfiles('clients/'.$client.'/bin/').checkfiles('clients/'.$client.'/mods/').checkfiles('clients/'.$client.'/coremods/').checkfiles('clients/assets').$scn_list.'<::>assets<:b:>bin<:b:>mods<:b:>coremods<:b:>', $key1);
 

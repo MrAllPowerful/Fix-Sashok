@@ -66,10 +66,7 @@ public class GuardUtils
 				
 				String[] scn_dirs = answer.split("<::>")[1].split("<:b:>");
 				for (int i = 0; i < scn_dirs.length; i++) {
-					   if (scn_dirs[i].equalsIgnoreCase("assets"))
 					    client.addAll(getLibs(new File(dir+File.separator+scn_dirs[i])));
-					   else
-					   client.addAll(getLibs(new File(dir+File.separator+BaseUtils.getClientName()+File.separator+scn_dirs[i])));
 					  }
 				for(String rpl : cl)
 				{

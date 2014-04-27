@@ -76,7 +76,7 @@ public class GuardUtils
 				{
 					site.add(dir+"/"+add);
 					
-			        if (add.contains(BaseUtils.getClientName()+File.separator+"bin")) {
+			        if (add.contains(BaseUtils.getClientName()+"/"+"bin")) {
 			        	File file = new File(dir+File.separator+add.split(":>")[0]);
 			        	try {
 							url.add(file.toURI().toURL());

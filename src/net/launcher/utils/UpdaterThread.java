@@ -23,13 +23,14 @@ public class UpdaterThread extends Thread
 	public String state = "...";
 	public boolean error = false;
 	public boolean zipupdate = false;
-	public boolean zipupdate2 = false;
+	public boolean asupdate = false;
 	public String answer;
 	
-	public UpdaterThread(List<String> files, boolean zipupdate, String answer)
+	public UpdaterThread(List<String> files, boolean zipupdate, boolean asupdate,  String answer)
 	{
 		this.files = files;
 		this.zipupdate = zipupdate;
+		this.asupdate  = asupdate;
 		this.answer = answer;
 	}
 	
@@ -90,8 +91,18 @@ public class UpdaterThread extends Thread
 		
 		if(zipupdate)
 		{
-			BaseUtils.setProperty(BaseUtils.getClientName() + "_zipmd5", GuardUtils.getMD5(BaseUtils.getMcDir().getAbsolutePath() + File.separator + "config.zip"));
-			ZipUtils.unzip();
+			String path = BaseUtils.getMcDir().getAbsolutePath() + File.separator;
+			String file = path + "config.zip";
+			BaseUtils.setProperty(BaseUtils.getClientName() + "_zipmd5", GuardUtils.getMD5(file));
+			ZipUtils.unzip(path, file);
+		}
+		
+		if(asupdate)
+		{
+			String path = BaseUtils.getAssetsDir().getAbsolutePath() + File.separator;
+			String file = path + "assets.zip";
+			BaseUtils.setProperty("assets_aspmd5", GuardUtils.getMD5(file));
+			ZipUtils.unzip(path, file);
 		}
 		
 		new Game(answer);

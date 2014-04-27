@@ -10,11 +10,9 @@ import java.util.zip.ZipFile;
 
 public class ZipUtils
 {
-	public static void unzip()
+	public static void unzip(String path, String file)
 	{
 		try {
-		String path = BaseUtils.getMcDir().getAbsolutePath() + File.separator;
-		String file = path + File.separator + "config.zip";
 	
 		Vector<ZipEntry> zipentry = new Vector<ZipEntry>();
 		ZipFile zipfile = new ZipFile(file);    

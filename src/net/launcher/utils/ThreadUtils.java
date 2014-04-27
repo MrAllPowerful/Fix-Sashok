@@ -201,14 +201,26 @@ public class ThreadUtils
 	public static void runUpdater(String answer)
 	{
 		boolean zipupdate = false;
+		boolean asupdate = false;
 		List<String> files = GuardUtils.updateMods(answer);
 		
 		String folder = BaseUtils.getMcDir().getAbsolutePath()+File.separator;
+		String asfolder = BaseUtils.getAssetsDir().getAbsolutePath()+File.separator;
 		if(!answer.split("<br>")[0].split("<:>")[2].equals(BaseUtils.getPropertyString(BaseUtils.getClientName() + "_zipmd5")) ||
 		!new File(folder+"config").exists() || 
 		Frame.main.updatepr.isSelected())
 		{ 
 			files.add(BaseUtils.getClientName()+"/config.zip");  zipupdate = true; 
+		}
+		
+		if(!Settings.assetsfolder)
+		{
+			if(!answer.split("<br>")[0].split("<:>")[3].equals(BaseUtils.getPropertyString("assets_aspmd5")) ||
+			!new File(asfolder+"assets").exists() ||
+			Frame.main.updatepr.isSelected())
+			{
+				files.add("/assets.zip");  asupdate = true;
+			}
 		}
 		
 		BaseUtils.send("---- Filelist start ----");
@@ -218,7 +230,7 @@ public class ThreadUtils
 		}
 		BaseUtils.send("---- Filelist end ----");
 		BaseUtils.send("Running updater...");
-		updaterThread = new UpdaterThread(files, zipupdate, answer);
+		updaterThread = new UpdaterThread(files, zipupdate, asupdate, answer);
 		updaterThread.setName("Updater thread");
 		Frame.main.setUpdateState();
 		updaterThread.run();

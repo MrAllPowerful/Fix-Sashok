@@ -41,9 +41,7 @@ public class Settings
 
 	/** Настройки структуры лаунчера */
 	public static boolean useAutoenter	         =  false; //Использовать функцию автозахода на выбранный сервер
-	
 	public static boolean useRegister		     =  false; //Использовать Регистрацию в лаунчере
-	
 	public static boolean useMulticlient		 =  true; //Использовать функцию "по клиенту на сервер"
 	public static boolean useStandartWB		     =  true; //Использовать стандартный браузер для открытия ссылок
 	public static boolean usePersonal		     =  true; //Использовать Личный кабинет
@@ -51,6 +49,7 @@ public class Settings
 	public static boolean useOffline 	         =  true; //Использовать режим оффлайн
 	public static boolean useConsoleHider		 =  false; //Использовать скрытие консоли клиента
 	public static boolean useModCheckerTimer	 =  true; //Каждые 30 секунд моды будут перепроверяться
+	public static boolean assetsfolder           =  true; //Скачивать assets из папки, или из архива (true=из папки false=из архива) в connect.php должно быть так же.
 
 	public static final String protectionKey	 = "1234567890"; //Ключ защиты сессии. Никому его не говорите.
 	public static final String key1              = "1234567891234567"; //16 Character Key Ключ пост запросов

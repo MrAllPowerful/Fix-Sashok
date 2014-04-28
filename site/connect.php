@@ -38,7 +38,7 @@
 
 	$banlist            = 'banlist'; //Таблица плагина Ultrabans
 	
-	$useban             =  false; //Ба на на сервере = бан в лаунчере, Ultrabans плагин
+	$useban             =  false; //Бан на сервере = бан в лаунчере, Ultrabans плагин
 	$useantibrut        =  true; //Защита от частых подборов пароля (Пауза 1 минута при неправильном пароле)
 	
 	$masterversion  	= 'final_RC4'; //Мастер-версия лаунчера

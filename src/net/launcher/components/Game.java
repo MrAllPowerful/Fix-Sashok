@@ -195,7 +195,7 @@ public class Game extends JFrame
 				params.add("--gameDir");
 				params.add(minpath);
 				params.add("--assetsDir");
-				if(Integer.parseInt(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[3].replace(".", "")) < 172)
+				if(Integer.parseInt(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[3].replace(".", "")) < 173)
 				{
 					params.add(assets+"assets/virtual/legacy");
 				} else {

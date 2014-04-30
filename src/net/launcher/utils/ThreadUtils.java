@@ -66,6 +66,7 @@ public class ThreadUtils
 			{
 				"action", encrypt("auth:"+BaseUtils.getClientName()+":"+Frame.main.login.getText()+":"+new String(Frame.main.password.getPassword())+":"+GuardUtils.getMD5(ThreadUtils.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()), Settings.key2),
 			});
+			BaseUtils.send(answer2);
             String answer = null;
 			try {
 				answer = decrypt(answer2, Settings.key1);

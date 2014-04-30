@@ -2,22 +2,32 @@
     header('Content-Type: text/html; charset=cp1251');
 	define('INCLUDE_CHECK',true);
 	include("connect.php");
-	include_once("loger.php");
-	include_once("security.php");
+	include("loger.php");
+	include("security.php");
     @$x  = $_POST['action'];
     @$x = str_replace(" ", "+", $x);
     @$yd = Security::decrypt($x, $key2);
     @list($action, $client, $login, $postPass, $launchermd5) = explode(':', $yd);
 
+
+
+
+
+
+
+
+
+
+
     if($checklauncher)
     {
 	    if($launchermd5 != null)
 	    {
-		    if($launchermd5 == $md5launcherexe)
+		    if($launchermd5 == @$md5launcherexe)
 		    {
 		       $check = "1";
 		    }
-		    if($launchermd5 == $md5launcherjar)
+		    if($launchermd5 == @$md5launcherjar)
 		    {
 		       $check = "1";
 		    }
@@ -197,9 +207,10 @@ if($useban)
 
         if($assetsfolder)
         {
-            echo Security::encrypt($echo1.str_replace("\\", "/",checkfiles('clients/'.$client.'/bin/').checkfiles('clients/'.$client.'/mods/').checkfiles('clients/'.$client.'/coremods/').checkfiles('clients/assets')).$scn_list.'<::>assets/indexes<:b:>assets/objects<:b:>assets/virtual<:b:>'.$client.'/bin<:b:>'.$client.'/mods<:b:>'.$client.'/coremods<:b:>', $key1);
+            echo Security::encrypt($echo1.str_replace("\\", "/",checkfiles('clients/'.$client.'/bin/').checkfiles('clients/'.$client.'/mods/').checkfiles('clients/'.$client.'/coremods/').checkfiles('clients/assets')).'<::>assets/indexes<:b:>assets/objects<:b:>assets/virtual<:b:>'.$client.'/bin<:b:>'.$client.'/mods<:b:>'.$client.'/coremods<:b:>', $key1);
         } else {
-            echo Security::encrypt($echo1.str_replace("\\", "/",checkfiles('clients/'.$client.'/bin/').checkfiles('clients/'.$client.'/mods/').checkfiles('clients/'.$client.'/coremods/')).$scn_list.'<::>'.$client.'/bin<:b:>'.$client.'/mods<:b:>'.$client.'/coremods<:b:>', $key1);
+            echo Security::encrypt($echo1.
+            	str_replace("\\", "/",checkfiles('clients/'.$client.'/bin/').checkfiles('clients/'.$client.'/mods/').checkfiles('clients/'.$client.'/coremods/')).'<::>'.$client.'/bin<:b:>'.$client.'/mods<:b:>'.$client.'/coremods<:b:>', $key1);
         }
   
 	} else

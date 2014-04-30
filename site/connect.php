@@ -1,5 +1,6 @@
 <?php
 	if(!defined('INCLUDE_CHECK')) die("You don't have permissions to run this");
+	include_once("security.php");
 	/* Метод хеширования пароля для интеграции с различними плагинами/сайтами/cms/форумами
 	'hash_md5' 			- md5 хеширование
 	'hash_authme'   	- интеграция с плагином AuthMe
@@ -50,7 +51,7 @@
 	$md5launcherexe     = md5(@file_get_contents("launcher/fix.exe"));  // Сверяем MD5
 	$md5launcherjar     = md5(@file_get_contents("launcher/fix.jar"));  // Сверяем MD5
 
-	$assetsfolder       = true; //Скачивать assets из папки, или из архива (true=из папки false=из архива)
+	$assetsfolder       = false; //Скачивать assets из папки, или из архива (true=из папки false=из архива)
 
 //========================= Настройки ЛК =======================//	
 

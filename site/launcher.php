@@ -9,16 +9,6 @@
     @$yd = Security::decrypt($x, $key2);
     @list($action, $client, $login, $postPass, $launchermd5) = explode(':', $yd);
 
-
-
-
-
-
-
-
-
-
-
     if($checklauncher)
     {
 	    if($launchermd5 != null)

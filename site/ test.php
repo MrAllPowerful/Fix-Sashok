@@ -12,7 +12,7 @@ $aes = Security::encrypt('auth:'.$client.':'.$login.':'.$passw.':', $key2);
 }
 ?>
 <meta charset="utf-8">
-<form action= "index.php" method= "POST">
+<form action= "test.php" method= "POST">
 <p>action<input type= "text" name= "action" value= "auth"> </p>
 <p>client<input type= "text" name= "client" value= "vanilla179"> </p>
 <p>login <input type= "text" name= "login" value= "zenit_"> </p>

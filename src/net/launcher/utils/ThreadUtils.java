@@ -69,7 +69,7 @@ public class ThreadUtils
             String answer = null;
 			try {
 				answer = decrypt(answer2, Settings.key1);
-			} catch (Exception e) { }
+			} catch (Exception e) {}
 			boolean error = false;
 			if(answer == null)
 			{
@@ -726,7 +726,7 @@ public class ThreadUtils
 		      cipher.init(Cipher.ENCRYPT_MODE, skey);
 		      crypted = cipher.doFinal(input.getBytes());
 		    }catch(Exception e){
-		    	System.out.println(e.toString());
+		    	System.err.println("Ключ должен быть 16 символов");
 		    }
 		    return new String(new sun.misc.BASE64Encoder().encode(crypted));
 		}
@@ -739,7 +739,8 @@ public class ThreadUtils
 		      cipher.init(Cipher.DECRYPT_MODE, skey);
 		      output = cipher.doFinal(new sun.misc.BASE64Decoder().decodeBuffer(input));
 		    }catch(Exception e){
-		      System.out.println(e.toString());
+		      System.err.println("Ключ шифрование не совпадает или больше 16 символов, или полученна ошибка от launcher.php");
+		      System.err.println("Проверьте настройку  в Settings.java или connect.php");
 		    }
 		    return new String(output);
 		} 

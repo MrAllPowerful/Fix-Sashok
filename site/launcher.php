@@ -7,8 +7,7 @@
     @$x  = $_POST['action'];
     @$x = str_replace(" ", "+", $x);
     @$yd = Security::decrypt($x, $key2);
-    error_reporting(0);
-    list($action, $client, $login, $postPass, $launchermd5) = explode(':', $yd);
+    @list($action, $client, $login, $postPass, $launchermd5) = explode(':', $yd);
 
     if($checklauncher)
     {

@@ -23,7 +23,6 @@
 	$db_database		= 'w'; //База данных
 	
 	$db_table       	= 'accounts'; //Таблица с пользователями
-	$db_group           = 'group'; //Колонка с номером группы
 	$db_columnId  		= 'id'; //Колонка с ID пользователей
 	$db_columnUser  	= 'login'; //Колонка с именами пользователей
 	$db_columnPass  	= 'password'; //Колонка с паролями пользователей

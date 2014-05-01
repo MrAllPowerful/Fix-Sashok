@@ -2,7 +2,7 @@
     header('Content-Type: text/html; charset=cp1251');
 	define('INCLUDE_CHECK',true);
 	include("connect.php");
-	include("loger.php");
+	include_once("loger.php");
 	include("security.php");
     @$x  = $_POST['action'];
     @$x = str_replace(" ", "+", $x);

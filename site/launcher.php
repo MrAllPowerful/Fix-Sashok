@@ -3,7 +3,7 @@
 	define('INCLUDE_CHECK',true);
 	include("connect.php");
 	include_once("loger.php");
-	include("security.php");
+	include_once("security.php");
     @$x  = $_POST['action'];
     @$x = str_replace(" ", "+", $x);
     @$yd = Security::decrypt($x, $key2);

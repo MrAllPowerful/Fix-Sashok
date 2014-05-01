@@ -1,6 +1,7 @@
 <?php
 	if(!defined('INCLUDE_CHECK')) die("You don't have permissions to run this");
 	include_once("loger.php");
+	include_once("security.php");
 	/* Метод хеширования пароля для интеграции с различними плагинами/сайтами/cms/форумами
 	'hash_md5' 			- md5 хеширование
 	'hash_authme'   	- интеграция с плагином AuthMe
@@ -88,6 +89,6 @@
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$db->exec("set names utf8");
 	} catch(PDOException $pe) {
-		die("errorsql".$logger->WriteLine($log_date.$pe));  //вывод ошибок MySQL в m.log
+		die(Security::encrypt("errorsql", $key1).$logger->WriteLine($log_date.$pe));  //вывод ошибок MySQL в m.log
 	}
 ?>

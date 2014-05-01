@@ -1,4 +1,4 @@
-ALTER TABLE  `»Ãﬂ ¬¿ÿ≈… “¿¡À»÷€ — œŒÀ‹«Œ¬¿“≈ÀﬂÃ»`
+ALTER TABLE  `–¢–∞–±–ª–∏—Ü–∞ –ø–æ–ª—å–∑–æ–≤–∞—Ç–µ–ª–µ–π`
 ADD  `realmoney` int(255) DEFAULT '0',
 ADD  `md5` varchar(255) DEFAULT '0',
 ADD  `session` varchar(255) DEFAULT '0',

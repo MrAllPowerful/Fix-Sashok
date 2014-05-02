@@ -13,9 +13,8 @@ public class ZipUtils
 	public static void unzip(String path, String file)
 	{
 		try {
-	
 		Vector<ZipEntry> zipentry = new Vector<ZipEntry>();
-		ZipFile zipfile = new ZipFile(file);    
+		ZipFile zipfile = new ZipFile(file);
 		Enumeration<?> en = zipfile.entries();
 	
 		while(en.hasMoreElements()) zipentry.addElement((ZipEntry)en.nextElement());
@@ -32,6 +31,7 @@ public class ZipUtils
 		catch(Exception ex)
 		{
 			BaseUtils.send(ex.toString());
+			System.err.println(path);
 		}
 	}
 

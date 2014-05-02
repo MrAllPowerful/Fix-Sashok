@@ -22,9 +22,9 @@
 		       $check = "1";
 		    }
 		}
-		if(!$check == "1")
+		if(!@$check == "1")
 		{
-			exit(Security::encrypt("badlauncher", $key1));
+			exit(Security::encrypt("badlauncher_$masterversion", $key1));
 		}
 	}
 

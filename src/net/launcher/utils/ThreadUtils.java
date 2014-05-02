@@ -79,8 +79,8 @@ public class ThreadUtils
 				error = true;
 			} else if(answer.contains("badlauncher"))
 			{
-				Frame.main.panel.tmpString = "Лаунчер поврежден!";
-				error = true;
+				Frame.main.setUpdateComp(answer.replace("badlauncher_", "" ));
+				return;
 			} else if(answer.contains("errorLogin"))
 			{
 				Frame.main.panel.tmpString = "Ошибка авторизации (Логин, пароль)";

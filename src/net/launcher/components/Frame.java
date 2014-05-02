@@ -26,9 +26,7 @@ import net.launcher.utils.EncodingUtils;
 import net.launcher.utils.ImageUtils;
 import net.launcher.utils.ThemeUtils;
 import net.launcher.utils.ThreadUtils;
-
 import static net.launcher.utils.BaseUtils.*;
-
 
 import com.sun.awt.AWTUtilities;
 
@@ -59,7 +57,8 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 			public Dragbutton hide = new Dragbutton();
 			public Dragbutton close = new Dragbutton();
 
-			public Button update_yes = new Button("Обновить");
+			public Button update_exe = new Button("exe");
+			public Button update_jar = new Button("jar");
 			public Button update_no = new Button("Выход");
 
 			public Checkbox loadnews = new Checkbox("Загружать новости");
@@ -180,7 +179,8 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		hide.addActionListener(this);
 		close.addActionListener(this);
                 
-		update_yes.addActionListener(this);
+		update_exe.addActionListener(this);
+		update_jar.addActionListener(this);
 		update_no.addActionListener(this);
 		servers.addMouseListener(new MouseListener()
 		{
@@ -333,17 +333,20 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		}
 	}
 
+	public static String jar;
 	@SuppressWarnings("deprecation")
 	public void actionPerformed(ActionEvent e)
 	{
 		if(e.getSource() == hide) setExtendedState(ICONIFIED);
 		if(e.getSource() == close || e.getSource() == update_no) System.exit(0);
-		if(e.getSource() == update_yes)
+
+		if(e.getSource() == update_exe)
 		{
+			jar = ".exe";
 			new Thread() { public void run() { try
 			{
 				panel.type = 8;
-				update_yes.setEnabled(false);
+				update_exe.setEnabled(false);
 				update_no.setText("Отмена");
 				panel.repaint();
 				BaseUtils.updateLauncher();
@@ -352,8 +355,28 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 				e1.printStackTrace();
 				send("Error updating launcher!");
 				update_no.setText("Выйти");
-				update_yes.setEnabled(true);
-				update_yes.setText("Еще раз");
+				update_exe.setEnabled(true);
+				panel.type = 9;
+				panel.repaint();
+			}}}.start();
+		}
+		
+		if(e.getSource() == update_jar)
+		{
+			jar = ".jar";
+			new Thread() { public void run() { try
+			{
+				panel.type = 8;
+				update_jar.setEnabled(false);
+				update_no.setText("Отмена");
+				panel.repaint();
+				BaseUtils.updateLauncher();
+			} catch(Exception e1)
+			{
+				e1.printStackTrace();
+				send("Error updating launcher!");
+				update_no.setText("Выйти");
+				update_jar.setEnabled(true);
 				panel.type = 9;
 				panel.repaint();
 			}}}.start();
@@ -497,7 +520,8 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		panel.removeAll();
 		addFrameComp();
 		panel.setUpdateState(version);
-		panel.add(update_yes);
+		panel.add(update_exe);
+		panel.add(update_jar);
 		panel.add(update_no);
 		repaint();
 	}

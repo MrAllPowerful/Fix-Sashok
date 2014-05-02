@@ -581,9 +581,9 @@ public class BaseUtils
 	public static void updateLauncher() throws Exception
 	{
 		send("Launcher updater started...");
-		send("Downloading file: " + Settings.updateFile);
+		send("Downloading file: " + Settings.updateFile+Frame.jar);
 
-		InputStream is = new BufferedInputStream(new URL(Settings.updateFile).openStream());
+		InputStream is = new BufferedInputStream(new URL(Settings.updateFile+Frame.jar).openStream());
 		FileOutputStream fos = new FileOutputStream(Starter.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
 
 		int bs = 0;
@@ -596,7 +596,7 @@ public class BaseUtils
 		}
 		is.close();
 		fos.close();
-		BaseUtils.send("File downloaded: " + Settings.updateFile);
+		BaseUtils.send("File downloaded: " + Settings.updateFile+Frame.jar);
 		Starter.main(null);
 		System.exit(0);
 	}

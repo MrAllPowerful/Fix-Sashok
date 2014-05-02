@@ -15,8 +15,8 @@ public class Settings
 	public static final String  cloaks               = "MinecraftCloaks/"; //Папка плащей
 	/** Параметры подключения */
 	public static final String  domain	 	         = "alexandrage.dyndns.org";//Домен сайта
-	public static final String  siteDir		         = "site2";//Папка с файлами лаунчера на сайте
-	public static final String  updateFile		     = "http://alexandrage.dyndns.org/site/Launcher.jar";//Ссылка на файл обновления лаунчера
+	public static final String  siteDir		         = "site";//Папка с файлами лаунчера на сайте
+	public static final String  updateFile		     = "alexandrage.dyndns.org/Launcher";//Ссылка на обновления лаунчера. Не писать на конце ".exe .jar"!
 	public static final String  buyVauncherLink      = "http://plati.ru/"; //Ссылка на страницу покупки ваучеров
 	
 	/** Для одиночной игры */
@@ -49,7 +49,7 @@ public class Settings
 	public static boolean useOffline 	         =  true; //Использовать режим оффлайн
 	public static boolean useConsoleHider		 =  false; //Использовать скрытие консоли клиента
 	public static boolean useModCheckerTimer	 =  true; //Каждые 30 секунд моды будут перепроверяться
-	public static boolean assetsfolder           =  true; //Скачивать assets из папки, или из архива (true=из папки false=из архива) в connect.php должно быть так же.
+	public static boolean assetsfolder           =  false; //Скачивать assets из папки, или из архива (true=из папки false=из архива) в connect.php должно быть так же.
 
 	public static final String protectionKey	 = "1234567890"; //Ключ защиты сессии. Никому его не говорите.
 	public static final String key1              = "1234567891234567"; //16 Character Key Ключ пост запросов

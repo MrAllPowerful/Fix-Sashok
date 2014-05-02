@@ -163,13 +163,14 @@ if($useban)
 	}
     
 	if($action == 'auth')
-	{	  
-        if($assetsfolder)
-        { $z = "/"; } else { $z = ".zip"; }
+	{
 
-		if(!file_exists("clients/assets".$z)||!file_exists("clients/".$client."/bin/")||!file_exists("clients/".$client."/mods/")||!file_exists("clients/".$client."/coremods/"|!file_exists("clients/".$client."/config.zip"))
+        if($assetsfolder)
+        { $z = ""; } else { $z = ".zip"; }
+
+		if(!file_exists("clients/assets".$z)||!file_exists("clients/".$client."/bin/")||!file_exists("clients/".$client."/mods/")||!file_exists("clients/".$client."/coremods/")||!file_exists("clients/".$client."/config.zip"))
 		die(Security::encrypt("client $client", $key1));
-	    
+
 	    $chars="0123456789abcdef";
         $max=32;
         $size=StrLen($chars)-1;

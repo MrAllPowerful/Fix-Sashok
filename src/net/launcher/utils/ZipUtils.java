@@ -31,7 +31,6 @@ public class ZipUtils
 		catch(Exception ex)
 		{
 			BaseUtils.send(ex.toString());
-			System.err.println(path);
 		}
 	}
 

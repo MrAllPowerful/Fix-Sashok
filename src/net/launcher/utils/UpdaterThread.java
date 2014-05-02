@@ -37,7 +37,7 @@ public class UpdaterThread extends Thread
 	public void run()
 	{ try {
 		String pathTo = BaseUtils.getAssetsDir().getAbsolutePath();
-		String urlTo = BaseUtils.buildUrl("clients/");
+		String urlTo = BaseUtils.buildUrl("clients");
 		File dir = new File(pathTo);
         if (!dir.exists()) dir.mkdirs();
 		

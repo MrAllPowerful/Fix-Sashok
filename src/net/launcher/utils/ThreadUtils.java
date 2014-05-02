@@ -62,6 +62,7 @@ public class ThreadUtils
 		Thread t = new Thread() {
 		public void run()
 		{ try {
+			System.err.println("action"+" "+"auth:"+BaseUtils.getClientName()+":"+Frame.main.login.getText()+":"+new String(Frame.main.password.getPassword())+":"+GuardUtils.getMD5(ThreadUtils.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()));
 			String answer2 = BaseUtils.execute(BaseUtils.buildUrl("launcher.php"), new Object[]
 			{
 				"action", encrypt("auth:"+BaseUtils.getClientName()+":"+Frame.main.login.getText()+":"+new String(Frame.main.password.getPassword())+":"+GuardUtils.getMD5(ThreadUtils.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()), Settings.key2),
@@ -211,7 +212,7 @@ public class ThreadUtils
 		!new File(folder+"config").exists() || 
 		Frame.main.updatepr.isSelected())
 		{ 
-			files.add(BaseUtils.getClientName()+"/config.zip");  zipupdate = true; 
+			files.add("/"+BaseUtils.getClientName()+"/config.zip");  zipupdate = true; 
 		}
 		
 		if(!Settings.assetsfolder)

@@ -1,7 +1,7 @@
 <?php
 	define('INCLUDE_CHECK',true);
 	include("connect.php");
-    include("loger.php");
+    include_once("loger.php");
 	@$sess       = $_GET['sessionId'];
     @$sessionid  = str_replace('%3A', ':', $sess);
     @$user       = $_GET['user'];

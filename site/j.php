@@ -1,7 +1,7 @@
 <?php
 	define('INCLUDE_CHECK',true);
 	include("connect.php");
-	include("loger.php");
+	include_once("loger.php");
 	if (($_SERVER['REQUEST_METHOD'] == 'POST' ) && (stripos($_SERVER["CONTENT_TYPE"], "application/json") === 0)) {
 		$json = json_decode($HTTP_RAW_POST_DATA);
 		

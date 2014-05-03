@@ -2,7 +2,7 @@
     error_reporting(0);
 	define('INCLUDE_CHECK',true);
 	include ("connect.php");
-	include("loger.php");
+	include_once("loger.php");
 	@$user     = $_GET['username'];
     @$serverid = $_GET['serverId'];
 

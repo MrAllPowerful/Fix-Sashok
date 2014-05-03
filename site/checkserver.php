@@ -1,7 +1,7 @@
 <?php
 	define('INCLUDE_CHECK',true);
-	include ("connect.php");
-	include ("loger.php");
+	include("connect.php");
+	include_once("loger.php");
 	@$user     = $_GET['user'];
     @$serverid = $_GET['serverId'];
 	try {

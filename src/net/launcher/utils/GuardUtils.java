@@ -93,7 +93,6 @@ public class GuardUtils
 				for (String check : site) {
 			        if (!client.contains(check)) {
 			            files.add(check.replace(dir, "").split(":>")[0]);
-			            System.err.println(check.replace(dir, "").split(":>")[0]);
 			        }
 			    }
 			}

@@ -120,7 +120,7 @@ if($useban)
 	$stmt = $db->prepare("Select name From $banlist Where name= :login And type<'$tipe' And temptime>'$time'");
 	$stmt->bindValue(':login', $login);
 	$stmt->execute();
-   if($stmt->fetchColumn() == 1)
+    if($stmt->rowCount())
 	{
 		$stmt = $db->prepare("Select name,temptime From $banlist Where name= :login And type<'$tipe' And temptime>'$time'");
 		$stmt->bindValue(':login', $login);
@@ -131,7 +131,7 @@ if($useban)
 		$stmt = $db->prepare("Select name From $banlist Where name= :login And type<'$tipe' And temptime='0'");
 		$stmt->bindValue(':login', $login);
 		$stmt->execute();
-	if($stmt->fetchColumn() == 1)
+	if($stmt->rowCount())
     {
       exit(Security::encrypt("Вечный бан", $key1));
     }

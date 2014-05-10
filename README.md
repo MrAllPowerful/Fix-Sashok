@@ -27,7 +27,8 @@ Fix-Sashok
 Полное изменение загрузки клиента.
 
 Новая структура клиента должна быть такой
-clients/assets/ ресурс файлы
+clients/assets/ ресурс файлы. При режиме zip clients/assets.zip
+clients/voxelaria/config.zip конфиги модов и ресурскаки, расспаковывается в корень папки клиента.
 clients/voxelaria/bin/ jar файлы клиента + папка natives, можно
 использовать подпапки bin/libraries/ и тд.
 clients/voxelaria/mods/  zip-jar файлы, модов, можно использовать

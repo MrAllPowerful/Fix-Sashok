@@ -224,7 +224,6 @@ public class Game extends JFrame
                 Frame.main.setVisible(false);
 				try
 				{
-					eURLClassLoader loader = cl;
 					Class<?> start = loader.loadClass(Class);
 					Method main = start.getMethod("main", new Class[] { String[].class });
 					main.invoke(null, new Object[] { params.toArray(new String[0]) });

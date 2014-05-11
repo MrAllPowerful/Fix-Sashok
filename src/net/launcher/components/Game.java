@@ -230,6 +230,7 @@ public class Game extends JFrame
 				} catch (Exception e)
 				{
 					e.printStackTrace();
+					System.exit(0);
 				}
 			} catch (Exception e) {}
 		}

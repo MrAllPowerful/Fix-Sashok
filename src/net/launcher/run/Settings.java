@@ -9,6 +9,7 @@ public class Settings
 	/** Настройка заголовка лаунчера */
 	public static final String  title		         = "Launcher"; //Заголовок лаунчера
 	public static final String  titleInGame  	     = "Minecraft"; //Заголовок лаунчера после авторизации
+	public static final String  basedir	             = "AppData"; //Родительская папка для Minecraft (только для Windows) [ProgramFiles, AppData]
 	public static final String  baseconf		     = "voxelaria"; //Папка с файлом конфигурации
 	public static final String  pathconst		     = "voxelaria/%SERVERNAME%"; //Конструктор пути к папке с MC
 	public static final String  skins                = "MinecraftSkins/"; //Папка скинов
